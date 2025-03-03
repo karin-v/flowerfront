@@ -1,7 +1,15 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+
+<a href="/"><h1>TAIMERINGLUS</h1></a>
+    <router-link to="/items-giveaway">Annan ära</router-link> |
+    <router-link to="/items-wish">Soovin leida</router-link> |
+    <router-link to="/login">Logi sisse/Registreeri</router-link> |
+    <router-link to="/search">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Otsi märksõna järgi" aria-label="Otsi märksõna järgi" aria-describedby="basic-addon2">
+        <span class="input-group-text" id="basic-addon2">Otsi</span>
+      </div></router-link>
   </nav>
   <router-view/>
 </template>
@@ -28,3 +36,5 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 </style>
+<script setup lang="ts">
+</script>
