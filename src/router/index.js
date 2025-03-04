@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import GiveAway from "@/views/GiveAway.vue";
 import WishList from "@/views/WishList.vue";
-import LoginView from "@/components/LoginView.vue";
+import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
 
 const routes = [
