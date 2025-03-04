@@ -23,6 +23,7 @@
           <label class="form-text">E-mail</label>
           <input type="email" class="form-control w-auto ms-3">
         </div>
+
       </div>
 
       <div class="col-md-3 d-flex justify-content-center">
@@ -31,6 +32,25 @@
         <img src="../assets/profilePictureDefault.webp" height="200" width="200"/></div>
 
     </div>
+    <div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <label class="form-check-label">
+          Olen nõus kasutustingimustega
+        </label>
+      </div>
+    </div>
+
+      <div class="row mt-5 align-items-center">
+
+        <div class="justify-content-between">
+          <button type="button" class="btn btn-success me-3" >Lisa pilt</button>
+          <button type="button" class="btn btn-success me-3" >Kinnita</button>
+          <button type="button" class="btn btn-secondary" >Katkesta</button>
+
+        </div>
+      </div>
+
   </div>
 
 </div>
