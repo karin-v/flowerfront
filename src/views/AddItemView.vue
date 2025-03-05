@@ -104,7 +104,7 @@ export default {
     },
     handleErrorResponseObject(error) {
       return error.response.data;
-    }
+    },
 
     getAllCounties(){
       sendGetCountiesRequest()
@@ -117,7 +117,6 @@ export default {
               this.someDataBlockErrorResponseObject = error.response.data
             })
       }
-    ,
     }
   }
   }
