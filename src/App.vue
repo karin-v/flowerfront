@@ -8,9 +8,7 @@
         <div class="col"> <button type="button" class="btn btn-outline-success"> <router-link to="/login" class="text-decoration-none">Logi sisse </router-link> </button></div>
           <div class="col"> <button  type="button" class="btn btn-outline-success"> <router-link to="/register" class="text-decoration-none"> Registreeri</router-link> </button></div>
       <div class="col"> <button  type="button" class="btn btn-outline-success"> <router-link to="/additem" class="text-decoration-none"> Lisa kuulutus</router-link> </button></div>
-      <template v-else-if="isLoggedIn">
-        <button @click="openLogOutModal" type="button" class="btn btn-success">Logi välja</button>
-      </template>
+
       <div class="col"> <router-link to="/search">
               <div class="col mb-4"><div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Otsi märksõna järgi" aria-label="Otsi märksõna järgi" aria-describedby="basic-addon2">
