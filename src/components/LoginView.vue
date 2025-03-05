@@ -21,13 +21,13 @@
               <input v-model="password" type="password" class="form-control">
             </div>
             <div class="mb-3">
-            <button @click="login" type="submit" class="btn btn-warning">Logi sisse</button>
+            <button @click="login" type="submit" class="btn btn-success">Logi sisse</button>
             </div>
             <div class="mb-3">
-            <button @click="navigateToRegisterView" type="submit" class="btn btn-warning">Loo konto</button>
+            <button @click="navigateToRegisterView" type="submit" class="btn btn-success">Loo konto</button>
             </div>
             <div class="mb-3">
-            <button @click="navigateToHomeView" type="submit" class="btn btn-warning">Katkesta</button>
+            <button @click="navigateToHomeView" type="submit" class="btn btn-success">Katkesta</button>
             </div>
 
           </div>
