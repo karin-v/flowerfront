@@ -35,9 +35,9 @@
     <div>
       <div class="form-check">
         <input class="form-check-input" type="checkbox">
-        <label class="form-check-label">
+
           Olen nõus kasutustingimustega
-        </label>
+
       </div>
     </div>
 
