@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: "CategoriesDropdown",
+  name: 'CategoriesDropdown',
   props:{
     categories:{},
     selectedCategoryId:{

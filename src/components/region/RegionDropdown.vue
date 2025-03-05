@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: "RegionDropdown",
+  name: 'RegionDropdown',
   props:{
     regions:{},
     selectedRegionId:{
