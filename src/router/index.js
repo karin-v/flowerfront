@@ -7,6 +7,11 @@ import RegisterView from "@/views/RegisterView.vue";
 
 const routes = [
   {
+    path: '/error',
+    name: 'errorRoute',
+    component: GiveAway
+  },
+  {
     path: '/items-giveaway',
     name: 'Annan ära',
     component: GiveAway
