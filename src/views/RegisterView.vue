@@ -29,7 +29,7 @@
       <div class="col-md-3 d-flex justify-content-center">
 
 
-        <img src="../assets/profilePictureDefault.webp" height="200" width="200"/></div>
+        <img src="../assets/profilePictureDefault.webp" height="200" width="200" alt="Profiilipilt"/></div>
 
     </div>
     <div>
