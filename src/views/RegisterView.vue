@@ -4,7 +4,7 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col">
-          <h1>Loo uus konto</h1>
+          <h2>Loo uus konto</h2>
           <AlertDanger :message="errorMessage"/>
           <AlertSuccess :message="successMessage"/>
         </div>
@@ -54,7 +54,7 @@
         <div class="justify-content-between">
           <button type="button" class="btn btn-success me-3">Lisa pilt</button>
           <button @click="addNewUser" type="button" class="btn btn-success me-3">Registreeri</button>
-          <button type="button" class="btn btn-secondary">Katkesta</button>
+          <button @click="navigateToHomeView" type="button" class="btn btn-secondary">Katkesta</button>
 
         </div>
       </div>
@@ -71,6 +71,7 @@ import AlertDanger from "@/components/AlertDanger.vue";
 import AlertSuccess from "@/components/AlertSuccess.vue";
 import RegisterService from "@/service/RegisterService";
 import NavigationService from "@/service/NavigationService";
+import router from "@/router";
 
 export default {
   name: "RegisterView",
@@ -157,6 +158,10 @@ export default {
     resetAllMessages() {
       this.successMessage = ''
       this.errorMessage = ''
+    },
+
+    navigateToHomeView() {
+      NavigationService.navigateToHomeView()
     }
   }
 }

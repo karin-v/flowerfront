@@ -13,27 +13,27 @@ const routes = [
   },
   {
     path: '/items-giveaway',
-    name: 'Annan ära',
+    name: 'giveAwayRoute',
     component: GiveAway
   },
   {
     path: '/items-wish',
-    name: 'Soovin leida',
+    name: 'wishListRoute',
     component: WishList
   },
   {
     path: '/login',
-    name: 'Login',
+    name: 'LoginRoute',
     component: LoginView
   },
   {
     path: '/register',
-    name: 'Registreeri',
+    name: 'registerRoute',
     component: RegisterView
   },
   {
     path: '/',
-    name: 'home',
+    name: 'homeRoute',
     component: HomeView
   }
 ]
