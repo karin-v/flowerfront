@@ -4,8 +4,10 @@ import GiveAway from "@/views/GiveAway.vue";
 import WishList from "@/views/WishList.vue";
 import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
+import AddItemView from "@/views/AddItemView.vue";
 
-const routes = [
+let routes;
+routes = [
   {
     path: '/items-giveaway',
     name: 'Annan ära',
@@ -30,8 +32,13 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/additem',
+    name: 'Lisa kuulutus',
+    component: AddItemView
   }
-]
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
