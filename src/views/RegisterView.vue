@@ -1,7 +1,6 @@
 <template>
   <div>
 
-
     <div class="container">
       <div class="row justify-content-center">
         <div class="col">
@@ -38,7 +37,6 @@
 
         <div class="col-md-3 d-flex justify-content-center">
 
-
           <img src="../assets/profilePictureDefault.webp" height="200" width="200" alt="Profiilipilt"/></div>
 
       </div>
@@ -65,18 +63,14 @@
 
   </div>
 
-
 </template>
 
-
 <script>
-
 
 import AlertDanger from "@/components/AlertDanger.vue";
 import AlertSuccess from "@/components/AlertSuccess.vue";
 import RegisterService from "@/service/RegisterService";
 import NavigationService from "@/service/NavigationService";
-
 
 export default {
   name: "RegisterView",
@@ -105,20 +99,6 @@ export default {
   },
   methods: {
 
-
-    handleNewUserErrorResponse(error) {
-
-      this.errorResponse = error.response.data;
-
-      if (error.response.status === 403 && (this.errorResponse.errorCode === 112 || this.errorResponse.errorCode === 113)) {
-          this.errorMessage = this.errorResponse.message
-        setTimeout(this.resetAllMessages, 4000)
-      } else {
-        NavigationService.navigateToErrorView()
-      }
-
-    },
-
     addNewUser() {
       this.resetIsOkToAddNewUser();
       this.validateIsOkToAddNewUser()
@@ -126,7 +106,6 @@ export default {
         RegisterService.sendPostUserRequest(this.newUser)
             .then(response => this.handleAddNewUserResponse(response))
             .catch(error => this.handleNewUserErrorResponse(error))
-
       }
     },
 
@@ -147,19 +126,21 @@ export default {
         this.isOkToAddNewUser = true
       }
     },
-    handleAddNewUser() {
-      this.handleAddNewUserResponse()
-      this.resetAllFields()
-    },
 
     handleAddNewUserResponse() {
       this.successMessage = 'Kasutaja "' + this.newUser.username + '" on lisatud'
-      setTimeout(this.resetAllMessages, 4000)
+      setTimeout(this.resetAllMessages, 2000)
     },
 
-    handleAddUserErrorResponse(error) {
-      this.errorResponse = error.response.data
-
+    handleNewUserErrorResponse(error) {
+      this.errorResponse = error.response.data;
+      if (error.response.status === 403 && (this.errorResponse.errorCode === 112 || this.errorResponse.errorCode === 113)) {
+        this.errorMessage = this.errorResponse.message
+        setTimeout(this.resetAllMessages, 4000)
+        this.resetAllFields()
+      } else {
+        NavigationService.navigateToErrorView()
+      }
     },
 
     resetIsOkToAddNewUser() {
@@ -177,9 +158,7 @@ export default {
       this.successMessage = ''
       this.errorMessage = ''
     }
-
   }
-
 }
 </script>
 
