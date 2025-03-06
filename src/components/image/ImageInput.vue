@@ -1,5 +1,5 @@
 <template>
-  <div mb-3>
+  <div>
     <div class="mb-3">
       <input type="file" @change="handleImage" accept="image/x-png,image/jpeg,image/gif">
     </div>

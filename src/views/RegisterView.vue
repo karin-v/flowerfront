@@ -37,7 +37,8 @@
 
         <div class="col-md-3 d-flex justify-content-center">
 
-          <img v-if="!imageData" src="../assets/profilePictureDefault.webp" height="250" width="250" alt="Profiilipilt"/>
+          <img v-if="!imageData" src="../assets/profilePictureDefault.webp" height="250" width="250"
+               alt="Profiilipilt"/>
           <img v-else :src="imageData" class="img-thumbnail" alt="Profiilipilt">
 
         </div>
@@ -58,7 +59,7 @@
           <label for="consentCheckbox" class="ms-2">
             Olen nõus <a href="/kasutustingimused" target="_blank">kasutustingimustega</a>
           </label>
-          </div>
+        </div>
       </div>
 
       <div class="row mt-5 align-items-center">
@@ -84,7 +85,6 @@ import AlertDanger from "@/components/alert/AlertDanger.vue";
 import AlertSuccess from "@/components/alert/AlertSuccess.vue";
 import RegisterService from "@/service/RegisterService";
 import NavigationService from "@/service/NavigationService";
-import router from "@/router";
 import HttpStatusCodes from "@/errors/HttpStatusCodes";
 import BusinessErrors from "@/errors/BusinessErrors";
 import ImageInput from "@/components/image/ImageInput.vue";
