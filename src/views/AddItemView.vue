@@ -40,7 +40,7 @@
     </div>
     <div class="row justify-content-center">
       <div class="col-3">
-        <button type="submit" class="btn btn-outline-success">Lisa kuulutus</button>
+        <button @click="addNewItem" type="button" class="btn btn-outline-success">Lisa kuulutus</button>
       </div>
     </div>
 
@@ -57,18 +57,31 @@ import CategoryService from "@/services/CategoryService";
 import NavigationService from "@/services/NavigationService";
 import CountyService from "@/services/CountyService";
 import RegionService from "@/services/RegionService";
+import ItemService from "@/services/ItemService";
+import AlertDanger from "@/components/alerts/AlertDanger.vue";
+import AlertSuccess from "@/components/alerts/AlertSuccess.vue";
 
 
 export default {
   name: 'AddItemView',
-  components: {CategoriesDropdown, CountyDropdown, RegionDropdown},
+  components: {CategoriesDropdown, CountyDropdown, RegionDropdown, AlertDanger, AlertSuccess},
   data() {
     return {
-
+      successMessage: '',
+      errorMessage: '',
       newItem: {
-        name: '',
-        totalQuantity: '',
-        description: '',
+
+      userId: 0,
+        categoryId: 0,
+        countyId: 0,
+        regionId: 0,
+        transactionTypeId: 0,
+        name: 'string',
+        description: "string",
+        totalQuantity: 0,
+        availableQuantity: 0,
+        data: 'string',
+
       },
       categories: [
         {
@@ -88,8 +101,6 @@ export default {
           regionName: '',
         }
       ],
-
-      errorMessage: ``,
     }
   },
   methods: {
@@ -104,29 +115,55 @@ export default {
       this.categories = response.data;
     },
 
-
     getAllCounties() {
       CountyService.sendGetCountiesRequest()
           .then(response => this.handleGetCountiesResponse(response))
           .catch(() => NavigationService.navigateToErrorView())
     },
-    handleGetCountiesResponse() {
-      return this.counties = response.data;
+
+    handleGetCountiesResponse(response) {
+      this.counties = response.data;
     },
     getAllRegions() {
       RegionService.sendGetRegionsRequest()
           .then(response => this.handleGetRegionsResponse(response))
           .catch(() => NavigationService.navigateToErrorView())
     },
-    handleGetRegionsResponse() {
-      return this.counties = response.data;
-    }
-  },
 
-  beforeMount() {
-    this.getAllCategories()
-    this.getAllCounties()
-    this.getAllRegions()
+    handleGetRegionsResponse(response) {
+      return this.regions = response.data;
+    },
+
+    addNewItem() {
+      ItemService.sendPostItemRequest(this.newItem)
+          .then(response => this.handleAddNewItemResponse(response))
+          .catch(() => NavigationService.navigateToErrorView())
+    },
+
+    handleAddNewItemResponse() {
+      this.handleAddNewItemSuccessMessage()
+      this.resetAllFields()
+    },
+
+    handleAddNewItemSuccessMessage() {
+      this.successMessage = 'Uus kuulutus lisatud'
+      setTimeout(this.resetAllFields, 2000)
+      NavigationService.navigateToRegisterView();
+    },
+
+    resetAllFields() {
+      this.newItem.name = ''
+      this.newItem.description = ''
+      this.newItem.totalQuantity = 0
+      this.categories.categoryId = 0
+      this.counties.countyId = 0
+      this.regions.regionId = 0
+    },
+  },
+    beforeMount() {
+      this.getAllCategories()
+      this.getAllCounties()
+      this.getAllRegions()
+    },
   }
-}
 </script>

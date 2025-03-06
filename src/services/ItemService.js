@@ -2,8 +2,8 @@ import axios from "axios";
 
 export default {
 
-    sendPostItem() {
-        return axios.post('/item');
-    }
+    sendPostItemRequest(newItem)  {
+        return axios.post('/item', newItem);
+    },
 }
 

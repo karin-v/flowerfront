@@ -7,7 +7,7 @@
       <div class="col"> <button  type="button" class="btn btn-outline-success"><router-link to="/items-wish" class="text-decoration-none">Soovin leida</router-link> </button></div>
         <div class="col"> <button type="button" class="btn btn-outline-success"> <router-link to="/login" class="text-decoration-none">Logi sisse </router-link> </button></div>
           <div class="col"> <button  type="button" class="btn btn-outline-success"> <router-link to="/register" class="text-decoration-none"> Registreeri</router-link> </button></div>
-      <div class="col"> <button  type="button" class="btn btn-outline-success"> <router-link to="/additem" class="text-decoration-none"> Lisa kuulutus</router-link> </button></div>
+      <div class="col"> <button  type="button" class="btn btn-outline-success"> <router-link to="/add-item" class="text-decoration-none"> Lisa kuulutus</router-link> </button></div>
 
       <div class="col"> <router-link to="/search">
               <div class="col mb-4"><div class="input-group mb-3">
