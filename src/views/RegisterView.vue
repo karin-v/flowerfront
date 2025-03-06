@@ -35,9 +35,17 @@
 
         </div>
 
+
         <div class="col-md-3 d-flex justify-content-center">
 
-          <img src="../assets/profilePictureDefault.webp" height="200" width="200" alt="Profiilipilt"/></div>
+          <img src="../assets/profilePictureDefault.webp" height="250" width="250" alt="Profiilipilt"/>
+
+        </div>
+
+        <div class="justify-content-lg-end">
+
+          <button type="button" class="btn btn-success me-3">Lisa pilt</button>
+        </div>
 
       </div>
       <div>
@@ -45,7 +53,7 @@
           <!-- Checkbox koos tekstiga -->
           <input v-model="newUser.consent" class="form-check-input" type="checkbox" style="border-color: darkgreen">
           <label for="consentCheckbox" class="ms-2">
-            Olen nõus <a href="/kasutustingimused" target="_blank">kasutustingimustega</a>.
+            Olen nõus <a href="/kasutustingimused" target="_blank">kasutustingimustega</a>
           </label>
           </div>
       </div>
@@ -53,11 +61,12 @@
       <div class="row mt-5 align-items-center">
 
         <div class="justify-content-between">
-          <button type="button" class="btn btn-success me-3">Lisa pilt</button>
+
           <button @click="addNewUser" type="button" class="btn btn-success me-3">Registreeri</button>
           <button @click="navigateToHomeView" type="button" class="btn btn-secondary">Katkesta</button>
 
         </div>
+
       </div>
 
     </div>
