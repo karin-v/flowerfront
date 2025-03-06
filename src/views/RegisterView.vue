@@ -35,22 +35,25 @@
 
         </div>
 
-
         <div class="col-md-3 d-flex justify-content-center">
 
-          <img src="../assets/profilePictureDefault.webp" height="250" width="250" alt="Profiilipilt"/>
+          <img v-if="!imageData" src="../assets/profilePictureDefault.webp" height="250" width="250" alt="Profiilipilt"/>
+          <img v-else :src="imageData" class="img-thumbnail" alt="Profiilipilt">
 
         </div>
 
         <div class="justify-content-lg-end">
 
-          <button type="button" class="btn btn-success me-3">Lisa pilt</button>
+          <button @click="addUserImage" type="button" class="btn btn-success me-3">Lisa pilt</button>
         </div>
+
+        <ImageInput @event-user-image-selected="$emit('event-user-image-selected', $event)"/>
+        <UserImage :imageData="imageData"/>
 
       </div>
       <div>
         <div>
-          <!-- Checkbox koos tekstiga -->
+
           <input v-model="newUser.consent" class="form-check-input" type="checkbox" style="border-color: darkgreen">
           <label for="consentCheckbox" class="ms-2">
             Olen nõus <a href="/kasutustingimused" target="_blank">kasutustingimustega</a>
@@ -77,15 +80,19 @@
 
 <script>
 
-import AlertDanger from "@/components/AlertDanger.vue";
-import AlertSuccess from "@/components/AlertSuccess.vue";
+import AlertDanger from "@/components/alert/AlertDanger.vue";
+import AlertSuccess from "@/components/alert/AlertSuccess.vue";
 import RegisterService from "@/service/RegisterService";
 import NavigationService from "@/service/NavigationService";
 import router from "@/router";
+import HttpStatusCodes from "@/errors/HttpStatusCodes";
+import BusinessErrors from "@/errors/BusinessErrors";
+import ImageInput from "@/components/image/ImageInput.vue";
+import UserImage from "@/components/image/UserImage.vue";
 
 export default {
   name: "RegisterView",
-  components: {AlertSuccess, AlertDanger},
+  components: {UserImage, AlertSuccess, AlertDanger, ImageInput},
   data() {
     return {
       errorMessage: '',
@@ -113,6 +120,7 @@ export default {
     addNewUser() {
       this.resetIsOkToAddNewUser();
       this.validateIsOkToAddNewUser()
+      this.addUserImage()
       if (this.isOkToAddNewUser) {
         RegisterService.sendPostUserRequest(this.newUser)
             .then(response => this.handleAddNewUserResponse(response))
@@ -144,6 +152,10 @@ export default {
       }
     },
 
+    addUserImage() {
+      this.newUser.imageData = ImageInput.data();
+    },
+
     handleAddNewUserResponse() {
       this.successMessage = 'Kasutaja "' + this.newUser.username + '" on lisatud'
       setTimeout(this.resetAllMessages, 2000)
@@ -152,7 +164,7 @@ export default {
 
     handleNewUserErrorResponse(error) {
       this.errorResponse = error.response.data;
-      if (error.response.status === 403 && (this.errorResponse.errorCode === 112 || this.errorResponse.errorCode === 113)) {
+      if (error.response.status === HttpStatusCodes.STATUS_FORBIDDEN && (this.errorResponse.errorCode === BusinessErrors.CODE_USERNAME_EXISTS || this.errorResponse.errorCode === BusinessErrors.CODE_EMAIL_EXISTS)) {
         this.errorMessage = this.errorResponse.message
         setTimeout(this.resetAllMessages, 4000)
         this.resetAllFields()
