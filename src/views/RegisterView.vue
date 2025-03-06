@@ -41,12 +41,13 @@
 
       </div>
       <div>
-        <div class="mb-4">
-          <input type="checkbox" class="form-check-input">
-
-          Olen nõus kasutustingimustega
-
-        </div>
+        <div>
+          <!-- Checkbox koos tekstiga -->
+          <input v-model="newUser.consent" class="form-check-input" type="checkbox" style="border-color: darkgreen">
+          <label for="consentCheckbox" class="ms-2">
+            Olen nõus <a href="/kasutustingimused" target="_blank">kasutustingimustega</a>.
+          </label>
+          </div>
       </div>
 
       <div class="row mt-5 align-items-center">
@@ -111,13 +112,19 @@ export default {
     },
 
     validateIsOkToAddNewUser() {
-      if (this.user.username.length === 0) {
+      if (this.newUser.username.length === 0) {
         this.errorMessage = 'Sisesta kasutajanimi'
         setTimeout(this.resetAllMessages, 4000)
-      } else if (this.user.password.length === 0) {
+      } else if (this.newUser.password.length === 0) {
         this.errorMessage = 'Sisesta parool'
         setTimeout(this.resetAllMessages, 4000)
-      } else if (isTermsAgreed) {
+      } else if (this.passwordRetype.length === 0) {
+        this.errorMessage = 'Sisesta parool uuesti'
+        setTimeout(this.resetAllMessages, 4000)
+      } else if (this.newUser.email.length === 0) {
+        this.errorMessage = 'Sisesta email'
+        setTimeout(this.resetAllMessages, 4000)
+      } else if (!this.newUser.consent) {
         this.errorMessage = 'Tutvu kasutajatingimustega ja kinnita nõusolek'
         setTimeout(this.resetAllMessages, 4000)
       } else if (this.passwordRetype !== this.newUser.password) {
@@ -131,6 +138,7 @@ export default {
     handleAddNewUserResponse() {
       this.successMessage = 'Kasutaja "' + this.newUser.username + '" on lisatud'
       setTimeout(this.resetAllMessages, 2000)
+      NavigationService.navigateToLoginView();
     },
 
     handleNewUserErrorResponse(error) {

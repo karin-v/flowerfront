@@ -1,7 +1,6 @@
 <template>
   <div>
 
-
     <div class="container text-center">
 
       <div class="row justify-content-center">
@@ -45,7 +44,10 @@
 <script>
 
 
+import AlertDanger from "@/components/AlertDanger.vue";
+
 export default {
-  name: "LoginView"
+  name: "LoginView",
+  components: {AlertDanger}
 }
 </script>

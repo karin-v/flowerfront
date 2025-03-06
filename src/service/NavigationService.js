@@ -6,5 +6,8 @@ export default {
     },
     navigateToHomeView() {
         router.push({name: 'homeRoute'})
+    },
+    navigateToLoginView() {
+        router.push({name: 'loginRoute'})
     }
 }

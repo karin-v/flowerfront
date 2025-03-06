@@ -23,7 +23,7 @@ const routes = [
   },
   {
     path: '/login',
-    name: 'LoginRoute',
+    name: 'loginRoute',
     component: LoginView
   },
   {
