@@ -4,6 +4,7 @@ import GiveAway from "@/views/GiveAway.vue";
 import WishList from "@/views/WishList.vue";
 import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
+import ProfileView from "@/views/ProfileView.vue";
 
 const routes = [
   {
@@ -31,11 +32,19 @@ const routes = [
     name: 'registerRoute',
     component: RegisterView
   },
+
+  {
+    path: '/myprofile',
+    name: 'myProfile',
+    component: ProfileView
+  },
   {
     path: '/',
     name: 'homeRoute',
     component: HomeView
-  }
+  },
+
+
 ]
 
 const router = createRouter({
