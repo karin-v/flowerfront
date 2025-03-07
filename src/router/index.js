@@ -34,7 +34,7 @@ const routes = [
   },
 
   {
-    path: '/myprofile',
+    path: '/my-profile',
     name: 'myProfile',
     component: ProfileView
   },
