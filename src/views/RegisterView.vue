@@ -4,7 +4,7 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col">
-          <h1>Loo uus konto</h1>
+          <h2>Loo uus konto</h2>
           <AlertDanger :message="errorMessage"/>
           <AlertSuccess :message="successMessage"/>
         </div>
@@ -20,7 +20,7 @@
 
           <div class="mb-4 d-flex justify-content-end align-items-center">
             <label class="form-text">Parool</label>
-            <input v-model="newUser.password" type="email" class="form-control w-auto ms-3">
+            <input v-model="newUser.password" type="password" class="form-control w-auto ms-3">
           </div>
 
           <div class="mb-4 d-flex justify-content-end align-items-center">
@@ -37,26 +37,35 @@
 
         <div class="col-md-3 d-flex justify-content-center">
 
-          <img src="../assets/profilePictureDefault.webp" height="200" width="200" alt="Profiilipilt"/></div>
+          <UserImage :imageData="newUser.imageData"/>
+
+        </div>
+
+        <div class="justify-content-lg-end">
+          <ImageInput @event-new-image-selected="setNewUserImageData"/>
+        </div>
+
 
       </div>
       <div>
-        <div class="mb-4">
-          <input type="checkbox" class="form-check-input">
+        <div>
 
-          Olen nõus kasutustingimustega
-
+          <input v-model="newUser.consent" class="form-check-input" type="checkbox" style="border-color: darkgreen">
+          <label for="consentCheckbox" class="ms-2">
+            Olen nõus <a href="/kasutustingimused" target="_blank">kasutustingimustega</a>
+          </label>
         </div>
       </div>
 
       <div class="row mt-5 align-items-center">
 
         <div class="justify-content-between">
-          <button type="button" class="btn btn-success me-3">Lisa pilt</button>
+
           <button @click="addNewUser" type="button" class="btn btn-success me-3">Registreeri</button>
-          <button type="button" class="btn btn-secondary">Katkesta</button>
+          <button @click="navigateToHomeView" type="button" class="btn btn-secondary">Katkesta</button>
 
         </div>
+
       </div>
 
     </div>
@@ -67,14 +76,18 @@
 
 <script>
 
-import AlertDanger from "@/components/AlertDanger.vue";
-import AlertSuccess from "@/components/AlertSuccess.vue";
+import AlertDanger from "@/components/alert/AlertDanger.vue";
+import AlertSuccess from "@/components/alert/AlertSuccess.vue";
 import RegisterService from "@/service/RegisterService";
 import NavigationService from "@/service/NavigationService";
+import HttpStatusCodes from "@/errors/HttpStatusCodes";
+import BusinessErrors from "@/errors/BusinessErrors";
+import ImageInput from "@/components/image/ImageInput.vue";
+import UserImage from "@/components/image/UserImage.vue";
 
 export default {
   name: "RegisterView",
-  components: {AlertSuccess, AlertDanger},
+  components: {UserImage, AlertSuccess, AlertDanger, ImageInput},
   data() {
     return {
       errorMessage: '',
@@ -99,6 +112,14 @@ export default {
   },
   methods: {
 
+    setNewUserImageData(imageData) {
+      if (imageData && imageData.length > 0) {
+        this.newUser.imageData = imageData;
+      } else {
+        this.newUser.imageData = ''; // Set empty if no image
+      }
+    },
+
     addNewUser() {
       this.resetIsOkToAddNewUser();
       this.validateIsOkToAddNewUser()
@@ -110,13 +131,19 @@ export default {
     },
 
     validateIsOkToAddNewUser() {
-      if (this.user.username.length === 0) {
+      if (this.newUser.username.length === 0) {
         this.errorMessage = 'Sisesta kasutajanimi'
         setTimeout(this.resetAllMessages, 4000)
-      } else if (this.user.password.length === 0) {
+      } else if (this.newUser.password.length === 0) {
         this.errorMessage = 'Sisesta parool'
         setTimeout(this.resetAllMessages, 4000)
-      } else if (isTermsAgreed) {
+      } else if (this.passwordRetype.length === 0) {
+        this.errorMessage = 'Sisesta parool uuesti'
+        setTimeout(this.resetAllMessages, 4000)
+      } else if (this.newUser.email.length === 0) {
+        this.errorMessage = 'Sisesta email'
+        setTimeout(this.resetAllMessages, 4000)
+      } else if (!this.newUser.consent) {
         this.errorMessage = 'Tutvu kasutajatingimustega ja kinnita nõusolek'
         setTimeout(this.resetAllMessages, 4000)
       } else if (this.passwordRetype !== this.newUser.password) {
@@ -125,38 +152,50 @@ export default {
       } else {
         this.isOkToAddNewUser = true
       }
-    },
+    }
+    ,
+
 
     handleAddNewUserResponse() {
       this.successMessage = 'Kasutaja "' + this.newUser.username + '" on lisatud'
       setTimeout(this.resetAllMessages, 2000)
-    },
+      NavigationService.navigateToLoginView();
+    }
+    ,
 
     handleNewUserErrorResponse(error) {
       this.errorResponse = error.response.data;
-      if (error.response.status === 403 && (this.errorResponse.errorCode === 112 || this.errorResponse.errorCode === 113)) {
+      if (error.response.status === HttpStatusCodes.STATUS_FORBIDDEN && (this.errorResponse.errorCode === BusinessErrors.CODE_USERNAME_EXISTS || this.errorResponse.errorCode === BusinessErrors.CODE_EMAIL_EXISTS)) {
         this.errorMessage = this.errorResponse.message
         setTimeout(this.resetAllMessages, 4000)
         this.resetAllFields()
       } else {
         NavigationService.navigateToErrorView()
       }
-    },
+    }
+    ,
 
     resetIsOkToAddNewUser() {
       this.isOkToAddNewUser = false
-    },
+    }
+    ,
 
     resetAllFields() {
       this.newUser.username = ''
       this.newUser.password = ''
       this.newUser.email = ''
       this.newUser.consent = false
-    },
+    }
+    ,
 
     resetAllMessages() {
       this.successMessage = ''
       this.errorMessage = ''
+    }
+    ,
+
+    navigateToHomeView() {
+      NavigationService.navigateToHomeView()
     }
   }
 }

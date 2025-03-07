@@ -4,6 +4,7 @@ import GiveAway from "@/views/GiveAway.vue";
 import WishList from "@/views/WishList.vue";
 import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
+import ProfileView from "@/views/ProfileView.vue";
 
 const routes = [
   {
@@ -13,12 +14,12 @@ const routes = [
   },
   {
     path: '/items-giveaway',
-    name: 'Annan ära',
+    name: 'giveAwayRoute',
     component: GiveAway
   },
   {
     path: '/items-wish',
-    name: 'Soovin leida',
+    name: 'wishListRoute',
     component: WishList
   },
   {
@@ -28,14 +29,22 @@ const routes = [
   },
   {
     path: '/register',
-    name: 'Registreeri',
+    name: 'registerRoute',
     component: RegisterView
+  },
+
+  {
+    path: '/myprofile',
+    name: 'myProfile',
+    component: ProfileView
   },
   {
     path: '/',
-    name: 'home',
+    name: 'homeRoute',
     component: HomeView
-  }
+  },
+
+
 ]
 
 const router = createRouter({

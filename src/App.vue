@@ -5,7 +5,9 @@
     <router-link to="/items-giveaway">Annan ära</router-link> |
     <router-link to="/items-wish">Soovin leida</router-link> |
     <router-link to="/login">Logi sisse </router-link> |
+    <router-link to="/myprofile">Minu profiil</router-link> |
       <router-link to="/register"> Registreeri</router-link> |
+
     <router-link to="/search">
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Otsi märksõna järgi" aria-label="Otsi märksõna järgi" aria-describedby="basic-addon2">
@@ -14,6 +16,7 @@
   </nav>
   <router-view/>
 </template>
+
 
 <style>
 #app {
