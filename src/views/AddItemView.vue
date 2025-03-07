@@ -7,7 +7,9 @@
 
 
       <div class="col col-3">
-
+        <div class="mb-4 d-flex justify-content-end align-items-center">
+          <TransactionTypeDropdown :transactiontypes="transactiontypes" :selected-transactiontype-id="transactiontypes.transactionTypeId"/>
+        </div>
         <div class="mb-4 d-flex justify-content-end align-items-center">
           <CategoriesDropdown :categories="categories" :selected-category-id="categories.categoryId"/>
         </div>
@@ -60,11 +62,13 @@ import RegionService from "@/services/RegionService";
 import ItemService from "@/services/ItemService";
 import AlertDanger from "@/components/alerts/AlertDanger.vue";
 import AlertSuccess from "@/components/alerts/AlertSuccess.vue";
+import TransactionTypeService from "@/services/TransactionTypeService";
+import TransactionTypeDropdown from "@/components/transaction/TransactionTypeDropdown.vue";
 
 
 export default {
   name: 'AddItemView',
-  components: {CategoriesDropdown, CountyDropdown, RegionDropdown, AlertDanger, AlertSuccess},
+  components: {TransactionTypeDropdown, CategoriesDropdown, CountyDropdown, RegionDropdown, AlertDanger, AlertSuccess},
   data() {
     return {
       successMessage: '',
@@ -76,11 +80,11 @@ export default {
         countyId: 0,
         regionId: 0,
         transactionTypeId: 0,
-        name: 'string',
-        description: "string",
+        name: '',
+        description: '',
         totalQuantity: 0,
         availableQuantity: 0,
-        data: 'string',
+        data: '',
 
       },
       categories: [
@@ -101,9 +105,25 @@ export default {
           regionName: '',
         }
       ],
+      transactionTypes: [
+        {
+          transactionTypeId: 0,
+          transactionTypeName: '',
+        }
+      ],
     }
   },
   methods: {
+
+    getAllTransactionTypes() {
+      TransactionTypeService.sendGetTransactionTypeRequest()
+          .then(response => this.handleGetTransactionTypeRequest(response))
+          .catch(() => NavigationService.navigateToErrorView())
+    },
+
+    handleGetTransactionTypeRequest(response) {
+      this.categories = response.data;
+    },
 
     getAllCategories() {
       CategoryService.sendGetCategoriesRequest()
@@ -164,6 +184,7 @@ export default {
       this.getAllCategories()
       this.getAllCounties()
       this.getAllRegions()
+      this.getAllTransactionTypes()
     },
   }
 </script>
