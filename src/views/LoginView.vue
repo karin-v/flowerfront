@@ -45,8 +45,8 @@
 
 <script>
 import AlertDanger from "@/components/alert/AlertDanger.vue";
-import LoginService from "@/service/LoginService";
-import NavigationService from "@/service/NavigationService";
+import LoginService from "@/services/LoginService";
+import NavigationService from "@/services/NavigationService";
 import HttpStatusCodes from "@/components/errors/HttpStatusCodes";
 import BusinessErrors from "@/components/errors/BusinessErrors";
 

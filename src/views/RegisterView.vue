@@ -78,8 +78,8 @@
 
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 import AlertSuccess from "@/components/alert/AlertSuccess.vue";
-import RegisterService from "@/service/RegisterService";
-import NavigationService from "@/service/NavigationService";
+import RegisterService from "@/services/RegisterService";
+import NavigationService from "@/services/NavigationService";
 import HttpStatusCodes from "@/errors/HttpStatusCodes";
 import BusinessErrors from "@/errors/BusinessErrors";
 import ImageInput from "@/components/image/ImageInput.vue";

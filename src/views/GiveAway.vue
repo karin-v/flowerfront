@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import NavigationService from "@/service/NavigationService";
+import NavigationService from "@/services/NavigationService";
 
 export default {
   name: "GiveAway",
