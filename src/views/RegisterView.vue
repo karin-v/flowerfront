@@ -1,18 +1,18 @@
 <template>
   <div>
-
     <div class="container">
-      <div class="row justify-content-center">
+
+      <div class="row justify-content-center mb-4">
         <div class="col">
           <h2>Loo uus konto</h2>
           <AlertDanger :message="errorMessage"/>
           <AlertSuccess :message="successMessage"/>
         </div>
-
       </div>
 
-      <div class="row mt-5 align-items-center">
-        <div class="col-md-6">
+      <div class="row mt-5">
+
+        <div class="col-md-6 pe-5">
           <div class="mb-4 d-flex justify-content-end align-items-center">
             <label class="form-text">Kasutajanimi</label>
             <input v-model="newUser.username" type="text" class="form-control w-auto ms-3">
@@ -32,47 +32,121 @@
             <label class="form-text">E-mail</label>
             <input v-model="newUser.email" type="email" class="form-control w-auto ms-3">
           </div>
-
         </div>
 
-        <div class="col-md-3 d-flex justify-content-center">
+        <div class="col-md-6 ps-5">
 
-          <UserImage :imageData="newUser.imageData"/>
+          <div class="mb-3 text-start ps-4">
+            <UserImage :imageData="newUser.imageData"/>
+          </div>
 
-        </div>
+          <div class="d-flex justify-content-left">
+            <ImageInput @event-new-image-selected="setNewUserImageData"/>
+          </div>
 
-        <div class="justify-content-lg-end">
-          <ImageInput @event-new-image-selected="setNewUserImageData"/>
-        </div>
-
-
-      </div>
-      <div>
-        <div>
-
-          <input v-model="newUser.consent" class="form-check-input" type="checkbox" style="border-color: darkgreen">
-          <label for="consentCheckbox" class="ms-2">
-            Olen nõus <a href="/kasutustingimused" target="_blank">kasutustingimustega</a>
-          </label>
-        </div>
-      </div>
-
-      <div class="row mt-5 align-items-center">
-
-        <div class="justify-content-between">
-
-          <button @click="addNewUser" type="button" class="btn btn-success me-3">Registreeri</button>
-          <button @click="navigateToHomeView" type="button" class="btn btn-secondary">Katkesta</button>
 
         </div>
 
       </div>
 
+      <div class="row mt-3">
+        <div class="col-md-6 offset-md-3 text-center">
+          <div class="form-check d-inline-block text-start">
+            <input v-model="newUser.consent" id="consentCheckbox" class="form-check-input" type="checkbox" style="border-color: darkgreen">
+            <label for="consentCheckbox" class="form-check-label ms-2">
+              Olen nõus <a href="/kasutustingimused" target="_blank">kasutustingimustega</a>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-md-6 offset-md-3 text-center">
+            <button @click="addNewUser" type="button" class="btn btn-success me-3">Registreeri</button>
+            <button @click="navigateToHomeView" type="button" class="btn btn-secondary">Katkesta</button>
+        </div>
+      </div>
     </div>
-
   </div>
-
 </template>
+
+
+
+<!--<template>-->
+<!--  <div>-->
+<!--    <div class="container">-->
+<!--      -->
+<!--      <div class="row justify-content-center">-->
+<!--        <div class="col">-->
+<!--          <h2>Loo uus konto</h2>-->
+<!--          <AlertDanger :message="errorMessage"/>-->
+<!--          <AlertSuccess :message="successMessage"/>-->
+<!--        </div>-->
+
+<!--      </div>-->
+
+<!--      <div class="row mt-5 align-items-center">-->
+<!--        <div class="col-md-6">-->
+<!--          <div class="mb-4 d-flex justify-content-end align-items-center">-->
+<!--            <label class="form-text">Kasutajanimi</label>-->
+<!--            <input v-model="newUser.username" type="text" class="form-control w-auto ms-3">-->
+<!--          </div>-->
+
+<!--          <div class="mb-4 d-flex justify-content-end align-items-center">-->
+<!--            <label class="form-text">Parool</label>-->
+<!--            <input v-model="newUser.password" type="password" class="form-control w-auto ms-3">-->
+<!--          </div>-->
+
+<!--          <div class="mb-4 d-flex justify-content-end align-items-center">-->
+<!--            <label class="form-text">Parool uuesti</label>-->
+<!--            <input v-model="passwordRetype" type="password" class="form-control w-auto ms-3">-->
+<!--          </div>-->
+
+<!--          <div class="mb-4 d-flex justify-content-end align-items-center">-->
+<!--            <label class="form-text">E-mail</label>-->
+<!--            <input v-model="newUser.email" type="email" class="form-control w-auto ms-3">-->
+<!--          </div>-->
+
+<!--        </div>-->
+
+<!--        <div class="col-md-3 d-flex justify-content-center align-items-start">-->
+
+<!--          <UserImage :imageData="newUser.imageData"/>-->
+
+<!--        </div>-->
+
+<!--        <div class="justify-content-lg-end ">-->
+<!--          <ImageInput @event-new-image-selected="setNewUserImageData"/>-->
+<!--        </div>-->
+
+
+<!--      </div>-->
+<!--      <div>-->
+<!--        <div>-->
+
+<!--          <input v-model="newUser.consent" class="form-check-input" type="checkbox" style="border-color: darkgreen">-->
+<!--          <label for="consentCheckbox" class="ms-2">-->
+<!--            Olen nõus <a href="/kasutustingimused" target="_blank">kasutustingimustega</a>-->
+<!--          </label>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div class="row mt-5 align-items-center">-->
+
+<!--        <div class="justify-content-between">-->
+
+<!--          <button @click="addNewUser" type="button" class="btn btn-success me-3">Registreeri</button>-->
+<!--          <button @click="navigateToHomeView" type="button" class="btn btn-secondary">Katkesta</button>-->
+
+<!--        </div>-->
+
+<!--      </div>-->
+
+<!--    </div>-->
+
+<!--  </div>-->
+
+<!--</template>-->
 
 <script>
 
