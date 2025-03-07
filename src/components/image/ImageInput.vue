@@ -26,7 +26,7 @@ export default {
       const reader = new FileReader();
       reader.onload = () => {
         this.imageDataBase64 = reader.result;
-        this.$emit('event-user-image-selected', this.imageDataBase64)
+        this.$emit('event-new-image-selected', this.imageDataBase64)
       };
       reader.onerror = function (error) {
         alert(error)

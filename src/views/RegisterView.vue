@@ -20,7 +20,7 @@
 
           <div class="mb-4 d-flex justify-content-end align-items-center">
             <label class="form-text">Parool</label>
-            <input v-model="newUser.password" type="email" class="form-control w-auto ms-3">
+            <input v-model="newUser.password" type="password" class="form-control w-auto ms-3">
           </div>
 
           <div class="mb-4 d-flex justify-content-end align-items-center">
@@ -37,19 +37,14 @@
 
         <div class="col-md-3 d-flex justify-content-center">
 
-          <img v-if="!imageData" src="../assets/profilePictureDefault.webp" height="250" width="250"
-               alt="Profiilipilt"/>
-          <img v-else :src="imageData" class="img-thumbnail" alt="Profiilipilt">
+          <UserImage :imageData="newUser.imageData"/>
 
         </div>
 
         <div class="justify-content-lg-end">
-
-          <button @click="addUserImage" type="button" class="btn btn-success me-3">Lisa pilt</button>
+          <ImageInput @event-new-image-selected="setNewUserImageData"/>
         </div>
 
-        <ImageInput @event-user-image-selected="$emit('event-user-image-selected', $event)"/>
-        <UserImage :imageData="imageData"/>
 
       </div>
       <div>
@@ -117,10 +112,17 @@ export default {
   },
   methods: {
 
+    setNewUserImageData(imageData) {
+      if (imageData && imageData.length > 0) {
+        this.newUser.imageData = imageData;
+      } else {
+        this.newUser.imageData = ''; // Set empty if no image
+      }
+    },
+
     addNewUser() {
       this.resetIsOkToAddNewUser();
       this.validateIsOkToAddNewUser()
-      this.addUserImage()
       if (this.isOkToAddNewUser) {
         RegisterService.sendPostUserRequest(this.newUser)
             .then(response => this.handleAddNewUserResponse(response))
@@ -150,17 +152,16 @@ export default {
       } else {
         this.isOkToAddNewUser = true
       }
-    },
+    }
+    ,
 
-    addUserImage() {
-      this.newUser.imageData = ImageInput.data();
-    },
 
     handleAddNewUserResponse() {
       this.successMessage = 'Kasutaja "' + this.newUser.username + '" on lisatud'
       setTimeout(this.resetAllMessages, 2000)
       NavigationService.navigateToLoginView();
-    },
+    }
+    ,
 
     handleNewUserErrorResponse(error) {
       this.errorResponse = error.response.data;
@@ -171,23 +172,27 @@ export default {
       } else {
         NavigationService.navigateToErrorView()
       }
-    },
+    }
+    ,
 
     resetIsOkToAddNewUser() {
       this.isOkToAddNewUser = false
-    },
+    }
+    ,
 
     resetAllFields() {
       this.newUser.username = ''
       this.newUser.password = ''
       this.newUser.email = ''
       this.newUser.consent = false
-    },
+    }
+    ,
 
     resetAllMessages() {
       this.successMessage = ''
       this.errorMessage = ''
-    },
+    }
+    ,
 
     navigateToHomeView() {
       NavigationService.navigateToHomeView()
