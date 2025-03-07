@@ -24,17 +24,14 @@
               <input v-model="password" type="password" class="form-control">
             </div>
 
-            <div class="mb-3">
-              <button @click="login" type="submit" class="btn btn-success">Logi sisse</button>
-            </div>
+            <div class="row mt-5 align-items-center">
 
-            <div class="mb-3">
-              <button @click="navigateToRegisterView" type="submit" class="btn btn-success">Loo konto</button>
+              <div class="justify-content-between">
+              <button @click="login" type="submit" class="btn btn-success me-3">Logi sisse</button>
+              <button @click="navigateToRegisterView" type="submit" class="btn btn-success me-3">Loo konto</button>
+              <button @click="navigateToHomeView" type="submit" class="btn btn-success me-3">Katkesta</button>
             </div>
-            <div class="mb-3">
-              <button @click="navigateToHomeView" type="submit" class="btn btn-success">Katkesta</button>
             </div>
-
           </div>
 
         </div>

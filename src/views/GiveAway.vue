@@ -38,18 +38,27 @@
                aria-describedby="basic-addon2">
         <span class="input-group-text" id="basic-addon2">Otsi</span>
       </div>
+
+      <div class="col">
+        <img src="../assets/istockphoto-1380361370-612x612.jpg" class="rounded mx-auto d-block">
+        <p class="fw-bold">Banaanipuu</p>
+        <img src="../assets/orchid-spider-plant-7bc6dab8-4cb320efcec64205a3a2e0fb9ff0e2db.jpg" class="rounded mx-auto d-block">
+        <p class="fw-bold">Ämbliku puu</p>
+        <img src="../assets/zidi01360.jpg" class="rounded mx-auto d-block">
+        <p class="fw-bold">Porgandi seemned</p>
+      </div>
     </router-link>
     <div>
 
     </div>
 
-    <div class="mb-lg-1">
-    <button type="button" class="btn btn-success">Lisa kuulutus</button>
-    </div>
-    <div class="mb-3">
-      <button @click="navigateToHomeView" type="submit" class="btn btn-success">Avalehele</button>
-    </div>
+    <div class="row mt-5 align-items-center">
 
+      <div class="justify-content-between">
+        <button type="button" class="btn btn-success me-3">Lisa kuulutus</button>
+        <button @click="navigateToHomeView" type="submit" class="btn btn-success me-3">Avalehele</button>
+      </div>
+    </div>
   </div>
 
 </template>

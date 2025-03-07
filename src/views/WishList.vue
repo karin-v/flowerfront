@@ -40,14 +40,14 @@
     </div>
   </router-link>
 
-  <div class="mb-lg-1">
-    <button type="button" class="btn btn-success">Lisa kuulutus</button>
-  </div>
-  <div class="mb-3">
-    <button @click="navigateToHomeView" type="submit" class="btn btn-success">Avalehele</button>
+  <div class="row mt-5 align-items-center">
+
+    <div class="justify-content-between">
+      <button type="button" class="btn btn-success me-3">Lisa kuulutus</button>
+      <button @click="navigateToHomeView" type="submit" class="btn btn-success me-3">Avalehele</button>
+    </div>
   </div>
 </div>
-
 </template>
 
 

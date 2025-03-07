@@ -2,7 +2,7 @@ import router from "@/router";
 
 export default {
     navigateToErrorView() {
-        // router.push
+        router.push({name: 'errorRoute'})
     },
 
     navigateToRegisterView() {

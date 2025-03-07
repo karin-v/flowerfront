@@ -9,14 +9,19 @@
     |
 
     <template v-if="isLoggedIn">
-      <button @click="logOut" type="button">Logi välja</button>
+      <router-link to="/add-item">Lisa kuulutus</router-link>
+      |
+      <router-link to="/my-profile">Minu profiil</router-link>
+      |
+      <button @click="logOut" type="button" class="btn-outline-success">Logi välja</button>
+
     </template>
+
     <template v-else>
       <router-link to="/login">Logi sisse</router-link>
       |
-
-    <router-link to="/register"> Registreeri</router-link>
-    |  </template>
+      <router-link to="/register"> Registreeri</router-link>
+    </template>
     <router-link to="/search">
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Otsi märksõna järgi" aria-label="Otsi märksõna järgi"
