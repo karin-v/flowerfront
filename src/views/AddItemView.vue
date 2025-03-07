@@ -8,7 +8,7 @@
 
       <div class="col col-3">
         <div class="mb-4 d-flex justify-content-end align-items-center">
-          <TransactionTypeDropdown :transactiontypes="transactiontypes" :selected-transactiontype-id="transactiontypes.transactionTypeId"/>
+          <TransactionTypeDropdown :transactiontypes="transactionTypes" :selected-transactiontype-id="transactionTypes.transactionTypeId"/>
         </div>
         <div class="mb-4 d-flex justify-content-end align-items-center">
           <CategoriesDropdown :categories="categories" :selected-category-id="categories.categoryId"/>
@@ -178,6 +178,7 @@ export default {
       this.categories.categoryId = 0
       this.counties.countyId = 0
       this.regions.regionId = 0
+      this.transactionTypes.transactionTypeId = 0
     },
   },
     beforeMount() {

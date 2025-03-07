@@ -5,6 +5,7 @@ import WishList from "@/views/WishList.vue";
 import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
 import AddItemView from "@/views/AddItemView.vue";
+import MyProfileView from "@/views/MyProfileView.vue";
 
 const routes = [
     {
@@ -36,6 +37,11 @@ const routes = [
         path: '/add-item',
         name: 'addItemRoute',
         component: AddItemView
+    },
+    {
+        path: '/my-profile',
+        name: 'myProfileRoute',
+        component: MyProfileView
     },
     {
         path: '/',
