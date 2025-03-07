@@ -60,8 +60,8 @@ import NavigationService from "@/services/NavigationService";
 import CountyService from "@/services/CountyService";
 import RegionService from "@/services/RegionService";
 import ItemService from "@/services/ItemService";
-import AlertDanger from "@/components/alerts/AlertDanger.vue";
-import AlertSuccess from "@/components/alerts/AlertSuccess.vue";
+import AlertDanger from "@/components/alert/AlertDanger.vue";
+import AlertSuccess from "@/components/alert/AlertSuccess.vue";
 import TransactionTypeService from "@/services/TransactionTypeService";
 import TransactionTypeDropdown from "@/components/transaction/TransactionTypeDropdown.vue";
 

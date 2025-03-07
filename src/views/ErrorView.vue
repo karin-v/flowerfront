@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AlertDanger message="Midagi läks valesti">
+    <AlertDanger message="Midagi läks valesti"/>
   </div>
 </template>
 
