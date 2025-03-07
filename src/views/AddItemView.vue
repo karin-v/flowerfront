@@ -8,7 +8,8 @@
 
       <div class="col col-3">
         <div class="mb-4 d-flex justify-content-end align-items-center">
-          <TransactionTypeDropdown :transactiontypes="transactionTypes" :selected-transactiontype-id="transactionTypes.transactionTypeId"/>
+          <TransactionTypeDropdown :transactiontypes="transactionTypes"
+                                   :selected-transactiontype-id="transactionTypes.transactionTypeId"/>
         </div>
         <div class="mb-4 d-flex justify-content-end align-items-center">
           <CategoriesDropdown :categories="categories" :selected-category-id="categories.categoryId"/>
@@ -31,12 +32,23 @@
 
       </div>
 
-      <div class="col col-3">
+      <div class="col col-3 justify-content-center" >
         <div class="mb-4 d-flex justify-content-end align-items-center">
           <CountyDropdown :counties="counties" :selected-county-id="counties.countyId"/>
         </div>
         <div class="mb-4 d-flex justify-content-end align-items-center">
           <RegionDropdown :regions="regions" :selected-region-id="regions.regionId"/>
+        </div>
+        <div>
+          <div>
+
+            <ItemImage :imageData="newItem.imageData"/>
+
+          </div>
+
+          <div>
+            <ImageInput @event-new-image-selected="setNewItemImageData"/>
+          </div>
         </div>
       </div>
     </div>
@@ -64,18 +76,24 @@ import AlertDanger from "@/components/alert/AlertDanger.vue";
 import AlertSuccess from "@/components/alert/AlertSuccess.vue";
 import TransactionTypeService from "@/services/TransactionTypeService";
 import TransactionTypeDropdown from "@/components/transaction/TransactionTypeDropdown.vue";
+import ImageInput from "@/components/image/ImageInput.vue";
+import ItemImage from "@/components/image/ItemImage.vue";
 
 
 export default {
   name: 'AddItemView',
-  components: {TransactionTypeDropdown, CategoriesDropdown, CountyDropdown, RegionDropdown, AlertDanger, AlertSuccess},
+  components: {
+    ItemImage,
+    ImageInput,
+    TransactionTypeDropdown, CategoriesDropdown, CountyDropdown, RegionDropdown, AlertDanger, AlertSuccess
+  },
   data() {
     return {
       successMessage: '',
       errorMessage: '',
       newItem: {
 
-      userId: 0,
+        userId: 0,
         categoryId: 0,
         countyId: 0,
         regionId: 0,
@@ -84,7 +102,7 @@ export default {
         description: '',
         totalQuantity: 0,
         availableQuantity: 0,
-        data: '',
+        imageData: '',
 
       },
       categories: [
@@ -180,12 +198,19 @@ export default {
       this.regions.regionId = 0
       this.transactionTypes.transactionTypeId = 0
     },
-  },
-    beforeMount() {
-      this.getAllCategories()
-      this.getAllCounties()
-      this.getAllRegions()
-      this.getAllTransactionTypes()
+    setNewItemImageData(imageData) {
+      if (imageData && imageData.length > 0) {
+        this.newItem.imageData = imageData;
+      } else {
+        this.newItem.imageData = ''; // Set empty if no image
+      }
     },
-  }
+  },
+  beforeMount() {
+    this.getAllCategories()
+    this.getAllCounties()
+    this.getAllRegions()
+    this.getAllTransactionTypes()
+  },
+}
 </script>
