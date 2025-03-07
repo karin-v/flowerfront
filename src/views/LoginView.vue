@@ -25,14 +25,14 @@
             </div>
 
             <div class="mb-3">
-            <button @click="login" type="submit" class="btn btn-success">Logi sisse</button>
+              <button @click="login" type="submit" class="btn btn-success">Logi sisse</button>
             </div>
 
             <div class="mb-3">
-            <button @click="navigateToRegisterView" type="submit" class="btn btn-success">Loo konto</button>
+              <button @click="navigateToRegisterView" type="submit" class="btn btn-success">Loo konto</button>
             </div>
             <div class="mb-3">
-            <button @click="navigateToHomeView" type="submit" class="btn btn-success">Katkesta</button>
+              <button @click="navigateToHomeView" type="submit" class="btn btn-success">Katkesta</button>
             </div>
 
           </div>
@@ -48,9 +48,10 @@
 
 <script>
 import AlertDanger from "@/components/alert/AlertDanger.vue";
-import router from "@/router";
-import LoginService from "@/services/LoginService";
-import NavigationService from "@/services/NavigationService";
+import LoginService from "@/service/LoginService";
+import NavigationService from "@/service/NavigationService";
+import HttpStatusCodes from "@/components/errors/HttpStatusCodes";
+import BusinessErrors from "@/components/errors/BusinessErrors";
 
 
 export default {
@@ -62,53 +63,88 @@ export default {
       password: '',
       message: '',
       loginResponse: {
-      userId: 0,
-      roleName: ''
+        userId: 0,
+        roleName: ''
+      },
+      errorResponse: {
+        message: '',
+        errorCode: 0
       }
     }
-    },
+  },
 
   methods: {
 
     login() {
       if (this.allFieldsWithCorrectInput()) {
         this.sendLoginRequest();
-        } else {
+      } else {
         this.alertMissingFields();
-        }
+      }
+    },
 
-        },
-    sendLoginRequest(){
+    sendLoginRequest() {
       LoginService.sendLoginRequest(this.username, this.password)
           .then(response => this.handleLoginResponse(response))
           .catch(error => this.handleLoginErrorResponse(error))
     },
 
-          handleLoginResponse(response) {
-            this.loginResponse = response.data
-            sessionStorage.setItem('userId', this.loginResponse.userId)
-            sessionStorage.setItem('roleName', this.loginResponse.roleName)
-            NavigationService.navigateToRegisterView();
-          },
+    handleLoginErrorResponse(error) {
+      this.errorResponse = error.response.data
+      let httpStatusCode = error.response.status;
+
+      if (this.isIncorrectCredentials(httpStatusCode)) {
+        this.handleIncorrectCredentialsAlert()
+      } else {
+        NavigationService.navigateToErrorView()
+      }
+
+    },
+
+    isIncorrectCredentials(httpStatusCode) {
+      return HttpStatusCodes.STATUS_FORBIDDEN === httpStatusCode
+          && BusinessErrors.CODE_INCORRECT_CREDENTIALS === this.errorResponse.errorCode;
+    },
+
+    handleLoginResponse(response) {
+      this.loginResponse = response.data
+      this.updateSessionStorageWithUserDetails()
+      this.$emit('event-update-nav-menu')
+      NavigationService.navigateToHomeView();
+    },
+
+    updateSessionStorageWithUserDetails() {
+      sessionStorage.setItem('userId', this.loginResponse.userId)
+      sessionStorage.setItem('roleName', this.loginResponse.roleName)
+    },
 
 
-
-
-          // Tahan muuta navigatsiooni linke this.$emit('event-update-nav-menu'),
-
-
-          // Liigun tagasi Avalehele router.push({name: 'homeRoute'}),
-
-
-
-  alertMissingFields()
-  {this.message = 'Täida kõik väljad'
+    alertMissingFields() {
+      this.message = 'Täida kõik väljad'
       setTimeout(this.resetAlertMessage, 4000)
     },
 
-    allFieldsWithCorrectInput() {
-      return this.username.length > 0 && this.password.lenght > 0;
+    handleIncorrectCredentialsAlert() {
+      this.message = this.errorResponse.message;
+      setTimeout(this.resetAlertMessage, 4000);
     },
+
+    allFieldsWithCorrectInput() {
+      return this.username.length > 0 && this.password.length > 0;
+    },
+
+    resetAlertMessage() {
+      this.message = ''
+    },
+
+    navigateToRegisterView() {
+      NavigationService.navigateToRegisterView()
+    },
+
+    navigateToHomeView() {
+      NavigationService.navigateToHomeView()
+    },
+
   }
 }
 
