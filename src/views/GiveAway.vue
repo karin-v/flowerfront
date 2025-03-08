@@ -7,7 +7,7 @@
     </div>
 
     <div class="btn-group">
-      <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      <button type="button" class="btn btn-outline-secondary" style="color: seagreen" data-bs-toggle="dropdown" aria-expanded="false">
         Maakond
       </button>
       <ul class="dropdown-menu">
@@ -16,7 +16,7 @@
     </div>
 
     <div class="btn-group">
-      <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      <button type="button" class="btn btn-outline-secondary" style="color: seagreen" data-bs-toggle="dropdown" aria-expanded="false">
         Linn/vald
       </button>
       <ul class="dropdown-menu">
@@ -25,7 +25,7 @@
     </div>
 
     <div class="btn-group">
-      <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      <button type="button" class="btn btn-outline-secondary" style="color: seagreen" data-bs-toggle="dropdown" aria-expanded="false">
         Leia kategooria
       </button>
       <ul class="dropdown-menu">
@@ -40,12 +40,8 @@
 <!--      </div>-->
 
       <div class="col">
-        <img src="../assets/istockphoto-1380361370-612x612.jpg" class="rounded mx-auto d-block">
+        <img src="../assets/banaanipuu.jpg" class="rounded mx-auto d-block" height="300">
         <p class="fw-bold">Banaanipuu</p>
-        <img src="../assets/orchid-spider-plant-7bc6dab8-4cb320efcec64205a3a2e0fb9ff0e2db.jpg" class="rounded mx-auto d-block">
-        <p class="fw-bold">Ämbliku puu</p>
-        <img src="../assets/zidi01360.jpg" class="rounded mx-auto d-block">
-        <p class="fw-bold">Porgandi seemned</p>
       </div>
 <!--    </router-link>-->
     <div>

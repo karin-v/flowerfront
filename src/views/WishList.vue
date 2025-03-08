@@ -7,7 +7,7 @@
   </div>
 
   <div class="btn-group">
-    <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    <button type="button" class="btn btn-outline-secondary" style="color: seagreen" data-bs-toggle="dropdown" aria-expanded="false">
       Maakond
     </button>
     <ul class="dropdown-menu">
@@ -16,7 +16,7 @@
   </div>
 
   <div class="btn-group">
-    <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    <button type="button" class="btn btn-outline-secondary" style="color: seagreen" data-bs-toggle="dropdown" aria-expanded="false">
       Linn/vald
     </button>
     <ul class="dropdown-menu">
@@ -25,7 +25,7 @@
   </div>
 
   <div class="btn-group">
-    <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    <button type="button" class="btn btn-outline-secondary" style="color: seagreen" data-bs-toggle="dropdown" aria-expanded="false">
       Leia kategooria
     </button>
     <ul class="dropdown-menu">
