@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div class="container text-center">
 
       <div class="row justify-content-center">
@@ -11,7 +10,6 @@
 
       <div class="row justify-content-center mt-5">
         <div class="col col-4">
-
           <div>
 
             <div class="mb-3">
@@ -25,21 +23,17 @@
             </div>
 
             <div class="row mt-5 align-items-center">
-
               <div class="justify-content-between">
-              <button @click="login" type="submit" class="btn btn-success me-3">Logi sisse</button>
-              <button @click="navigateToRegisterView" type="submit" class="btn btn-success me-3">Loo konto</button>
-              <button @click="navigateToHomeView" type="submit" class="btn btn-secondary me-3">Katkesta</button>
+                <button @click="login" type="submit" class="btn btn-success me-3">Logi sisse</button>
+                <button @click="navigateToRegisterView" type="submit" class="btn btn-success me-3">Loo konto</button>
+                <button @click="navigateToHomeView" type="submit" class="btn btn-secondary me-3">Katkesta</button>
+              </div>
             </div>
-            </div>
-          </div>
 
+          </div>
         </div>
       </div>
-
     </div>
-
-
   </div>
 </template>
 

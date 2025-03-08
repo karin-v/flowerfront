@@ -4,7 +4,7 @@
     <div class="container mt-4">
       <div class="row justify-content-center">
         <div class="col-md-10">
-          <!-- Pealkiri -->
+
           <div class="row mb-5">
             <div class="col">
               <h4 style="color:#212529; font-family: 'Arial', sans-serif;">  Loo uus konto</h4>

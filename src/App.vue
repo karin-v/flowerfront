@@ -1,5 +1,3 @@
-p.vue Bootstrap layoutiga
-
 <template>
   <div class="container mt-3">
     <div class="row justify-content-center mb-3">
