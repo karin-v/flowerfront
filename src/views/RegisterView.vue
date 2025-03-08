@@ -1,17 +1,17 @@
 <template>
   <div>
-    <div class="container">
+    <div class="container mt-4">
 
       <div class="row justify-content-center mb-4">
         <div class="col">
-          <h2  style="color:seagreen; font-family: 'Segoe UI', sans-serif; font-weight: bold" >Loo uus konto</h2>
+          <h4  style="color:#212529; font-family: 'Arial', sans-serif;" >Loo uus konto</h4>
 
           <AlertDanger :message="errorMessage"/>
           <AlertSuccess :message="successMessage"/>
         </div>
       </div>
 
-      <div class="row mt-5">
+      <div class="row mt-6">
 
         <div class="col-md-6 pe-3">
           <div class="mb-4 d-flex justify-content-end align-items-center">
