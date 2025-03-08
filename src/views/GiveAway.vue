@@ -1,8 +1,8 @@
 <template>
-  <div class="container text-center">
-    <div class="row">
+  <div class="container mt-4">
+    <div class="row mb-3">
       <div class="col">
-        <h2>Annan ära</h2>
+        <h4 style="color:#212529; font-family: 'Arial', sans-serif;" >Annan ära </h4>
       </div>
     </div>
 
@@ -32,12 +32,12 @@
 
       </ul>
     </div>
-    <router-link to="/search">
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Otsi märksõna järgi" aria-label="Otsi märksõna järgi"
-               aria-describedby="basic-addon2">
-        <span class="input-group-text" id="basic-addon2">Otsi</span>
-      </div>
+<!--    <router-link to="/search">-->
+<!--      <div class="input-group mb-3">-->
+<!--        <input type="text" class="form-control" placeholder="Otsi märksõna järgi" aria-label="Otsi märksõna järgi"-->
+<!--               aria-describedby="basic-addon2">-->
+<!--        <span class="input-group-text" id="basic-addon2">Otsi</span>-->
+<!--      </div>-->
 
       <div class="col">
         <img src="../assets/istockphoto-1380361370-612x612.jpg" class="rounded mx-auto d-block">
@@ -47,7 +47,7 @@
         <img src="../assets/zidi01360.jpg" class="rounded mx-auto d-block">
         <p class="fw-bold">Porgandi seemned</p>
       </div>
-    </router-link>
+<!--    </router-link>-->
     <div>
 
     </div>

@@ -1,8 +1,9 @@
 <template>
   <div class="home">
-    <img alt="frontpage" src="../assets/taimeringlus2.jpg">
+    <img alt="Home" src="../assets/taimeringlus2.jpg">
 
   </div>
+
 </template>
 
 <script>

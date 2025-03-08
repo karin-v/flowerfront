@@ -9,7 +9,7 @@
         </div>
       </div>
 
-      <div class="row justify-content-center">
+      <div class="row justify-content-center mt-5">
         <div class="col col-4">
 
           <div>
@@ -29,7 +29,7 @@
               <div class="justify-content-between">
               <button @click="login" type="submit" class="btn btn-success me-3">Logi sisse</button>
               <button @click="navigateToRegisterView" type="submit" class="btn btn-success me-3">Loo konto</button>
-              <button @click="navigateToHomeView" type="submit" class="btn btn-success me-3">Katkesta</button>
+              <button @click="navigateToHomeView" type="submit" class="btn btn-secondary me-3">Katkesta</button>
             </div>
             </div>
           </div>
