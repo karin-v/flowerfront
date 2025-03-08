@@ -1,60 +1,69 @@
+p.vue Bootstrap layoutiga
+
 <template>
-  <div style="display: flex; flex-direction: column; align-items: center; padding: 10px 15px;">
-    <div style="display: flex; align-items: center; margin-bottom: 10px;">
-      <a href="/" style="text-decoration: none; color: #212529;">
-
-      <img src="@/assets/taimeringlus-logo.png" style="height: 75px;" alt="taimeringlus"/></a>
-
+  <div class="container mt-3">
+    <div class="row justify-content-center mb-3">
+      <div class="col-md-10 text-center">
+        <a href="/" style="text-decoration: none;">
+          <img src="@/assets/taimeringlus-logo.png" style="height: 75px; margin-left: -1.5cm;" alt="taimeringlus"/>
+        </a>
+      </div>
     </div>
 
-    <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center;">
-      <div style="display: flex; align-items: center;">
-        <div style="margin: 0 5px;">
-          <router-link to="/items-giveaway" style="text-decoration: none; color: #212529;">Annan ära</router-link>
-        </div>
-        <div style="margin: 0 5px;">|</div>
-        <div style="margin: 0 5px;">
-          <router-link to="/items-wish" style="text-decoration: none; color: #212529;">Soovin leida</router-link>
-        </div>
-        <div style="margin: 0 5px;">|</div>
-      </div>
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <div class="d-flex flex-wrap justify-content-center align-items-center">
 
-      <template v-if="isLoggedIn">
-        <div style="margin: 0 5px;">
-          <router-link to="/add-item" style="text-decoration: none; color: #212529;">Lisa kuulutus</router-link>
-        </div>
-        <div style="margin: 0 5px;">|</div>
-        <div style="margin: 0 5px;">
-          <router-link to="/my-profile" style="text-decoration: none; color: #212529;">Minu profiil</router-link>
-        </div>
-        <div style="margin: 0 5px;">|</div>
-        <div style="margin: 0 5px;">
-          <button @click="logOut" type="button" style="color: #198754; background-color: transparent; border: 1px solid #198754; border-radius: 4px; padding: 5px 10px; cursor: pointer;">Logi välja</button>
-        </div>
-      </template>
-
-      <template v-else>
-        <div style="margin: 0 5px;">
-          <router-link to="/login" style="text-decoration: none; color: #212529;">Logi sisse</router-link>
-        </div>
-        <div style="margin: 0 5px;">|</div>
-        <div style="margin: 0 5px;">
-          <router-link to="/register" style="text-decoration: none; color: #212529;">Registreeri</router-link>
-        </div>
-        <div style="margin: 0 5px;">|</div>
-      </template>
-
-      <div style="margin: 0 5px;">
-        <router-link to="/search" style="text-decoration: none;">
-          <div style="display: flex; width: 200px;">
-            <input type="text" placeholder="Otsi märksõna järgi" aria-label="Otsi märksõna järgi"
-                   aria-describedby="basic-addon2" style="height: 30px; font-size: 14px; border-radius: 4px 0 0 4px; border: 1px solid #ced4da; padding: 0 8px;">
-            <span id="basic-addon2" style="height: 30px; display: flex; align-items: center; border-radius: 0 4px 4px 0; background-color: #198754; color: white; cursor: pointer; padding: 0 10px;">Otsi</span>
+          <div class="d-flex align-items-center">
+            <div class="mx-2">
+              <router-link to="/items-giveaway" style="text-decoration: none; color: #212529;">Annan ära</router-link>
+            </div>
+            <div class="mx-2">|</div>
+            <div class="mx-2">
+              <router-link to="/items-wish" style="text-decoration: none; color: #212529;">Soovin leida</router-link>
+            </div>
+            <div class="mx-2">|</div>
           </div>
-        </router-link>
+
+          <template v-if="isLoggedIn">
+            <div class="mx-2">
+              <router-link to="/add-item" style="text-decoration: none; color: #212529;">Lisa kuulutus</router-link>
+            </div>
+            <div class="mx-2">|</div>
+            <div class="mx-2">
+              <router-link to="/my-profile" style="text-decoration: none; color: #212529;">Minu profiil</router-link>
+            </div>
+            <div class="mx-2">|</div>
+            <div class="mx-2">
+              <button @click="logOut" type="button" class="btn btn-outline-success btn-sm">Logi välja</button>
+            </div>
+          </template>
+
+          <template v-else>
+            <div class="mx-2">
+              <router-link to="/login" style="text-decoration: none; color: #212529;">Logi sisse</router-link>
+            </div>
+            <div class="mx-2">|</div>
+            <div class="mx-2">
+              <router-link to="/register" style="text-decoration: none; color: #212529;">Registreeri</router-link>
+            </div>
+            <div class="mx-2">|</div>
+          </template>
+
+          <div class="mx-2">
+            <router-link to="/search" style="text-decoration: none;">
+              <div class="input-group" style="width: 200px;">
+                <input type="text" class="form-control form-control-sm" placeholder="Otsi märksõna järgi"
+                       aria-label="Otsi märksõna järgi" aria-describedby="basic-addon2">
+                <span class="input-group-text bg-success text-white" id="basic-addon2">Otsi</span>
+              </div>
+            </router-link>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
   <router-view @event-update-nav-menu="updateNavMenu"/>
 </template>
 

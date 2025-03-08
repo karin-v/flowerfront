@@ -1,73 +1,77 @@
 <template>
   <div>
-    <div class="container mt-4">
 
-      <div class="row justify-content-center mb-4">
-        <div class="col">
-          <h4  style="color:#212529; font-family: 'Arial', sans-serif;" >Loo uus konto</h4>
-
-          <AlertDanger :message="errorMessage"/>
-          <AlertSuccess :message="successMessage"/>
-        </div>
-      </div>
-
-      <div class="row mt-6">
-
-        <div class="col-md-6 pe-3">
-          <div class="mb-4 d-flex justify-content-end align-items-center">
-            <label class="form-text">Kasutajanimi</label>
-            <input v-model="newUser.username" type="text" class="form-control w-auto ms-3">
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-10">
+          <!-- Pealkiri -->
+          <div class="row mb-6">
+            <div class="col">
+              <h4 style="color:#212529; font-family: 'Arial', sans-serif;">  Loo uus konto</h4>
+              <AlertDanger :message="errorMessage"/>
+              <AlertSuccess :message="successMessage"/>
+            </div>
           </div>
 
-          <div class="mb-4 d-flex justify-content-end align-items-center">
-            <label class="form-text">Parool</label>
-            <input v-model="newUser.password" type="password" class="form-control w-auto ms-3">
-          </div>
+          <div class="row mt-5">
 
-          <div class="mb-4 d-flex justify-content-end align-items-center">
-            <label class="form-text">Parool uuesti</label>
-            <input v-model="passwordRetype" type="password" class="form-control w-auto ms-3">
-          </div>
+            <div class="col-md-6 pe-3">
+              <div class="mb-4 d-flex justify-content-end align-items-center">
+                <label class="form-text">Kasutajanimi</label>
+                <input v-model="newUser.username" type="text" class="form-control w-auto ms-3">
+              </div>
 
-          <div class="mb-3 d-flex justify-content-end align-items-center">
-            <label class="form-text">E-mail</label>
-            <input v-model="newUser.email" type="email" class="form-control w-auto ms-3">
-          </div>
-        </div>
+              <div class="mb-4 d-flex justify-content-end align-items-center">
+                <label class="form-text">Parool</label>
+                <input v-model="newUser.password" type="password" class="form-control w-auto ms-3">
+              </div>
 
-        <div class="col-md-4 ps-0">
-          <div class="ps-0 d-flex flex-column align-items-center">
-            <div class="mb-3">  <!-- Changed to start alignment -->
-              <UserImage :imageData="newUser.imageData"/>
+              <div class="mb-4 d-flex justify-content-end align-items-center">
+                <label class="form-text">Parool uuesti</label>
+                <input v-model="passwordRetype" type="password" class="form-control w-auto ms-3">
+              </div>
+
+              <div class="mb-3 d-flex justify-content-end align-items-center">
+                <label class="form-text">E-mail</label>
+                <input v-model="newUser.email" type="email" class="form-control w-auto ms-3">
+              </div>
             </div>
 
-            <div>
-              <div style="position: relative; display: inline-block;">
-                <button type="button" style="background-color: seagreen; color: white; padding: 8px 16px; border-radius: 4px; border: none; cursor: pointer; pointer-events: none;">Lisa pilt</button>
-                <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; overflow: hidden;">
-                  <ImageInput @event-new-image-selected="setNewUserImageData"/>
+            <div class="col-md-4 ps-0">
+              <div class="ps-0 d-flex flex-column align-items-center">
+                <div class="mb-3">
+                  <UserImage :imageData="newUser.imageData"/>
+                </div>
+
+                <div>
+                  <div style="position: relative; display: inline-block;">
+                    <button type="button" style="background-color: seagreen; color: white; padding: 8px 16px; border-radius: 4px; border: none; cursor: pointer; pointer-events: none;">Lisa pilt</button>
+                    <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; overflow: hidden;">
+                      <ImageInput @event-new-image-selected="setNewUserImageData"/>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div class="row mt-3">
-        <div class="col-md-6 offset-md-3 text-center">
-          <div class="form-check d-inline-block text-start">
-            <input v-model="newUser.consent" id="consentCheckbox" class="form-check-input" type="checkbox" style="border-color: darkgreen">
-            <label for="consentCheckbox" class="form-check-label ms-2">
-              Olen nõus <a href="/kasutustingimused" target="_blank">kasutustingimustega</a>
-            </label>
+          <div class="row mt-3">
+            <div class="col-md-6 offset-md-3 text-center">
+              <div class="form-check d-inline-block text-start">
+                <input v-model="newUser.consent" id="consentCheckbox" class="form-check-input" type="checkbox" style="border-color: darkgreen">
+                <label for="consentCheckbox" class="form-check-label ms-2">
+                  Olen nõus <a href="/kasutustingimused" target="_blank">kasutustingimustega</a>
+                </label>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div class="row mt-3">
-        <div class="col-md-6 offset-md-3 text-center">
-            <button @click="addNewUser" type="button" class="btn btn-success me-3">Registreeri</button>
-            <button @click="navigateToHomeView" type="button" class="btn btn-secondary">Katkesta</button>
+          <div class="row mt-3">
+            <div class="col-md-6 offset-md-3 text-center">
+              <button @click="addNewUser" type="button" class="btn btn-success me-3">Registreeri</button>
+              <button @click="navigateToHomeView" type="button" class="btn btn-secondary">Katkesta</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
