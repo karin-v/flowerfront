@@ -8,10 +8,14 @@
 
       <div class="col col-3">
         <div class="mb-4 d-flex justify-content-end align-items-center">
-          <TransactionTypeDropdown :transactiontypes="transactionTypes" :selected-transactiontype-id="transactionTypes.transactionTypeId"/>
+          <TransactionTypeDropdown :transaction-types="transactionTypes"
+                                   @event-new-transaction-type-selected="setNewItemTransactionTypeId"
+
+          />
         </div>
         <div class="mb-4 d-flex justify-content-end align-items-center">
-          <CategoriesDropdown :categories="categories" :selected-category-id="categories.categoryId"/>
+          <CategoriesDropdown :categories="categories"
+                              @event-new-category-selected="setNewItemCategoryId"/>
         </div>
 
         <div class="mb-4 d-flex justify-content-end align-items-center">
@@ -20,7 +24,7 @@
         </div>
         <div class="mb-4 d-flex justify-content-end align-items-center">
           <label class="form-text">Kogus</label>
-          <input v-model="newItem.totalQuantity" type="text" class="form-control w-auto ms-3">
+          <input v-model="newItem.totalQuantity" type="number" class="form-control w-auto ms-3">
         </div>
 
         <div class="mb-4 d-flex justify-content-end align-items-center">
@@ -31,12 +35,26 @@
 
       </div>
 
-      <div class="col col-3">
+      <div class="col col-3 justify-content-center" >
         <div class="mb-4 d-flex justify-content-end align-items-center">
-          <CountyDropdown :counties="counties" :selected-county-id="counties.countyId"/>
+          <CountyDropdown :counties="counties" :selected-county-id="counties.countyId"
+            @event-new-county-selected="updateRegionsDropdown"
+          />
         </div>
         <div class="mb-4 d-flex justify-content-end align-items-center">
-          <RegionDropdown :regions="regions" :selected-region-id="regions.regionId"/>
+          <RegionDropdown :regions="regions" :selected-region-id="newItem.regionId"
+                          @event-new-region-selected="setNewItemRegionId"/>
+        </div>
+        <div>
+          <div>
+
+            <ItemImage :imageData="newItem.imageData"/>
+
+          </div>
+
+          <div>
+            <ImageInput @event-new-image-selected="setNewItemImageData"/>
+          </div>
         </div>
       </div>
     </div>
@@ -52,6 +70,7 @@
 
 
 <script>
+import TransactionTypeDropdown from "@/components/transaction/TransactionTypeDropdown.vue";
 import CategoriesDropdown from "@/components/category/CategoriesDropdown.vue";
 import CountyDropdown from "@/components/county/CountyDropdown.vue";
 import RegionDropdown from "@/components/region/RegionDropdown.vue";
@@ -63,19 +82,24 @@ import ItemService from "@/services/ItemService";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 import AlertSuccess from "@/components/alert/AlertSuccess.vue";
 import TransactionTypeService from "@/services/TransactionTypeService";
-import TransactionTypeDropdown from "@/components/transaction/TransactionTypeDropdown.vue";
+import ImageInput from "@/components/image/ImageInput.vue";
+import ItemImage from "@/components/image/ItemImage.vue";
 
 
 export default {
   name: 'AddItemView',
-  components: {TransactionTypeDropdown, CategoriesDropdown, CountyDropdown, RegionDropdown, AlertDanger, AlertSuccess},
+  components: {
+    ItemImage,
+    ImageInput,
+    TransactionTypeDropdown, CategoriesDropdown, CountyDropdown, RegionDropdown, AlertDanger, AlertSuccess
+  },
   data() {
     return {
       successMessage: '',
       errorMessage: '',
-      newItem: {
 
-      userId: 0,
+      newItem: {
+        userId: Number(sessionStorage.getItem('userId')),
         categoryId: 0,
         countyId: 0,
         regionId: 0,
@@ -83,16 +107,17 @@ export default {
         name: '',
         description: '',
         totalQuantity: 0,
-        availableQuantity: 0,
-        data: '',
+        imageData: '',
 
       },
+
       categories: [
         {
           categoryId: 0,
           categoryName: '',
         }
       ],
+
       counties: [
         {
           countyId: 0,
@@ -105,6 +130,7 @@ export default {
           regionName: '',
         }
       ],
+
       transactionTypes: [
         {
           transactionTypeId: 0,
@@ -113,7 +139,26 @@ export default {
       ],
     }
   },
+
   methods: {
+
+    setNewItemTransactionTypeId(transactionTypeId) {
+      this.newItem.transactionTypeId = transactionTypeId
+    },
+    setNewItemCategoryId(categoryId){
+      this.newItem.categoryId = categoryId
+    },
+
+    setNewItemCountyId(countyId){
+      this.newItem.countyId = countyId
+    },
+    updateRegionsDropdown(selectedCountyId) {
+      this.newItem.countyId = selectedCountyId
+      this.getRegionsByCountyId(this.newItem.countyId)
+    },
+    setNewItemRegionId(regionId) {
+      this.newItem.regionId = regionId
+    },
 
     getAllTransactionTypes() {
       TransactionTypeService.sendGetTransactionTypeRequest()
@@ -122,7 +167,7 @@ export default {
     },
 
     handleGetTransactionTypeRequest(response) {
-      this.categories = response.data;
+      this.transactionTypes = response.data;
     },
 
     getAllCategories() {
@@ -144,8 +189,9 @@ export default {
     handleGetCountiesResponse(response) {
       this.counties = response.data;
     },
-    getAllRegions() {
-      RegionService.sendGetRegionsRequest()
+
+    getRegionsByCountyId(selectedCountyId) {
+      RegionService.sendGetRegionsRequest(selectedCountyId)
           .then(response => this.handleGetRegionsResponse(response))
           .catch(() => NavigationService.navigateToErrorView())
     },
@@ -180,12 +226,19 @@ export default {
       this.regions.regionId = 0
       this.transactionTypes.transactionTypeId = 0
     },
-  },
-    beforeMount() {
-      this.getAllCategories()
-      this.getAllCounties()
-      this.getAllRegions()
-      this.getAllTransactionTypes()
+    setNewItemImageData(imageData) {
+      if (imageData && imageData.length > 0) {
+        this.newItem.imageData = imageData;
+      } else {
+        this.newItem.imageData = ''; // Set empty if no image
+      }
     },
-  }
+  },
+  beforeMount() {
+    this.getAllCategories()
+    this.getAllCounties()
+    this.getRegionsByCountyId(this.newItem.countyId)
+    this.getAllTransactionTypes()
+  },
+}
 </script>
