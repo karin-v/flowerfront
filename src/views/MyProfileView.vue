@@ -64,10 +64,46 @@ import AlertDanger from "@/components/alert/AlertDanger.vue";
 import AlertSuccess from "@/components/alert/AlertSuccess.vue";
 import ImageInput from "@/components/image/ImageInput.vue";
 import UserImage from "@/components/image/UserImage.vue";
+import UserService from "@/services/UserService";
+import axios from "axios";
 
 export default {
   name: "ProfileView" ,
-  components: {UserImage, ImageInput, AlertSuccess, AlertDanger}
+  components: {UserImage, ImageInput, AlertSuccess, AlertDanger},
+  data() {
+    return {
+      userId: Number(sessionStorage.getItem('userId')),
+      user: {
+        username: '',
+        email: '',
+        userImage: ''
+      }
+    }
+
+  },
+  methods: {
+
+    getUserInfo(userId) {
+      UserService.sendGetUserInfoReguest(userId)
+      {
+        axios.get('/user')
+            .then(response => this.someDataBlockResponseObject = response.data)
+            .catch(error => this.someDataBlockErrorResponseObject = error.response.data)
+      }
+
+    }
+
+
+   },
+
+
+    // todo: siia tuleb meetod mis saadab backendile sõnumi user profile andmete ära toomiseks
+
+  beforeMount() {
+
+  //todo: kutsu välja meetod mis toob ära user profile andmed
+  }
+
 }
 </script>
 
