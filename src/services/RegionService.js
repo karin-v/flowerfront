@@ -2,7 +2,11 @@ import axios from "axios";
 
 export default {
 
-    sendGetRegionsRequest() {
-        return axios.get('/regions');
+    sendGetRegionsRequest(countyId) {
+        return axios.get('/regions', {
+            params: {
+                countyId: countyId
+            }
+        });
     }
 }

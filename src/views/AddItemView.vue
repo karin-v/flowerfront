@@ -8,8 +8,10 @@
 
       <div class="col col-3">
         <div class="mb-4 d-flex justify-content-end align-items-center">
-          <TransactionTypeDropdown :transactiontypes="transactionTypes"
-                                   :selected-transactiontype-id="transactionTypes.transactionTypeId"/>
+          <TransactionTypeDropdown :transaction-types="transactionTypes"
+                                   @event-new-transaction-type-selected="setNewItemTransactionTypeId"
+
+          />
         </div>
         <div class="mb-4 d-flex justify-content-end align-items-center">
           <CategoriesDropdown :categories="categories" :selected-category-id="categories.categoryId"/>
@@ -34,10 +36,12 @@
 
       <div class="col col-3 justify-content-center" >
         <div class="mb-4 d-flex justify-content-end align-items-center">
-          <CountyDropdown :counties="counties" :selected-county-id="counties.countyId"/>
+          <CountyDropdown :counties="counties" :selected-county-id="counties.countyId"
+            @event-new-county-selected="updateRegionsDropdown"
+          />
         </div>
         <div class="mb-4 d-flex justify-content-end align-items-center">
-          <RegionDropdown :regions="regions" :selected-region-id="regions.regionId"/>
+          <RegionDropdown :regions="regions" :selected-region-id="newItem.regionId" />
         </div>
         <div>
           <div>
@@ -64,6 +68,7 @@
 
 
 <script>
+import TransactionTypeDropdown from "@/components/transaction/TransactionTypeDropdown.vue";
 import CategoriesDropdown from "@/components/category/CategoriesDropdown.vue";
 import CountyDropdown from "@/components/county/CountyDropdown.vue";
 import RegionDropdown from "@/components/region/RegionDropdown.vue";
@@ -75,7 +80,6 @@ import ItemService from "@/services/ItemService";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 import AlertSuccess from "@/components/alert/AlertSuccess.vue";
 import TransactionTypeService from "@/services/TransactionTypeService";
-import TransactionTypeDropdown from "@/components/transaction/TransactionTypeDropdown.vue";
 import ImageInput from "@/components/image/ImageInput.vue";
 import ItemImage from "@/components/image/ItemImage.vue";
 
@@ -91,9 +95,9 @@ export default {
     return {
       successMessage: '',
       errorMessage: '',
-      newItem: {
 
-        userId: 0,
+      newItem: {
+        userId: sessionStorage.getItem('userId'),
         categoryId: 0,
         countyId: 0,
         regionId: 0,
@@ -101,16 +105,17 @@ export default {
         name: '',
         description: '',
         totalQuantity: 0,
-        availableQuantity: 0,
         imageData: '',
 
       },
+
       categories: [
         {
           categoryId: 0,
           categoryName: '',
         }
       ],
+
       counties: [
         {
           countyId: 0,
@@ -123,6 +128,7 @@ export default {
           regionName: '',
         }
       ],
+
       transactionTypes: [
         {
           transactionTypeId: 0,
@@ -131,7 +137,17 @@ export default {
       ],
     }
   },
+
   methods: {
+
+    setNewItemTransactionTypeId(transactionTypeId) {
+      this.newItem.transactionTypeId = transactionTypeId
+    },
+
+    updateRegionsDropdown(selectedCountyId) {
+      this.newItem.countyId = selectedCountyId
+      this.getRegionsByCountyId(this.newItem.countyId)
+    },
 
     getAllTransactionTypes() {
       TransactionTypeService.sendGetTransactionTypeRequest()
@@ -140,7 +156,7 @@ export default {
     },
 
     handleGetTransactionTypeRequest(response) {
-      this.categories = response.data;
+      this.transactionTypes = response.data;
     },
 
     getAllCategories() {
@@ -162,8 +178,9 @@ export default {
     handleGetCountiesResponse(response) {
       this.counties = response.data;
     },
-    getAllRegions() {
-      RegionService.sendGetRegionsRequest()
+
+    getRegionsByCountyId(selectedCountyId) {
+      RegionService.sendGetRegionsRequest(selectedCountyId)
           .then(response => this.handleGetRegionsResponse(response))
           .catch(() => NavigationService.navigateToErrorView())
     },
@@ -209,7 +226,7 @@ export default {
   beforeMount() {
     this.getAllCategories()
     this.getAllCounties()
-    this.getAllRegions()
+    this.getRegionsByCountyId(this.newItem.countyId)
     this.getAllTransactionTypes()
   },
 }

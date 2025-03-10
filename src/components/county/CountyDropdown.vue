@@ -1,7 +1,7 @@
 <template>
-  <select @change="handleCountyDropdownChange" class="form-select">
+  <select :value="selectedCountyId" @change="handleCountyDropdownChange" class="form-select">
     <option selected value=0>Vali maakond</option>
-    <option v-for="county in counties" :key="county.countyId">{{county.countyName}}</option>
+    <option v-for="county in counties" :key="county.countyId" :value="county.countyId">{{county.countyName}}</option>
   </select>
 </template>
 

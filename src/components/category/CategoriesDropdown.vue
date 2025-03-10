@@ -1,7 +1,7 @@
 <template>
-  <select @change="handleCategoryDropdownChange" class="form-select">
+  <select :value="selectedCategoryId" @change="handleCategoryDropdownChange" class="form-select">
     <option selected value=0>Vali kategooria</option>
-    <option v-for="category in categories" :key="category.categoryId">{{category.categoryName}}</option>
+    <option v-for="category in categories" :key="category.categoryId" :value="category.categoryId">{{category.categoryName}}</option>
   </select>
 </template>
 
