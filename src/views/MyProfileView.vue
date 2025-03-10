@@ -10,20 +10,20 @@
             </div>
           </div>
 
-          <div class="row mt-5">
-            <div class="col-md-6 ps-0">
-              <div class="mb-4 d-flex flex-column align-items-center">
-                <div>
+          <div class="row mt-5 justify-content-center">
+            <div class="col-md-5">
+              <div>
+
                   <UserImage :image-data="user.userImage" alt="Profiilipilt"/>
                   <!--                  <img :src="user.userImage" alt="Profiilipilt"/>-->
+
+
+                <div class="ms-2">
+                  <label class="form-text">Kasutajanimi: {{ user.username }}</label>
                 </div>
 
-                <div>
-                  <label class="form-text">{{ user.username }}</label>
-                </div>
-
-                <div>
-                  <label class="form-text">{{ user.email }}</label>
+                <div class="ms-2">
+                  <label class="form-text">Email: {{ user.email }}</label>
                 </div>
 
                 <!--                <div>-->
@@ -33,21 +33,21 @@
               </div>
             </div>
 
-            <div class="col-md-6 pe-3">
-              <div class="mb-4">
-                <button type="button" class="btn btn-success me-3">Minu kuulutused</button>
+            <div class="col-md-4 justify-content-center me-2">
+              <div class="mt-1 mb-4">
+                <button type="button" class="btn btn-outline-secondary" style="color: seagreen" aria-expanded="false">Minu kuulutused</button>
               </div>
 
               <div>
-                <button type="button" class="btn btn-success me-3">Minu tehingud</button>
+                <button type="button" class="btn btn-outline-secondary" style="color: seagreen" aria-expanded="false">Minu tehingud</button>
               </div>
 
             </div>
           </div>
         </div>
 
-        <div class="row mt-3">
-          <div class="col-md-6 offset-md-3 text-center">
+        <div class="row mt-5 justify-content-center ms-4">
+          <div class="col-md-6">
 
             <button type="button" class="btn btn-success me-3">Muuda andmeid</button>
             <button type="button" class="btn btn-success me-3">Avalehele</button>
