@@ -14,7 +14,8 @@
           />
         </div>
         <div class="mb-4 d-flex justify-content-end align-items-center">
-          <CategoriesDropdown :categories="categories" :selected-category-id="categories.categoryId"/>
+          <CategoriesDropdown :categories="categories"
+                              @event-new-category-selected="setNewItemCategoryId"/>
         </div>
 
         <div class="mb-4 d-flex justify-content-end align-items-center">
@@ -41,7 +42,8 @@
           />
         </div>
         <div class="mb-4 d-flex justify-content-end align-items-center">
-          <RegionDropdown :regions="regions" :selected-region-id="newItem.regionId" />
+          <RegionDropdown :regions="regions" :selected-region-id="newItem.regionId"
+                          @event-new-region-selected="setNewItemRegionId"/>
         </div>
         <div>
           <div>
@@ -143,10 +145,19 @@ export default {
     setNewItemTransactionTypeId(transactionTypeId) {
       this.newItem.transactionTypeId = transactionTypeId
     },
+    setNewItemCategoryId(categoryId){
+      this.newItem.categoryId = categoryId
+    },
 
+    setNewItemCountyId(countyId){
+      this.newItem.countyId = countyId
+    },
     updateRegionsDropdown(selectedCountyId) {
       this.newItem.countyId = selectedCountyId
       this.getRegionsByCountyId(this.newItem.countyId)
+    },
+    setNewItemRegionId(regionId) {
+      this.newItem.regionId = regionId
     },
 
     getAllTransactionTypes() {
