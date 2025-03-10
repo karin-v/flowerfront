@@ -24,7 +24,7 @@
         </div>
         <div class="mb-4 d-flex justify-content-end align-items-center">
           <label class="form-text">Kogus</label>
-          <input v-model="newItem.totalQuantity" type="text" class="form-control w-auto ms-3">
+          <input v-model="newItem.totalQuantity" type="number" class="form-control w-auto ms-3">
         </div>
 
         <div class="mb-4 d-flex justify-content-end align-items-center">
@@ -99,7 +99,7 @@ export default {
       errorMessage: '',
 
       newItem: {
-        userId: sessionStorage.getItem('userId'),
+        userId: Number(sessionStorage.getItem('userId')),
         categoryId: 0,
         countyId: 0,
         regionId: 0,
