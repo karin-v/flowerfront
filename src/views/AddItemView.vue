@@ -214,7 +214,7 @@ export default {
     handleAddNewItemSuccessMessage() {
       this.successMessage = 'Uus kuulutus lisatud'
       setTimeout(this.resetAllFields, 2000)
-      NavigationService.navigateToRegisterView();
+      NavigationService.navigateToHomeView();
     },
 
     resetAllFields() {
