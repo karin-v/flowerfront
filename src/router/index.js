@@ -6,12 +6,13 @@ import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
 import AddItemView from "@/views/AddItemView.vue";
 import MyProfileView from "@/views/MyProfileView.vue";
+import ErrorView from "@/views/ErrorView.vue";
 
 const routes = [
     {
         path: '/error',
         name: 'errorRoute',
-        component: GiveAway
+        component: ErrorView
     },
     {
         path: '/items-giveaway',

@@ -10,4 +10,4 @@ export default {
     message: String
   }
 }
-</script>z
+</script>

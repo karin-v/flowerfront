@@ -14,20 +14,21 @@
             <div class="col-md-6 ps-0">
               <div class="mb-4 d-flex flex-column align-items-center">
                 <div>
-<!--                  <UserImage/>--> Siia tuleb pilt
+                  <UserImage :image-data="user.userImage" alt="Profiilipilt"/>
+                  <!--                  <img :src="user.userImage" alt="Profiilipilt"/>-->
                 </div>
 
                 <div>
-                  <label class="form-text">Kasutajanimi</label>
+                  <label class="form-text">{{ user.username }}</label>
                 </div>
 
                 <div>
-                  <label class="form-text">E-mail</label>
+                  <label class="form-text">{{ user.email }}</label>
                 </div>
 
-                <div>
-                  <label class="form-text">Parool</label>
-                </div>
+                <!--                <div>-->
+                <!--                  <label class="form-text">Parool</label>-->
+                <!--                </div>-->
 
               </div>
             </div>
@@ -65,10 +66,10 @@ import AlertSuccess from "@/components/alert/AlertSuccess.vue";
 import ImageInput from "@/components/image/ImageInput.vue";
 import UserImage from "@/components/image/UserImage.vue";
 import UserService from "@/services/UserService";
-import axios from "axios";
+import NavigationService from "@/services/NavigationService";
 
 export default {
-  name: "ProfileView" ,
+  name: "ProfileView",
   components: {UserImage, ImageInput, AlertSuccess, AlertDanger},
   data() {
     return {
@@ -77,36 +78,34 @@ export default {
         username: '',
         email: '',
         userImage: ''
+      },
+      errorResponse: {
+        message: '',
+        errorCode: 0
       }
     }
-
   },
   methods: {
 
-    getUserInfo(userId) {
-      UserService.sendGetUserInfoReguest(userId)
-      {
-        axios.get('/user')
-            .then(response => this.handleGetUserInfoResponse = response.data)
-            .catch(error => this.someDataBlockErrorResponseObject = error.response.data)
-      }
+    getUserInfo() {
+      UserService.sendGetUserInfoRequest(this.userId)
+          .then(response => this.handleGetUserInfoResponse(response))
+          .catch(() => NavigationService.navigateToErrorView())
+    },
 
-      handleGetUserInfoResponse(response)
-      {
-        this.user = response.data;
-      }
-
+    handleGetUserInfoResponse(response) {
+      this.user = response.data;
     }
-
-
-   },
-
-
     // todo: siia tuleb meetod mis saadab backendile sõnumi user profile andmete ära toomiseks
+
+  },
+
 
   beforeMount() {
 
-  //todo: kutsu välja meetod mis toob ära user profile andmed
+    this.getUserInfo()
+
+    //todo: kutsu välja meetod mis toob ära user profile andmed
   }
 
 }

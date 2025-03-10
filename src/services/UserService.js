@@ -2,8 +2,12 @@ import axios from "axios";
 
 export default {
 
-    sendGetUserInfoRequest(user) {
-        return axios.get('/user')
+    sendGetUserInfoRequest(userId) {
+        return axios.get('/user', {
+            params: {
+                userId: userId
+            }
+        })
     }
 }
 
