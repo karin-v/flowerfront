@@ -87,8 +87,13 @@ export default {
       UserService.sendGetUserInfoReguest(userId)
       {
         axios.get('/user')
-            .then(response => this.someDataBlockResponseObject = response.data)
+            .then(response => this.handleGetUserInfoResponse = response.data)
             .catch(error => this.someDataBlockErrorResponseObject = error.response.data)
+      }
+
+      handleGetUserInfoResponse(response)
+      {
+        this.user = response.data;
       }
 
     }
