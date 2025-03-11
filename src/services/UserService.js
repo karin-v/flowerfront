@@ -11,7 +11,7 @@ export default {
     },
 
     sendPutUpdateUserRequest(userId, user) {
-        return axios.put('/some/path', null, {
+        return axios.put('/user', user, {
                 params: {
                     userId: userId
                 }
