@@ -1,8 +1,12 @@
 <template>
   <div>
+    <div class="row justify-content-center mt-3">
     <h1>Uue kuulutuse lisamine</h1>
 
-
+    <AlertSuccess :message="successMessage"/>
+    <AlertDanger :message="errorMessage"/>
+    </div>
+  </div>
     <div class="row justify-content-center mt-3">
 
 
@@ -73,7 +77,6 @@
     </div>
 
 
-  </div>
 </template>
 
 
@@ -152,24 +155,6 @@ export default {
 
   methods: {
 
-    setNewItemTransactionTypeId(transactionTypeId) {
-      this.newItem.transactionTypeId = transactionTypeId
-    },
-    setNewItemCategoryId(categoryId){
-      this.newItem.categoryId = categoryId
-    },
-
-    setNewItemCountyId(countyId){
-      this.newItem.countyId = countyId
-    },
-    updateRegionsDropdown(selectedCountyId) {
-      this.newItem.countyId = selectedCountyId
-      this.getRegionsByCountyId(this.newItem.countyId)
-    },
-    setNewItemRegionId(regionId) {
-      this.newItem.regionId = regionId
-    },
-
     getAllTransactionTypes() {
       TransactionTypeService.sendGetTransactionTypeRequest()
           .then(response => this.handleGetTransactionTypeRequest(response))
@@ -210,21 +195,39 @@ export default {
       return this.regions = response.data;
     },
 
+    setNewItemTransactionTypeId(transactionTypeId) {
+      this.newItem.transactionTypeId = transactionTypeId
+    },
+    setNewItemCategoryId(categoryId){
+      this.newItem.categoryId = categoryId
+    },
+
+    setNewItemCountyId(countyId){
+      this.newItem.countyId = countyId
+    },
+    updateRegionsDropdown(selectedCountyId) {
+      this.newItem.countyId = selectedCountyId
+      this.getRegionsByCountyId(this.newItem.countyId)
+    },
+    setNewItemRegionId(regionId) {
+      this.newItem.regionId = regionId
+    },
+
     addNewItem() {
       ItemService.sendPostItemRequest(this.newItem)
           .then(response => this.handleAddNewItemResponse(response))
           .catch(() => NavigationService.navigateToErrorView())
     },
 
-    handleAddNewItemResponse() {
-      this.handleAddNewItemSuccessMessage()
+    handleAddNewItemResponse(response) {
+      this.handleAddNewItemSuccessMessage(response)
       this.resetAllFields()
     },
 
     handleAddNewItemSuccessMessage() {
       this.successMessage = 'Uus kuulutus lisatud'
-      setTimeout(this.resetAllFields, 2000)
-      NavigationService.navigateToHomeView();
+      setTimeout(this.resetAllFields, 4000)
+
     },
 
     resetAllFields() {
