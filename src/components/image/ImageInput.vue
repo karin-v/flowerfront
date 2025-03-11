@@ -1,7 +1,8 @@
 <template>
   <div>
     <div class="mb-3">
-      <input type="file" @change="handleImage" accept="image/x-png,image/jpeg,image/gif">
+      <label for="file-input" class="btn btn-success">Lisa pilt</label>
+      <input type="file" id="file-input" @change="handleImage" accept="image/x-png,image/jpeg,image/gif" hidden>
     </div>
   </div>
 </template>
