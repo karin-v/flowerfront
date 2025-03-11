@@ -47,14 +47,22 @@
         </div>
         <div>
           <div>
+            <div class="ps-0 d-flex flex-column align-items-center">
+              <div class="mb-3">
 
             <ItemImage :imageData="newItem.imageData"/>
 
-          </div>
 
-          <div>
-            <ImageInput @event-new-image-selected="setNewItemImageData"/>
-          </div>
+            </div>
+            </div>
+              <div style="position: relative; display: inline-block;">
+                <button type="button" style="background-color: seagreen; color: white; padding: 8px 16px; border-radius: 4px; border: none; cursor: pointer; pointer-events: none;">Lisa pilt</button>
+                <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; overflow: hidden;">
+                  <ImageInput @event-new-image-selected="setNewItemImageData"/>
+                </div>
+              </div>
+            </div>
+
         </div>
       </div>
     </div>
@@ -84,11 +92,13 @@ import AlertSuccess from "@/components/alert/AlertSuccess.vue";
 import TransactionTypeService from "@/services/TransactionTypeService";
 import ImageInput from "@/components/image/ImageInput.vue";
 import ItemImage from "@/components/image/ItemImage.vue";
+import UserImage from "@/components/image/UserImage.vue";
 
 
 export default {
   name: 'AddItemView',
   components: {
+    UserImage,
     ItemImage,
     ImageInput,
     TransactionTypeDropdown, CategoriesDropdown, CountyDropdown, RegionDropdown, AlertDanger, AlertSuccess
