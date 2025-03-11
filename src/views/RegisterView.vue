@@ -41,15 +41,7 @@
               <div class="ps-0 d-flex flex-column align-items-center">
                 <div class="mb-3">
                   <UserImage :imageData="newUser.imageData"/>
-                </div>
-
-                <div>
-                  <div style="position: relative; display: inline-block;">
-                    <button type="button" style="background-color: seagreen; color: white; padding: 8px 16px; border-radius: 4px; border: none; cursor: pointer; pointer-events: none;">Lisa pilt</button>
-                    <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; overflow: hidden;">
-                      <ImageInput @event-new-image-selected="setNewUserImageData"/>
-                    </div>
-                  </div>
+                  <ImageInput class="mt-2" @event-new-image-selected="setNewUserImageData"/>
                 </div>
               </div>
             </div>
