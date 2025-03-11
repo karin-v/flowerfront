@@ -65,41 +65,6 @@
   <router-view @event-update-nav-menu="updateNavMenu"/>
 </template>
 
-<!--<template>-->
-<!--  <nav>-->
-
-<!--    <a href="/"><h1>TAIMERINGLUS</h1></a>-->
-
-<!--    <router-link to="/items-giveaway">Annan ära</router-link>-->
-<!--    |-->
-<!--    <router-link to="/items-wish">Soovin leida</router-link>-->
-<!--    |-->
-
-<!--    <template v-if="isLoggedIn">-->
-<!--      <router-link to="/add-item">Lisa kuulutus</router-link>-->
-<!--      |-->
-<!--      <router-link to="/my-profile">Minu profiil</router-link>-->
-<!--      |-->
-<!--      <button @click="logOut" type="button" class="btn-outline-success">Logi välja</button>-->
-
-<!--    </template>-->
-
-<!--    <template v-else>-->
-<!--      <router-link to="/login">Logi sisse</router-link>-->
-<!--      |-->
-<!--      <router-link to="/register"> Registreeri</router-link>-->
-<!--    </template>-->
-<!--    <router-link to="/search">-->
-<!--      <div class="input-group mb-3">-->
-<!--        <input type="text" class="form-control" placeholder="Otsi märksõna järgi" aria-label="Otsi märksõna järgi"-->
-<!--               aria-describedby="basic-addon2">-->
-<!--        <span class="input-group-text" id="basic-addon2">Otsi</span>-->
-<!--      </div>-->
-<!--    </router-link>-->
-<!--  </nav>-->
-<!--  <router-view @event-update-nav-menu="updateNavMenu"/>-->
-<!--</template>-->
-
 <script>
 import router from "@/router";
 
@@ -124,9 +89,7 @@ export default {
   }
 }
 
-
 </script>
-
 
 <style>
 #app {
