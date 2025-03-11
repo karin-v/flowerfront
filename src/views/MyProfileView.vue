@@ -60,7 +60,7 @@
           <div class="col-md-6">
 
             <button @click="openUserInfoModal" type="button" class="btn btn-success me-3">Muuda andmeid</button>
-            <button type="button" class="btn btn-success me-3">Avalehele</button>
+            <button @click="navigateToHomeView" type="button" class="btn btn-success me-3">Avalehele</button>
             <button type="button" class="btn btn-secondary">Kustuta konto</button>
 
           </div>
@@ -149,6 +149,10 @@ export default {
     resetAllMessages() {
       this.successMessage = ''
       this.errorMessage = ''
+    },
+
+    navigateToHomeView() {
+      NavigationService.navigateToHomeView()
     }
   },
 
