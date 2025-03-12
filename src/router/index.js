@@ -7,6 +7,7 @@ import RegisterView from "@/views/RegisterView.vue";
 import AddItemView from "@/views/AddItemView.vue";
 import MyProfileView from "@/views/MyProfileView.vue";
 import ErrorView from "@/views/ErrorView.vue";
+import ItemView from "@/views/ItemView.vue";
 
 const routes = [
     {
@@ -48,6 +49,11 @@ const routes = [
         path: '/',
         name: 'homeRoute',
         component: HomeView
+    },
+    {
+        path: '/item',
+        name: 'itemRoute',
+        component: ItemView
     }
 ]
 
