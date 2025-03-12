@@ -17,7 +17,15 @@ export default {
                 }
             }
         )
-    }
+    },
+    getItemByItemId() {
+    return axios.get('/item', {
+        params: {
+            itemId: this.item.itemId
+        }
+    })
+
+    },
 
 }
 
