@@ -7,7 +7,7 @@
       <td class="col col-2"><a href="#" @click="">Tootenimetus: {{ item.itemName }}</a>
       <p>Asukoht: {{ item.regionName }}</p>
         <p>Kasutaja: {{ item.username }}</p>
-        <button class="btn btn-success" @click="navigateToItemView">Vaata lisaks</button>
+        <button class="btn btn-success" @click="navigateToItemView(item.itemId)">Vaata lisaks</button>
 
       </td>
 
