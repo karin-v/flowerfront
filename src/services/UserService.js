@@ -8,6 +8,17 @@ export default {
                 userId: userId
             }
         })
+    },
+
+    sendPutUpdateUserRequest(userId, user) {
+        return axios.put('/user', user, {
+                params: {
+                    userId: userId
+                }
+            }
+        )
     }
+
+
 }
 
