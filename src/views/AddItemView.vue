@@ -1,80 +1,83 @@
 <template>
   <div>
     <div class="row justify-content-center mt-3">
-    <h1>Uue kuulutuse lisamine</h1>
+      <h1>Uue kuulutuse lisamine</h1>
 
-    <AlertSuccess :message="successMessage"/>
-    <AlertDanger :message="errorMessage"/>
+      <AlertSuccess :message="successMessage"/>
+      <AlertDanger :message="errorMessage"/>
     </div>
   </div>
-    <div class="row justify-content-center mt-3">
+  <div class="row justify-content-center mt-3">
 
 
-      <div class="col col-3">
-        <div class="mb-4 d-flex justify-content-end align-items-center">
-          <TransactionTypeDropdown :transaction-types="transactionTypes"
-                                   @event-new-transaction-type-selected="setNewItemTransactionTypeId"
+    <div class="col col-3">
+      <div class="mb-4 d-flex justify-content-end align-items-center">
+        <TransactionTypeDropdown :transaction-types="transactionTypes"
+                                 @event-new-transaction-type-selected="setNewItemTransactionTypeId"
 
-          />
-        </div>
-        <div class="mb-4 d-flex justify-content-end align-items-center">
-          <CategoriesDropdown :categories="categories"
-                              @event-new-category-selected="setNewItemCategoryId"/>
-        </div>
-
-        <div class="mb-4 d-flex justify-content-end align-items-center">
-          <label class="form-text">Toote nimi</label>
-          <input v-model="newItem.name" type="text" class="form-control w-auto ms-3">
-        </div>
-        <div class="mb-4 d-flex justify-content-end align-items-center">
-          <label class="form-text">Kogus</label>
-          <input v-model="newItem.totalQuantity" type="number" class="form-control w-auto ms-3">
-        </div>
-
-        <div class="mb-4 d-flex justify-content-end align-items-center">
-          <label class="form-text">Toote kirjeldus</label>
-          <textarea v-model="newItem.description" class="form-control" rows="3"></textarea>
-        </div>
-
-
+        />
+      </div>
+      <div class="mb-4 d-flex justify-content-end align-items-center">
+        <CategoriesDropdown :categories="categories"
+                            @event-new-category-selected="setNewItemCategoryId"/>
       </div>
 
-      <div class="col col-3 justify-content-center" >
-        <div class="mb-4 d-flex justify-content-end align-items-center">
-          <CountyDropdown :counties="counties" :selected-county-id="counties.countyId"
-            @event-new-county-selected="updateRegionsDropdown"
-          />
-        </div>
-        <div class="mb-4 d-flex justify-content-end align-items-center">
-          <RegionDropdown :regions="regions" :selected-region-id="newItem.regionId"
-                          @event-new-region-selected="setNewItemRegionId"/>
-        </div>
+      <div class="mb-4 d-flex justify-content-end align-items-center">
+        <label class="form-text">Toote nimi</label>
+        <input v-model="newItem.name" type="text" class="form-control w-auto ms-3">
+      </div>
+      <div class="mb-4 d-flex justify-content-end align-items-center">
+        <label class="form-text">Kogus</label>
+        <input v-model="newItem.totalQuantity" type="number" class="form-control w-auto ms-3">
+      </div>
+
+      <div class="mb-4 d-flex justify-content-end align-items-center">
+        <label class="form-text">Toote kirjeldus</label>
+        <textarea v-model="newItem.description" class="form-control" rows="3"></textarea>
+      </div>
+
+
+    </div>
+
+    <div class="col col-3 justify-content-center">
+      <div class="mb-4 d-flex justify-content-end align-items-center">
+        <CountyDropdown :counties="counties" :selected-county-id="counties.countyId"
+                        @event-new-county-selected="updateRegionsDropdown"
+        />
+      </div>
+      <div class="mb-4 d-flex justify-content-end align-items-center">
+        <RegionDropdown :regions="regions" :selected-region-id="newItem.regionId"
+                        @event-new-region-selected="setNewItemRegionId"/>
+      </div>
+      <div>
         <div>
-          <div>
-            <div class="ps-0 d-flex flex-column align-items-center">
-              <div class="mb-3">
+          <div class="ps-0 d-flex flex-column align-items-center">
+            <div class="mb-3">
 
-            <ItemImage :imageData="newItem.imageData"/>
+              <ItemImage :imageData="newItem.imageData"/>
 
 
             </div>
+          </div>
+          <div style="position: relative; display: inline-block;">
+            <button type="button"
+                    style="background-color: seagreen; color: white; padding: 8px 16px; border-radius: 4px; border: none; cursor: pointer; pointer-events: none;">
+              Lisa pilt
+            </button>
+            <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; overflow: hidden;">
+              <ImageInput @event-new-image-selected="setNewItemImageData"/>
             </div>
-              <div style="position: relative; display: inline-block;">
-                <button type="button" style="background-color: seagreen; color: white; padding: 8px 16px; border-radius: 4px; border: none; cursor: pointer; pointer-events: none;">Lisa pilt</button>
-                <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; overflow: hidden;">
-                  <ImageInput @event-new-image-selected="setNewItemImageData"/>
-                </div>
-              </div>
-            </div>
-
+          </div>
         </div>
+
       </div>
     </div>
-    <div class="row justify-content-center">
-      <div class="col-3">
-        <button @click="addNewItem" type="button" class="btn btn-outline-success">Lisa kuulutus</button>
-      </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-3">
+      <button @click="addNewItem" type="button" class="btn btn-outline-success">Lisa kuulutus</button>
     </div>
+  </div>
 
 
 </template>
@@ -95,13 +98,11 @@ import AlertSuccess from "@/components/alert/AlertSuccess.vue";
 import TransactionTypeService from "@/services/TransactionTypeService";
 import ImageInput from "@/components/image/ImageInput.vue";
 import ItemImage from "@/components/image/ItemImage.vue";
-import UserImage from "@/components/image/UserImage.vue";
 
 
 export default {
   name: 'AddItemView',
   components: {
-    UserImage,
     ItemImage,
     ImageInput,
     TransactionTypeDropdown, CategoriesDropdown, CountyDropdown, RegionDropdown, AlertDanger, AlertSuccess
@@ -198,11 +199,11 @@ export default {
     setNewItemTransactionTypeId(transactionTypeId) {
       this.newItem.transactionTypeId = transactionTypeId
     },
-    setNewItemCategoryId(categoryId){
+    setNewItemCategoryId(categoryId) {
       this.newItem.categoryId = categoryId
     },
 
-    setNewItemCountyId(countyId){
+    setNewItemCountyId(countyId) {
       this.newItem.countyId = countyId
     },
     updateRegionsDropdown(selectedCountyId) {
