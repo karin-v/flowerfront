@@ -7,7 +7,7 @@
       <td class="col col-2"><a href="#" @click="">Tootenimetus: {{ item.itemName }}</a>
       <p>Asukoht: {{ item.regionName }}</p>
         <p>Kasutaja: {{ item.username }}</p>
-        <button class="btn btn-success">Vaata lisaks</button>
+        <button class="btn btn-success" @click="navigateToItemView">Vaata lisaks</button>
 
       </td>
 
@@ -21,6 +21,7 @@
 <script>
 
 import ItemImage from "@/components/image/ItemImage.vue";
+import NavigationService from "@/services/NavigationService";
 
 export default {
   name: 'ItemsTable',
@@ -32,6 +33,11 @@ export default {
       default: () => []
     }
   },
+  methods:{
+    navigateToItemView(itemId) {
+      NavigationService.navigateToItemView(itemId)
+    },
+  }
 
 }
 </script>
