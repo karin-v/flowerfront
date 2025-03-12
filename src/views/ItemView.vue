@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="container text-center mt-4">
+    <div class="container mt-4">
       <div class="row mb-3">
-        <h4 style="color:#212529; font-family: 'Arial', sans-serif;"> Siia tuleb transaction type ja itemi nimi</h4>
+        <h4 style="color:#212529; font-family: 'Arial', sans-serif;"> Siia tuleb transaction type ja itemi nimi {{item.itemName}}</h4>
         <div class="col">
 
           <div class="mt-3">
@@ -33,7 +33,7 @@
 
         </div>
         <div class="col">
-          <div>
+          <div class="mt-3">
             Taimepilt
 
             <!--            <ItemImage :image-data="item.itemImage" alt="Taimepilt">-->
@@ -80,7 +80,7 @@ export default {
     return {
       item:
           {
-            itemId: 0,
+            itemId: '',
             itemName: '',
             description: '',
             username: '',
@@ -113,11 +113,11 @@ export default {
       NavigationService.navigateToHomeView()
     }
   },
-//todo: tee see hiljem aktiivseks kui back on valmis
-  //
-  // beforeMount() {
-  //   this.getItem(this.item.itemId)
-  // },
+
+
+  beforeMount() {
+    this.getItem()
+  },
 
 }
 </script>
