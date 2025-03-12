@@ -51,7 +51,7 @@ const routes = [
         component: HomeView
     },
     {
-        path: '/item',
+        path: '/item/:itemId?',
         name: 'itemRoute',
         component: ItemView
     }

@@ -2,23 +2,25 @@
   <div>
     <div class="container mt-4">
       <div class="row mb-3">
-        <h4 style="color:#212529; font-family: 'Arial', sans-serif;"> Siia tuleb transaction type ja itemi nimi {{item.itemName}}</h4>
+
+<!--        todo: TransactionType puudu???-->
+        <h4 style="color:#212529; font-family: 'Arial', sans-serif;"> Tehingu tüüp: {{ item.transactionType }} Toote nimi: {{item.itemName}}</h4>
         <div class="col">
 
           <div class="mt-3">
-            Too ära kirjeldus
+            <div>Kirjeldus: {{ item.description }}</div>
           </div>
           <div class="mt-1">
-            Kogus
+            <div>Kogus: {{item.availableQuantity}}</div>
           </div>
           <div class="mt-1">
-            Kategooria
+            <div>Kategooria: </div>
           </div>
           <div class="mt-3">
-            Kasutaja
+            <div>Kasutaja: {{item.username}}</div>
           </div>
           <div class="mt-1">
-            Asukoht
+            <div>Asukoht: {{item.regionName}}</div>
           </div>
           <div class="mt-1">
             Staatus
@@ -34,10 +36,11 @@
         </div>
         <div class="col">
           <div class="mt-3">
-            Taimepilt
 
-            <!--            <ItemImage :image-data="item.itemImage" alt="Taimepilt">-->
-            <!--            todo: tee aktiivseks ja lisa alla ItemImage ja import-->
+
+                        <ItemImage :image-data="item.itemImage" alt="Taimepilt"/>
+
+
           </div>
 
           <div class="mt-3">
@@ -51,8 +54,8 @@
           </div>
           <div>
             <div class="mt-3">
-              <button type="button" class="btn btn-outline-success me-3">Kustuta kuulutus</button>
-<!--              todo: siia Modal, mis küsib kustutamise kinnitust-->
+              <button type="button" class="btn btn-secondary me-3">Kustuta kuulutus</button>
+              <!--              todo: siia Modal, mis küsib kustutamise kinnitust-->
             </div>
           </div>
 
@@ -80,7 +83,7 @@ export default {
     return {
       item:
           {
-            itemId: '',
+            itemId: 0,
             itemName: '',
             description: '',
             username: '',
@@ -90,6 +93,7 @@ export default {
             transactionType: '',
             itemImage: ''
           },
+      localItemId: 0,  ///testimise eesmärgil lisatud
 
       errorResponse: {
         message: '',
@@ -98,12 +102,16 @@ export default {
     }
   },
   props: {
-    item: {}
+    itemId: {
+      type: Number,
+      required: true
+    }
   },
+
   methods: {
 
     getItem() {
-      ItemService.getItemByItemId(this.item.itemId)
+      ItemService.getItemByItemId(this.localItemId)
           .then(response => this.item = response.data)
           .catch(() => NavigationService.navigateToErrorView())
     },
@@ -114,10 +122,11 @@ export default {
     }
   },
 
-
   beforeMount() {
-    this.getItem()
-  },
+// todo: muuta tagasi, siin on testimise eesmärgil meetodit muudetud
+    this.localItemId = this.itemId || 2;  // Kui itemId ei ole saadaval, määrame vaikimisi 2
+    this.getItem();  // Päringu tegemiseks
+  }
 
 }
 </script>
