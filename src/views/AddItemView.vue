@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row justify-content-center mt-3">
-    <h1>Uue kuulutuse lisamine</h1>
+    <h4>Uue kuulutuse lisamine</h4>
 
     <AlertSuccess :message="successMessage"/>
     <AlertDanger :message="errorMessage"/>
@@ -72,7 +72,8 @@
     </div>
     <div class="row justify-content-center">
       <div class="col-3">
-        <button @click="addNewItem" type="button" class="btn btn-outline-success">Lisa kuulutus</button>
+        <button @click="addNewItem" type="button" class="btn btn-outline-success me-3">Lisa kuulutus</button>
+        <button @click="navigateToHomeView" type="button" class="btn btn-secondary">Katkesta</button>
       </div>
     </div>
 
@@ -205,6 +206,7 @@ export default {
     setNewItemCountyId(countyId){
       this.newItem.countyId = countyId
     },
+
     updateRegionsDropdown(selectedCountyId) {
       this.newItem.countyId = selectedCountyId
       this.getRegionsByCountyId(this.newItem.countyId)
@@ -246,6 +248,10 @@ export default {
         this.newItem.imageData = ''; // Set empty if no image
       }
     },
+
+    navigateToHomeView() {
+      NavigationService.navigateToHomeView()
+    }
   },
   beforeMount() {
     this.getAllCategories()
