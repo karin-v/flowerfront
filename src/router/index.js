@@ -1,7 +1,7 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import GiveAway from "@/views/GiveAway.vue";
-import WishList from "@/views/WishList.vue";
+import GiveAwayView from "@/views/GiveAwayView.vue";
+import WishListView from "@/views/WishListView.vue";
 import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
 import AddItemView from "@/views/AddItemView.vue";
@@ -17,12 +17,12 @@ const routes = [
     {
         path: '/items-giveaway',
         name: 'giveAwayRoute',
-        component: GiveAway
+        component: GiveAwayView
     },
     {
         path: '/items-wish',
         name: 'wishListRoute',
-        component: WishList
+        component: WishListView
     },
     {
         path: '/login',

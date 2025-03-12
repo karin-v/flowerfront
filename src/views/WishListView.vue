@@ -2,7 +2,7 @@
   <div class="container mt-4">
     <div class="row mb-3">
       <div class="col">
-        <h4 style="color:#212529; font-family: 'Arial', sans-serif;">Annan ära </h4>
+        <h4 style="color:#212529; font-family: 'Arial', sans-serif;">Soovin leida </h4>
       </div>
     </div>
 
@@ -54,7 +54,7 @@ export default {
   components: {ItemsTable, RegionDropdown, CountyDropdown, CategoriesDropdown},
   data() {
     return {
-      transactionTypeId: 1,
+      transactionTypeId: 2,
       selectedCategoryId: 0,
       selectedCountyId: 0,
       selectedRegionId: 0,
