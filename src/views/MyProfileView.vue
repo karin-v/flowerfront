@@ -85,7 +85,7 @@ export default {
   data() {
     return {
       modalIsOpen: false,
-      userId: Number(sessionStorage.getItem(2)),
+      userId: Number(sessionStorage.getItem('userId')),
       successMessage: '',
       errorMessage: '',
 
