@@ -87,6 +87,7 @@ export default {
           description: '',
           username: '',
           regionName: '',
+          countyName:'',
           totalQuantity: 0,
           availableQuantity: 0,
           itemImage: ''

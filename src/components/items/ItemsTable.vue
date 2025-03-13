@@ -5,7 +5,7 @@
       <td class="col col-2">
         <ItemImage  :image-data="item.itemImage"/></td>
       <td class="col col-2"><a href="#" @click="">Tootenimetus: {{ item.itemName }}</a>
-      <p>Asukoht: {{ item.regionName }}</p>
+      <p>Asukoht: {{item.countyName}}, {{ item.regionName }}</p>
         <p>Kasutaja: {{ item.username }}</p>
         <button class="btn btn-success" @click="navigateToItemView(item.itemId)">Vaata lisaks</button>
 
