@@ -95,7 +95,9 @@ export default {
             transactionType: '',
             itemImage: ''
           },
-      localItemId: 0,  ///testimise eesmärgil lisatud
+
+      // todo: testimise eesmärgil lisatud, võta see pärast ära, testimise eesmärgil, itemId peab tulema kaasa GiveAway lehelt
+      localItemId: 0,
 
       errorResponse: {
         message: '',
@@ -113,6 +115,7 @@ export default {
   methods: {
 
     getItem() {
+      // todo: vaheta pärast tagasi this.itemId, itemId peab kaasa tulema eelmiselt lehelt
       ItemService.getItemByItemId(this.localItemId)
           .then(response => this.item = response.data)
           .catch(() => NavigationService.navigateToErrorView())
@@ -125,9 +128,9 @@ export default {
   },
 
   beforeMount() {
-// todo: muuta tagasi, siin on testimise eesmärgil meetodit muudetud
+// todo: pärast jätta välja localItemId, siin on testimise eesmärgil meetodit muudetud
     this.localItemId = this.itemId || 2;  // Kui itemId ei ole saadaval, määrame vaikimisi 2
-    this.getItem();  // Päringu tegemiseks
+    this.getItem();
   }
 
 }
