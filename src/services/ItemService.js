@@ -19,13 +19,22 @@ export default {
         )
     },
     getItemByItemId(itemId) {
-    return axios.get('/item', {
-        params: {
-            itemId: itemId
-        }
-    })
+        return axios.get('/item', {
+            params: {
+                itemId: itemId
+            }
+        })
 
     },
+
+    updateItem(itemId) {
+        return axios.put('/item/:itemId?', itemId, {
+            params: {
+                someRequestParam1: itemId
+            }
+        })
+    }
+
 
 }
 
