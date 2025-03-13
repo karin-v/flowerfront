@@ -3,24 +3,25 @@
     <div class="container mt-4">
       <div class="row mb-3">
 
-<!--        todo: TransactionType puudu???-->
-        <h4 style="color:#212529; font-family: 'Arial', sans-serif;"> Tehingu tüüp: {{ item.transactionType }} Toote nimi: {{item.itemName}}</h4>
+        <!--        todo: TransactionType puudu???-->
+        <h4 style="color:#212529; font-family: 'Arial', sans-serif;"> Tehingu tüüp: {{ item.transactionType }} Toote
+          nimi: {{ item.itemName }}</h4>
         <div class="col">
 
           <div class="mt-3">
             <div>Kirjeldus: {{ item.description }}</div>
           </div>
           <div class="mt-1">
-            <div>Kogus: {{item.availableQuantity}}</div>
+            <div>Kogus: {{ item.availableQuantity }}</div>
           </div>
           <div class="mt-1">
-            <div>Kategooria: {{item.category}} </div>
+            <div>Kategooria: {{ item.category }}</div>
           </div>
           <div class="mt-3">
-            <div>Kasutaja: {{item.username}}</div>
+            <div>Kasutaja: {{ item.username }}</div>
           </div>
           <div class="mt-1">
-            <div>Asukoht: {{item.county}}, {{item.region}}</div>
+            <div>Asukoht: {{ item.county }}, {{ item.region }}</div>
           </div>
           <div class="mt-1">
             Staatus
@@ -38,7 +39,7 @@
           <div class="mt-3">
 
 
-                        <ItemImage :image-data="item.itemImage" alt="Taimepilt"/>
+            <ItemImage :image-data="item.itemImage" alt="Taimepilt"/>
 
 
           </div>
@@ -75,14 +76,15 @@ import NavigationService from "@/services/NavigationService";
 import UserImage from "@/components/image/UserImage.vue";
 import ItemImage from "@/components/image/ItemImage.vue";
 import ImageInput from "@/components/image/ImageInput.vue";
+import {useRoute} from "vue-router";
 
 export default {
   name: "ItemView",
   components: {ImageInput, ItemImage, UserImage},
   data() {
     return {
-      item:
-          {
+      itemId: useRoute().query.itemId,
+      item: {
             itemId: 0,
             itemName: '',
             category: '',
@@ -105,18 +107,12 @@ export default {
       }
     }
   },
-  props: {
-    itemId: {
-      type: Number,
-      required: true
-    }
-  },
 
   methods: {
 
-    getItem(itemId) {
+    getItem() {
       // todo: vaheta pärast tagasi this.itemId, itemId peab kaasa tulema eelmiselt lehelt
-      ItemService.getItemByItemId(itemId)
+      ItemService.getItemByItemId(this.itemId)
           .then(response => this.item = response.data)
           .catch(() => NavigationService.navigateToErrorView())
     },

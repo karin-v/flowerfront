@@ -18,11 +18,8 @@ export default {
     navigateToItemView(itemId) {
         router.push({
             name: 'itemRoute',
-            params: {
-                itemId: itemId
-            },
             query: {
-                edit: true
+                itemId: itemId
             }
         })
     },
