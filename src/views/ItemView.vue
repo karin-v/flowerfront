@@ -14,13 +14,13 @@
             <div>Kogus: {{item.availableQuantity}}</div>
           </div>
           <div class="mt-1">
-            <div>Kategooria: </div>
+            <div>Kategooria: {{item.category}} </div>
           </div>
           <div class="mt-3">
             <div>Kasutaja: {{item.username}}</div>
           </div>
           <div class="mt-1">
-            <div>Asukoht: {{item.regionName}}</div>
+            <div>Asukoht: {{item.county}}, {{item.region}}</div>
           </div>
           <div class="mt-1">
             Staatus
@@ -85,9 +85,11 @@ export default {
           {
             itemId: 0,
             itemName: '',
+            category: '',
             description: '',
             username: '',
-            regionName: '',
+            county: '',
+            region: '',
             totalQuantity: 0,
             availableQuantity: 0,
             transactionType: '',
