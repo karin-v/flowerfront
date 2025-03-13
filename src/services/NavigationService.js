@@ -14,5 +14,16 @@ export default {
     },
     navigateToLoginView() {
         router.push({name: 'loginRoute'})
-    }
+    },
+    navigateToItemView(itemId) {
+        router.push({
+            name: 'itemRoute',
+            params: {
+                itemId: itemId
+            },
+            query: {
+                edit: true
+            }
+        })
+    },
 }
