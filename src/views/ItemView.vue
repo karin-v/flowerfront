@@ -1,5 +1,11 @@
 <template>
   <div>
+    <NewMessageModal :modal-is-open="modalIsOpen"
+                     :itemId="item.itemId"
+                     :userId="item.userId"
+                     :email:="item.userEmail"
+                        @event-close-modal="closeModal"
+                       />
     <div class="container mt-4">
       <div class="row mb-3">
 
@@ -48,7 +54,7 @@
             <button type="button" class="btn btn-success me-3">Broneerin</button>
           </div>
           <div class="mt-3">
-            <button type="button" class="btn btn-success me-3">Saada teade</button>
+            <button type="button" class="btn btn-success me-3" @click="openMessageModal(item.itemId, item.userId)">Saada teade</button>
           </div>
           <div class="mt-3">
             <button @click="navigateToHomeView" type="button" class="btn btn-success me-3">Avalehele</button>
@@ -77,19 +83,26 @@ import UserImage from "@/components/image/UserImage.vue";
 import ItemImage from "@/components/image/ItemImage.vue";
 import ImageInput from "@/components/image/ImageInput.vue";
 import {useRoute} from "vue-router";
+import UpdateProfileModal from "@/components/modal/UpdateProfileModal.vue";
+import NewMessageModal from "@/components/modal/NewMessageModal.vue";
 
 export default {
   name: "ItemView",
-  components: {ImageInput, ItemImage, UserImage},
+  components: {NewMessageModal, UpdateProfileModal, ImageInput, ItemImage, UserImage},
+
   data() {
     return {
+
       itemId: useRoute().query.itemId,
+      modalIsOpen: false,
       item: {
             itemId: 0,
             itemName: '',
             category: '',
             description: '',
             username: '',
+            userId: 0,
+        userEmail: '',
             county: '',
             region: '',
             totalQuantity: 0,
@@ -120,7 +133,15 @@ export default {
 
     navigateToHomeView() {
       NavigationService.navigateToHomeView()
-    }
+    },
+
+    openMessageModal() {
+      this.modalIsOpen = true
+    },
+
+    closeModal() {
+      this.modalIsOpen = false
+    },
   },
 
   beforeMount() {
