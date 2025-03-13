@@ -97,7 +97,7 @@ export default {
           },
 
       // todo: testimise eesmärgil lisatud, võta see pärast ära, testimise eesmärgil, itemId peab tulema kaasa GiveAway lehelt
-      localItemId: 0,
+      // localItemId: 0,
 
       errorResponse: {
         message: '',
@@ -114,9 +114,9 @@ export default {
 
   methods: {
 
-    getItem() {
+    getItem(itemId) {
       // todo: vaheta pärast tagasi this.itemId, itemId peab kaasa tulema eelmiselt lehelt
-      ItemService.getItemByItemId(this.localItemId)
+      ItemService.getItemByItemId(itemId)
           .then(response => this.item = response.data)
           .catch(() => NavigationService.navigateToErrorView())
     },
@@ -129,7 +129,7 @@ export default {
 
   beforeMount() {
 // todo: pärast jätta välja localItemId, siin on testimise eesmärgil meetodit muudetud
-    this.localItemId = this.itemId || 2;  // Kui itemId ei ole saadaval, määrame vaikimisi 2
+//     this.localItemId = this.itemId;  // Kui itemId ei ole saadaval, määrame vaikimisi 2
     this.getItem();
   }
 
