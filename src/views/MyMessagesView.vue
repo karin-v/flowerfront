@@ -12,7 +12,7 @@
   </div>
   <div class="row mb-5">
     <div class="col">
-      <h3 style="color:#212529; font-family: 'Arial', sans-serif;"> Minu saadetud kirjad </h3>
+      <h3 style="color:#212529; font-family: 'Arial', sans-serif;"> Saadetud kirjad </h3>
   <OutgoingMessages/>
     </div>
   </div>
