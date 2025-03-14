@@ -28,10 +28,29 @@
             <label class="form-text">Kirjeldus:</label>
           </div>
           <div>
-            <input type="text"
-                   :value="itemEdit.description"
-                   @input="$emit('event-update-description', $event.target.value)"
-            >
+
+
+
+
+
+
+            <div class="form-floating">
+              <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"
+                        type="text"
+                        :value="itemEdit.description"
+                        @input="$emit('event-update-description', $event.target.value)"></textarea>
+            </div>
+
+
+
+<!--            <input type="text"-->
+<!--                   :value="itemEdit.description"-->
+<!--                   @input="$emit('event-update-description', $event.target.value)"-->
+<!--            >-->
+<!--            -->
+
+
+
           </div>
           <div>
             <label class="form-text">Kogus:</label>
@@ -50,9 +69,19 @@
                                 @event-new-category-selected="$emit('event-new-category-selected', $event)"
             />
 
-<!--            <CountyDropdown />-->
-<!--            <RegionDropdown />-->
           </div>
+          <div>
+            <CountyDropdown :counties="counties" :selected-county-id="itemEdit.countyId"
+                            @event-new-county-selected="$emit('event-new-county-selected', $event)"
+            />
+          </div>
+          <div>
+
+            <RegionDropdown :regions="regions" :selected-region-id="itemEdit.regionId"
+                            @event-new-region-selected="$emit('event-new-region-selected', $event)" />
+
+          </div>
+
         </div>
 
 
@@ -87,6 +116,12 @@ export default {
     categories: {
       type: Array
     },
+    counties: {
+      type: Array
+    },
+    regions: {
+      type: Array
+    }
   }
 }
 </script>

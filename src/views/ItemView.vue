@@ -4,16 +4,23 @@
     <UpdateItemModal :modal-is-open="modalIsOpen"
                      :itemEdit="itemEdit"
                      :categories="categories"
+                     :counties="counties"
+                     :regions="regions"
 
                      @event-close-modal="closeModal"
                      @event-update-item="updateItem"
 
                      @event-new-image-selected="setImageData"
-                     @event-update-item-name = "setItemName"
-                     @event-update-description = "setItemDescription"
-                     @event-update-total-quantity = "setItemTotalQuantity"
-                     @event-new-category-selected = "setItemCategoryId"
-    />
+                     @event-update-item-name="setItemName"
+                     @event-update-description="setItemDescription"
+                     @event-update-total-quantity="setItemTotalQuantity"
+                     @event-new-category-selected="setItemCategoryId"
+                     @event-new-county-selected="setItemCountyId"
+                     @event-new-region-selected="setItemRegionId"/>
+
+    <!--                     @event-new-transactiontype-selected="setItemTransactionTypeId"-->
+
+
     <div class="container mt-4">
       <div class="row mb-3">
 
@@ -21,11 +28,18 @@
         <h4 style="color:#212529; font-family: 'Arial', sans-serif;"> {{ itemView.transactionType }}: {{
             itemView.itemName
           }}</h4>
-        <div class="col">
+        <div class="col me-2">
 
-          <div class="mt-3">
-            <div>Kirjeldus: {{ itemView.description }}</div>
+
+          <div class="form-floating mt-3">
+              <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                        style="width: 400px; height: 150px; border: none"
+                        type="text"
+                        :value="itemEdit.description"
+                        @input="$emit('event-update-description', $event.target.value)">{{ itemView.description }}</textarea>
           </div>
+
+
           <div class="mt-1">
             <div>Kogus: {{ itemView.totalQuantity }}</div>
           </div>
@@ -96,6 +110,8 @@ import UpdateItemModal from "@/components/modal/UpdateItemModal.vue";
 import UpdateProfileModal from "@/components/modal/UpdateProfileModal.vue";
 import CategoryService from "@/services/CategoryService";
 import AlertSuccess from "@/components/alert/AlertSuccess.vue";
+import CountyService from "@/services/CountyService";
+import RegionService from "@/services/RegionService";
 
 export default {
   name: "ItemView",
@@ -137,12 +153,23 @@ export default {
           categoryName: '',
         }
       ],
+      counties: [
+        {
+          countyId: 0,
+          countyName: '',
+        }
+
+      ],
+      regions: [
+        {
+          regionId: 0,
+          regionName: '',
+        }
+
+      ],
 
       successMessage: '',
       errorMessage: '',
-
-      // todo: testimise eesmärgil lisatud, võta see pärast ära, testimise eesmärgil, itemId peab tulema kaasa GiveAway lehelt
-      // localItemId: 0,
 
       errorResponse: {
         message: '',
@@ -168,9 +195,17 @@ export default {
     setImageData(imageData) {
       this.itemEdit.imageData = imageData
     },
+    //
+    // setItemTransactionTypeId(transactionTypeId) {
+    //   this.itemEdit.transactionTypeId = transactionTypeId
+    // },
 
-    setItemTransactionTypeId(transactionTypeId) {
-      this.itemEdit.transactionTypeId = transactionTypeId
+    setItemCountyId(countyId) {
+      this.itemEdit.countyId = countyId
+    },
+
+    setItemRegionId(regionId) {
+      this.itemEdit.regionId = regionId
     },
 
     setItemDescription(description) {
@@ -224,14 +259,37 @@ export default {
       this.categories = response.data;
     },
 
+
+    getAllCounties() {
+      CountyService.sendGetCountiesRequest()
+          .then(response => this.handleGetCountiesResponse)
+          .catch(() => NavigationService.navigateToErrorView())
+    },
+
+    handleGetCountiesResponse(response) {
+      this.counties = response.data;
+    },
+
+    getAllRegions(countyId) {
+      RegionService.sendGetRegionsRequest(countyId)
+          .then(response => this.handleGetRegionsResponse)
+          .catch(() => NavigationService.navigateToErrorView())
+    },
+
+    handleGetRegionsResponse(response) {
+      this.regions = response.data;
+    },
+
+
   },
 
   beforeMount() {
-// todo: pärast jätta välja localItemId, siin on testimise eesmärgil meetodit muudetud
-//     this.localItemId = this.itemId;  // Kui itemId ei ole saadaval, määrame vaikimisi 2
+
     this.getItemView();
     this.getItemEdit();
-    this.getAllCategories()
+    this.getAllCategories();
+    this.getAllCounties();
+    this.getAllRegions();
   }
 
 }
