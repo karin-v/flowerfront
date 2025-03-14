@@ -251,7 +251,8 @@ export default {
 
     setItemRegionId(regionId) {
       this.itemEdit.regionId = regionId
-    // },
+    },
+
 
     setItemDescription(description) {
       this.itemEdit.description = description
