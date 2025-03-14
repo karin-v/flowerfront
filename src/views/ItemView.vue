@@ -39,11 +39,15 @@
 
 
           <div class="form-floating mt-3">
-              <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
-                        style="width: 400px; height: 150px; border: none"
-                        type="text"
-                        :value="itemEdit.description"
-                        @input="$emit('event-update-description', $event.target.value)">{{ itemView.description }}</textarea>
+
+            <p>
+              {{ itemView.description }}
+            </p>
+<!--              <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"-->
+<!--                        style="width: 400px; height: 150px; border: none"-->
+<!--                        type="text"-->
+<!--                        :value="itemEdit.description"-->
+<!--                        @input="$emit('event-update-description', $event.target.value)">{{ itemView.description }}</textarea>-->
           </div>
 
 
