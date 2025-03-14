@@ -6,20 +6,20 @@
                      :itemEdit="itemEdit"
                      :categories="categories"
 
-                     @event-close-modal="closeModal"
+                     @event-close-modal="closeUpdateModal"
                      @event-update-item="updateItem"
 
                      @event-new-image-selected="setImageData"
-                     @event-update-item-name = "setItemName"
-                     @event-update-description = "setItemDescription"
-                     @event-update-total-quantity = "setItemTotalQuantity"
-                     @event-new-category-selected = "setItemCategoryId"
+                     @event-update-item-name="setItemName"
+                     @event-update-description="setItemDescription"
+                     @event-update-total-quantity="setItemTotalQuantity"
+                     @event-new-category-selected="setItemCategoryId"
     />
     <NewMessageModal :modal-is-open="newMessageModalIsOpen"
                      @event-update-body="setMessageBody"
                      @event-update-subject="setSubject"
                      @event-send-message="sendNewMessage"
-                     @event-close-modal="closeModal"
+                     @event-close-modal="closeMessageModal"
     />
     <div class="container mt-4">
       <div class="row mb-3">
@@ -48,7 +48,7 @@
           <div class="mt-1">
             Staatus
           </div>
-          <div class="mt-3" v-if="owner">
+          <div class="mt-3" v-if="isOwner">
             <button @click="openItemInfoModal" type="button" class="btn btn-outline-success me-3">Muuda andmeid</button>
 
             <!-- @click="updateItemInfoModal" todo: andmeid saab muuta ja pilti kustutada modalis-->
@@ -58,7 +58,8 @@
 
           <div v-else>
             <div class="mt-3">
-              <button type="button" class="btn btn-success me-3" @click="openMessageModal">Saada kasutajale {{itemMessage.username}} teade</button>
+              <button type="button" class="btn btn-success me-3" @click="openMessageModal">Saada kasutajale teade
+              </button>
             </div>
           </div>
 
@@ -114,7 +115,7 @@ export default {
       newMessageModalIsOpen: false,
       itemId: Number(useRoute().query.itemId),
       userId: Number(sessionStorage.getItem('userId')),
-      owner:'',
+      isOwner: false,
 
       itemView: {
         itemId: 0,
@@ -172,17 +173,16 @@ export default {
   },
 
   methods: {
-    setMessageBody(messageBody) {
-      this.itemMessage.messageBody = messageBody
-    },
-    setSubject(subject) {
-      this.itemMessage.messageSubject = subject
 
+
+    handleGetItemViewResponse(response) {
+      this.itemView = response.data;
+      this.validateIsOwner()
     },
 
     getItemView() {
       ItemService.sendGetItemRequest(this.itemId)
-          .then(response => this.itemView = response.data)
+          .then(response => this.handleGetItemViewResponse(response))
           .catch(() => NavigationService.navigateToErrorView())
     },
 
@@ -198,8 +198,8 @@ export default {
     },
 
     validateIsOwner() {
-      const userId = sessionStorage.getItem('userId')
-      this.owner = userId != null && userId === this.itemView.userId
+      const userId = Number(sessionStorage.getItem('userId'))
+      this.isOwner = userId != null && userId === this.itemView.userId
 
     },
 
@@ -229,7 +229,7 @@ export default {
 
 
     updateItem() {
-      this.closeModal()
+      this.closeUpdateModal()
       ItemService.updateItem(this.itemId, this.itemEdit)
           .then(() => this.handleUpdateItemResponse())
           .catch(() => NavigationService.navigateToErrorView())
@@ -243,10 +243,17 @@ export default {
     openMessageModal() {
       this.newMessageModalIsOpen = true
     },
+    setMessageBody(messageBody) {
+      this.itemMessage.messageBody = messageBody
+    },
+    setSubject(subject) {
+      this.itemMessage.messageSubject = subject
+
+    },
 
     sendNewMessage() {
       this.itemMessage.receiverId = this.itemEdit.userId
-      this.closeModal()
+      this.closeMessageModal()
       MessageService.sendNewMessageRequest(this.itemMessage)
           .then(response => this.handleNewMessageRequest(response))
           .catch(() => NavigationService.navigateToErrorView())
@@ -254,9 +261,13 @@ export default {
 
     handleNewMessageRequest(response) {
       this.successMessage = 'Sõnum on saadetud'
-      setTimeout(4000)},
+      setTimeout(4000)
+    },
+    closeMessageModal() {
+      this.newMessageModalIsOpen = false
+    },
 
-    closeModal() {
+    closeUpdateModal() {
       this.updateItemModalIsOpen = false
     },
 
@@ -288,7 +299,7 @@ export default {
     this.getItemEdit();
     this.getAllCategories();
     this.getUserInfo();
-    this.validateIsOwner()
+
   }
 
 }

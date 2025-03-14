@@ -88,6 +88,9 @@ export default {
       router.push({name: 'homeRoute'})
       this.isLoggedIn = false
     },
+  },
+  beforeMount() {
+    this.updateNavMenu()
   }
 }
 
