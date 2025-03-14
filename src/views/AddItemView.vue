@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="row justify-content-center mt-3">
-      <h1>Uue kuulutuse lisamine</h1>
+      <h4>Uue kuulutuse lisamine</h4>
 
       <AlertSuccess :message="successMessage"/>
       <AlertDanger :message="errorMessage"/>
     </div>
   </div>
-  <div class="row justify-content-center mt-3">
+  <div class="row justify-content-center mt-4">
 
 
     <div class="col col-3">
@@ -59,13 +59,16 @@
 
             </div>
           </div>
+
+
+
           <div style="position: relative; display: inline-block;">
-            <button type="button"
-                    style="background-color: seagreen; color: white; padding: 8px 16px; border-radius: 4px; border: none; cursor: pointer; pointer-events: none;">
-              Lisa pilt
-            </button>
-            <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; overflow: hidden;">
-              <ImageInput @event-new-image-selected="setNewItemImageData"/>
+<!--            <button type="button"-->
+<!--                    class="btn btn-outline-success me-3">-->
+<!--              Lisa pilt-->
+<!--            </button>-->
+            <div>
+              <ImageInput class="btn-outline-success" @event-new-image-selected="setNewItemImageData" />
             </div>
           </div>
         </div>
@@ -75,7 +78,10 @@
   </div>
   <div class="row justify-content-center">
     <div class="col-3">
-      <button @click="addNewItem" type="button" class="btn btn-outline-success">Lisa kuulutus</button>
+      <button @click="addNewItem" type="button" class="btn btn-success me-3">Lisa kuulutus</button>
+
+      <!--      <div class="col-md-6 offset-md-3 text-center">-->
+      <button @click="navigateToHomeView" type="button" class="btn btn-secondary">Katkesta</button>
     </div>
   </div>
 
