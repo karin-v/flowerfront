@@ -7,12 +7,16 @@
     </template>
      <template #body>
   <div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="Pealkiri" >
+    <input type="text" class="form-control" placeholder="Pealkiri"
+    :value="message.messageSubject"
+    @input="$emit('event-update-subject', $event.target.value)">
   </div>
 
   <div class="input-group">
     <span class="input-group-text"></span>
-    <textarea class="form-control" placeholder="Kirja sisu"></textarea>
+    <textarea class="form-control" placeholder="Kirja sisu"
+              :value="message.messageBody"
+              @input="$emit('event-update-body', $event.target.value)"></textarea>
   </div>
      </template>
 
@@ -32,7 +36,15 @@ export default {
     user: {},
     modalIsOpen: Boolean,
   },
+  data(){
+    return {
+
+
+      message: {
+        messageSubject: '',
+        messageBody: '',
+      },
+    }
+  }
 }
-</script>
-<script setup lang="ts">
 </script>

@@ -4,8 +4,9 @@
                      :itemId="item.itemId"
                      :userId="item.userId"
                      :email:="item.userEmail"
-                        @event-close-modal="closeModal"
-                       />
+                     @event-close-modal="closeModal"
+                     @event-send-message="sendNewMessage"
+    />
     <div class="container mt-4">
       <div class="row mb-3">
 
@@ -54,7 +55,9 @@
             <button type="button" class="btn btn-success me-3">Broneerin</button>
           </div>
           <div class="mt-3">
-            <button type="button" class="btn btn-success me-3" @click="openMessageModal(item.itemId, item.userId)">Saada teade</button>
+            <button type="button" class="btn btn-success me-3" @click="openMessageModal(item.itemId, item.userId)">Saada
+              teade
+            </button>
           </div>
           <div class="mt-3">
             <button @click="navigateToHomeView" type="button" class="btn btn-success me-3">Avalehele</button>
@@ -85,6 +88,7 @@ import ImageInput from "@/components/image/ImageInput.vue";
 import {useRoute} from "vue-router";
 import UpdateProfileModal from "@/components/modal/UpdateProfileModal.vue";
 import NewMessageModal from "@/components/modal/NewMessageModal.vue";
+import MessageService from "@/services/MessageService";
 
 export default {
   name: "ItemView",
@@ -96,20 +100,20 @@ export default {
       itemId: useRoute().query.itemId,
       modalIsOpen: false,
       item: {
-            itemId: 0,
-            itemName: '',
-            category: '',
-            description: '',
-            username: '',
-            userId: 0,
+        itemId: 0,
+        itemName: '',
+        category: '',
+        description: '',
+        username: '',
+        userId: 0,
         userEmail: '',
-            county: '',
-            region: '',
-            totalQuantity: 0,
-            availableQuantity: 0,
-            transactionType: '',
-            itemImage: ''
-          },
+        county: '',
+        region: '',
+        totalQuantity: 0,
+        availableQuantity: 0,
+        transactionType: '',
+        itemImage: ''
+      },
 
       // todo: testimise eesmärgil lisatud, võta see pärast ära, testimise eesmärgil, itemId peab tulema kaasa GiveAway lehelt
       // localItemId: 0,
@@ -117,7 +121,8 @@ export default {
       errorResponse: {
         message: '',
         errorCode: 0
-      }
+      },
+      senderId: Number(sessionStorage.getItem('userId'))
     }
   },
 
@@ -138,6 +143,19 @@ export default {
     openMessageModal() {
       this.modalIsOpen = true
     },
+    sendNewMessage() {
+      this.closeModal()
+      MessageService.sendNewMessageRequest(this.userId, this.itemId, this.senderId)
+          .then(response => this.handleNewMessageRequest(response))
+          .catch(() => NavigationService.navigateToErrorView())
+    },
+
+    handleNewMessageRequest(response) {
+      this.successMessage = 'Sõnum on saadetud'
+      setTimeout(4000)
+
+    },
+
 
     closeModal() {
       this.modalIsOpen = false
