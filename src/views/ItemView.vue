@@ -29,7 +29,7 @@
     />
     <div class="container mt-4">
       <div class="row mb-3 justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-7">
           <h4 style="color:#212529; font-family: 'Arial', sans-serif; text-align: center;">
             {{ itemView.transactionType }}: {{ itemView.itemName }}
           </h4>
