@@ -1,12 +1,12 @@
 import axios from "axios";
 
 export default {
-    sendNewMessageRequest() {
-        return axios.put('/message', this.message, {
+    sendNewMessageRequest(itemId,senderId, receiverId, message) {
+        return axios.post('/message', message, {
                 params: {
-                    itemId: itemId,
+                   itemId: itemId,
                     senderId: senderId,
-                    receiverId: userId,
+                    receiverId: receiverId
                 }
             }
         )

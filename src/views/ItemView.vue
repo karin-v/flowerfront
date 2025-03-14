@@ -3,9 +3,9 @@
     <NewMessageModal :modal-is-open="modalIsOpen"
                      :itemId="item.itemId"
                      :userId="item.userId"
-                     :email:="item.userEmail"
-                     @event-close-modal="closeModal"
+                     :username="item.username"
                      @event-send-message="sendNewMessage"
+                     @event-close-modal="closeModal"
     />
     <div class="container mt-4">
       <div class="row mb-3">
@@ -51,11 +51,9 @@
 
           </div>
 
+
           <div class="mt-3">
-            <button type="button" class="btn btn-success me-3">Broneerin</button>
-          </div>
-          <div class="mt-3">
-            <button type="button" class="btn btn-success me-3" @click="openMessageModal(item.itemId, item.userId)">Saada
+            <button type="button" class="btn btn-success me-3" @click="openMessageModal(item.itemId, item.userId, item.username)">Saada kasutajale {{item.username}}
               teade
             </button>
           </div>
@@ -112,7 +110,8 @@ export default {
         totalQuantity: 0,
         availableQuantity: 0,
         transactionType: '',
-        itemImage: ''
+        itemImage: '',
+        receiverId: this.userId
       },
 
       // todo: testimise eesmärgil lisatud, võta see pärast ära, testimise eesmärgil, itemId peab tulema kaasa GiveAway lehelt
@@ -143,18 +142,17 @@ export default {
     openMessageModal() {
       this.modalIsOpen = true
     },
+
     sendNewMessage() {
       this.closeModal()
-      MessageService.sendNewMessageRequest(this.userId, this.itemId, this.senderId)
+      MessageService.sendNewMessageRequest(this.itemId, this.senderId, this.receiverId)
           .then(response => this.handleNewMessageRequest(response))
           .catch(() => NavigationService.navigateToErrorView())
     },
 
     handleNewMessageRequest(response) {
       this.successMessage = 'Sõnum on saadetud'
-      setTimeout(4000)
-
-    },
+      setTimeout(4000)},
 
 
     closeModal() {

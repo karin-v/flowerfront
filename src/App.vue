@@ -23,15 +23,6 @@
             <div class="mx-2">|</div>
 
 
-<!-- todo: võta siit Ajutine pärast ära-->
-
-            <div class="mx-2">|</div>
-            <div class="mx-2">
-              <router-link to="/item" style="text-decoration: none; color: #212529;">Ajutine</router-link>
-            </div>
-            <div class="mx-2">|</div>
-
-
           </div>
 
           <template v-if="isLoggedIn">

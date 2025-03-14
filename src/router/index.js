@@ -8,6 +8,7 @@ import AddItemView from "@/views/AddItemView.vue";
 import MyProfileView from "@/views/MyProfileView.vue";
 import ErrorView from "@/views/ErrorView.vue";
 import ItemView from "@/views/ItemView.vue";
+import MyMessagesView from "@/views/MyMessagesView.vue";
 
 const routes = [
     {
@@ -54,7 +55,14 @@ const routes = [
         path: '/item/:itemId?',
         name: 'itemRoute',
         component: ItemView
+    },
+
+    {
+        path: '/messages',
+        name: 'myMessagesRoute',
+        component: MyMessagesView
     }
+
 ]
 
 const router = createRouter({
