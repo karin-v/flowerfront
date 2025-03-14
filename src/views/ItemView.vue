@@ -220,9 +220,15 @@ export default {
           .catch(() => NavigationService.navigateToErrorView())
     },
 
+    handleGetItemEditResponse(response) {
+      this.itemEdit = response.data;
+      this.getAllRegions(this.itemEdit.countyId);
+    },
+
+
     getItemEdit() {
       ItemService.sendGetItemEditRequest(this.itemId)
-          .then(response => this.itemEdit = response.data)
+          .then(response => this.handleGetItemEditResponse(response))
           .catch(() => NavigationService.navigateToErrorView())
     },
     getUserInfo() {
@@ -336,7 +342,7 @@ export default {
 
     getAllCounties() {
       CountyService.sendGetCountiesRequest()
-          .then(response => this.handleGetCountiesResponse)
+          .then(response => this.handleGetCountiesResponse(response))
           .catch(() => NavigationService.navigateToErrorView())
     },
 
@@ -346,7 +352,7 @@ export default {
 
     getAllRegions(countyId) {
       RegionService.sendGetRegionsRequest(countyId)
-          .then(response => this.handleGetRegionsResponse)
+          .then(response => this.handleGetRegionsResponse(response))
           .catch(() => NavigationService.navigateToErrorView())
     },
 
@@ -363,7 +369,6 @@ export default {
     this.getItemEdit();
     this.getAllCategories();
     this.getAllCounties();
-    this.getAllRegions();
     this.getAllCategories();
     this.getUserInfo();
 
