@@ -1,13 +1,14 @@
 <template>
   <div>
     <AlertSuccess :message="successMessage"/>
-    <UpdateItemModal :modal-is-open="modalIsOpen"
+
+    <UpdateItemModal :modal-is-open="updateItemModalIsOpen"
                      :itemEdit="itemEdit"
                      :categories="categories"
                      :counties="counties"
                      :regions="regions"
 
-                     @event-close-modal="closeModal"
+                     @event-close-modal="closeUpdateModal"
                      @event-update-item="updateItem"
 
                      @event-new-image-selected="setImageData"
@@ -20,7 +21,13 @@
 
     <!--                     @event-new-transactiontype-selected="setItemTransactionTypeId"-->
 
-
+    />
+    <NewMessageModal :modal-is-open="newMessageModalIsOpen"
+                     @event-update-body="setMessageBody"
+                     @event-update-subject="setSubject"
+                     @event-send-message="sendNewMessage"
+                     @event-close-modal="closeMessageModal"
+    />
     <div class="container mt-4">
       <div class="row mb-3">
 
@@ -55,12 +62,19 @@
           <div class="mt-1">
             Staatus
           </div>
-          <div class="mt-3">
+          <div class="mt-3" v-if="isOwner">
             <button @click="openItemInfoModal" type="button" class="btn btn-outline-success me-3">Muuda andmeid</button>
 
             <!-- @click="updateItemInfoModal" todo: andmeid saab muuta ja pilti kustutada modalis-->
             <!-- <ImageInput @event-new-image-selected="$emit('event-new-image-selected', $event)"/>-->
 
+          </div>
+
+          <div v-else>
+            <div class="mt-3">
+              <button type="button" class="btn btn-success me-3" @click="openMessageModal">Saada kasutajale teade
+              </button>
+            </div>
           </div>
 
         </div>
@@ -74,11 +88,9 @@
           </div>
 
           <div class="mt-3">
-            <button type="button" class="btn btn-success me-3">Broneerin</button>
+            <button type="button" class="btn bg-secondary-subtle me-3">Broneerin</button>
           </div>
-          <div class="mt-3">
-            <button type="button" class="btn btn-success me-3">Saada teade</button>
-          </div>
+
           <div class="mt-3">
             <button @click="navigateToHomeView" type="button" class="btn btn-success me-3">Avalehele</button>
           </div>
@@ -112,17 +124,24 @@ import CategoryService from "@/services/CategoryService";
 import AlertSuccess from "@/components/alert/AlertSuccess.vue";
 import CountyService from "@/services/CountyService";
 import RegionService from "@/services/RegionService";
+import NewMessageModal from "@/components/modal/NewMessageModal.vue";
+import MessageService from "@/services/MessageService";
+import UserService from "@/services/UserService";
 
 export default {
   name: "ItemView",
-  components: {AlertSuccess, UpdateProfileModal, ImageInput, ItemImage, UserImage, UpdateItemModal},
+  components: {AlertSuccess, UpdateProfileModal, ImageInput, ItemImage, UserImage, UpdateItemModal, NewMessageModal},
   data() {
     return {
-      modalIsOpen: false,
-      itemId: useRoute().query.itemId,
+      updateItemModalIsOpen: false,
+      newMessageModalIsOpen: false,
+      itemId: Number(useRoute().query.itemId),
+      userId: Number(sessionStorage.getItem('userId')),
+      isOwner: false,
 
       itemView: {
         itemId: 0,
+        userId: 0,
         itemName: '',
         category: '',
         description: '',
@@ -145,6 +164,14 @@ export default {
         description: '',
         totalQuantity: 0,
         imageData: '',
+      },
+
+      itemMessage: {
+        itemId: Number(useRoute().query.itemId),
+        senderId: Number(sessionStorage.getItem('userId')),
+        receiverId: 0,
+        messageSubject: '',
+        messageBody: ''
       },
 
       categories: [
@@ -171,6 +198,7 @@ export default {
       successMessage: '',
       errorMessage: '',
 
+
       errorResponse: {
         message: '',
         errorCode: 0
@@ -180,9 +208,15 @@ export default {
 
   methods: {
 
+
+    handleGetItemViewResponse(response) {
+      this.itemView = response.data;
+      this.validateIsOwner()
+    },
+
     getItemView() {
       ItemService.sendGetItemRequest(this.itemId)
-          .then(response => this.itemView = response.data)
+          .then(response => this.handleGetItemViewResponse(response))
           .catch(() => NavigationService.navigateToErrorView())
     },
 
@@ -190,6 +224,17 @@ export default {
       ItemService.sendGetItemEditRequest(this.itemId)
           .then(response => this.itemEdit = response.data)
           .catch(() => NavigationService.navigateToErrorView())
+    },
+    getUserInfo() {
+      UserService.sendGetUserInfoRequest(this.userId)
+          .then(response => this.handleGetUserInfoResponse(response))
+          .catch(() => NavigationService.navigateToErrorView())
+    },
+
+    validateIsOwner() {
+      const userId = Number(sessionStorage.getItem('userId'))
+      this.isOwner = userId != null && userId === this.itemView.userId
+
     },
 
     setImageData(imageData) {
@@ -199,14 +244,14 @@ export default {
     // setItemTransactionTypeId(transactionTypeId) {
     //   this.itemEdit.transactionTypeId = transactionTypeId
     // },
-
+    //
     setItemCountyId(countyId) {
       this.itemEdit.countyId = countyId
     },
 
     setItemRegionId(regionId) {
       this.itemEdit.regionId = regionId
-    },
+    // },
 
     setItemDescription(description) {
       this.itemEdit.description = description
@@ -226,18 +271,46 @@ export default {
 
 
     updateItem() {
-      this.closeModal()
+      this.closeUpdateModal()
       ItemService.updateItem(this.itemId, this.itemEdit)
           .then(() => this.handleUpdateItemResponse())
           .catch(() => NavigationService.navigateToErrorView())
     },
 
     openItemInfoModal() {
-      this.modalIsOpen = true
+      this.updateItemModalIsOpen = true
     },
 
-    closeModal() {
-      this.modalIsOpen = false
+
+    openMessageModal() {
+      this.newMessageModalIsOpen = true
+    },
+    setMessageBody(messageBody) {
+      this.itemMessage.messageBody = messageBody
+    },
+    setSubject(subject) {
+      this.itemMessage.messageSubject = subject
+
+    },
+
+    sendNewMessage() {
+      this.itemMessage.receiverId = this.itemEdit.userId
+      this.closeMessageModal()
+      MessageService.sendNewMessageRequest(this.itemMessage)
+          .then(response => this.handleNewMessageRequest(response))
+          .catch(() => NavigationService.navigateToErrorView())
+    },
+
+    handleNewMessageRequest(response) {
+      this.successMessage = 'Sõnum on saadetud'
+      setTimeout(4000)
+    },
+    closeMessageModal() {
+      this.newMessageModalIsOpen = false
+    },
+
+    closeUpdateModal() {
+      this.updateItemModalIsOpen = false
     },
 
     navigateToHomeView() {
@@ -290,6 +363,9 @@ export default {
     this.getAllCategories();
     this.getAllCounties();
     this.getAllRegions();
+    this.getAllCategories();
+    this.getUserInfo();
+
   }
 
 }
