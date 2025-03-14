@@ -8,7 +8,7 @@
         <div>
 
           <div style="width: 175px">
-            <ItemImage :image-data="item.itemImage" alt="Taimepilt"/>
+            <ItemImage :image-data="itemEdit.imageData" alt="Taimepilt"/>
             <ImageInput @event-new-image-selected="$emit('event-new-image-selected', $event)"/>
 
           </div>
@@ -20,8 +20,8 @@
           </div>
           <div>
             <input type="text"
-                   :value="item.itemName"
-                   @input="$emit('event-update-itemname', $event.target.value)"
+                   :value="itemEdit.name"
+                   @input="$emit('event-update-item-name', $event.target.value)"
             >
           </div>
           <div>
@@ -29,7 +29,7 @@
           </div>
           <div>
             <input type="text"
-                   :value="item.description"
+                   :value="itemEdit.description"
                    @input="$emit('event-update-description', $event.target.value)"
             >
           </div>
@@ -38,7 +38,7 @@
           </div>
           <div>
             <input type="text"
-                   :value="item.totalQuantity"
+                   :value="itemEdit.totalQuantity"
                    @input="$emit('event-update-total-quantity', $event.target.value)"
             >
           </div>
@@ -46,10 +46,12 @@
             <label class="form-text">Kategooria:</label>
           </div>
           <div>
-            <input type="text"
-                   :value="item.category"
-                   @input="$emit('event-update-category', $event.target.value)"
-            >
+            <CategoriesDropdown :categories="categories" :selected-category-id="itemEdit.categoryId"
+                                @event-new-category-selected="$emit('event-new-category-selected', $event)"
+            />
+
+<!--            <CountyDropdown />-->
+<!--            <RegionDropdown />-->
           </div>
         </div>
 
@@ -57,7 +59,9 @@
       </template>
 
       <template #footer>
-        <button type="button" class="btn btn-success me-2" @click="$emit('event-update-item')">Salvesta</button>
+        <button type="button" class="btn btn-success me-2" @click="$emit('event-update-item', $event.target.value)">
+          Salvesta
+        </button>
       </template>
 
     </Modal>
@@ -70,13 +74,19 @@ import ItemImage from "@/components/image/ItemImage.vue";
 import ImageInput from "@/components/image/ImageInput.vue";
 import UserImage from "@/components/image/UserImage.vue";
 import Modal from "@/components/modal/Modal.vue";
+import CategoriesDropdown from "@/components/category/CategoriesDropdown.vue";
+import CountyDropdown from "@/components/county/CountyDropdown.vue";
+import RegionDropdown from "@/components/region/RegionDropdown.vue";
 
 export default {
   name: "UpdateProfileModal",
-  components: {UserImage, ImageInput, ItemImage, Modal},
+  components: {RegionDropdown, CountyDropdown, CategoriesDropdown, UserImage, ImageInput, ItemImage, Modal},
   props: {
-    item: {},
+    itemEdit: {},
     modalIsOpen: Boolean,
-  },
+    categories: {
+      type: Array
+    },
+  }
 }
 </script>

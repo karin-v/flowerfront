@@ -1,41 +1,42 @@
 <template>
   <div>
-
+    <AlertSuccess :message="successMessage"/>
     <UpdateItemModal :modal-is-open="modalIsOpen"
-                     :item="item"
+                     :itemEdit="itemEdit"
+                     :categories="categories"
+
                      @event-close-modal="closeModal"
                      @event-update-item="updateItem"
-                     @event-update-transactiontype = "setItemTransactionType"
+
+                     @event-new-image-selected="setImageData"
+                     @event-update-item-name = "setItemName"
                      @event-update-description = "setItemDescription"
-                     @event-update-itemname = "setItemName"
-                     @event-update-category = "setItemCategory"
                      @event-update-total-quantity = "setItemTotalQuantity"
-
-
+                     @event-new-category-selected = "setItemCategoryId"
     />
     <div class="container mt-4">
       <div class="row mb-3">
 
         <!--        todo: TransactionType puudu???-->
-        <h4 style="color:#212529; font-family: 'Arial', sans-serif;"> {{ item.transactionType }}: {{
-            item.itemName
+        <h4 style="color:#212529; font-family: 'Arial', sans-serif;"> {{ itemView.transactionType }}: {{
+            itemView.itemName
           }}</h4>
         <div class="col">
 
           <div class="mt-3">
-            <div>Kirjeldus: {{ item.description }}</div>
+            <div>Kirjeldus: {{ itemView.description }}</div>
           </div>
           <div class="mt-1">
-            <div>Kogus: {{ item.totalQuantity }}</div>
+            <div>Kogus: {{ itemView.totalQuantity }}</div>
           </div>
           <div class="mt-1">
-            <div>Kategooria: {{ item.category }}</div>
+            <div>Kategooria: {{ itemView.category }}</div>
           </div>
           <div class="mt-3">
-            <div>Kasutaja: {{ item.username }}</div>
+            <div>Kasutaja: {{ itemView.username }}</div>
           </div>
           <div class="mt-1">
-            <div>Asukoht: {{ item.county }}, {{ item.region }}</div>
+            <div>Asukoht: {{ itemView.county }}, {{ itemView.region }}</div>
           </div>
           <div class="mt-1">
             Staatus
@@ -53,7 +54,7 @@
           <div class="mt-3">
 
 
-            <ItemImage :image-data="item.itemImage" alt="Taimepilt"/>
+            <ItemImage :image-data="itemView.itemImage" alt="Taimepilt"/>
 
 
           </div>
@@ -93,15 +94,18 @@ import ImageInput from "@/components/image/ImageInput.vue";
 import {useRoute} from "vue-router";
 import UpdateItemModal from "@/components/modal/UpdateItemModal.vue";
 import UpdateProfileModal from "@/components/modal/UpdateProfileModal.vue";
+import CategoryService from "@/services/CategoryService";
+import AlertSuccess from "@/components/alert/AlertSuccess.vue";
 
 export default {
   name: "ItemView",
-  components: {UpdateProfileModal, ImageInput, ItemImage, UserImage, UpdateItemModal},
+  components: {AlertSuccess, UpdateProfileModal, ImageInput, ItemImage, UserImage, UpdateItemModal},
   data() {
     return {
       modalIsOpen: false,
       itemId: useRoute().query.itemId,
-      item: {
+
+      itemView: {
         itemId: 0,
         itemName: '',
         category: '',
@@ -114,6 +118,26 @@ export default {
         transactionType: '',
         itemImage: ''
       },
+
+      itemEdit: {
+        userId: 0,
+        categoryId: 0,
+        countyId: 0,
+        regionId: 0,
+        transactionTypeId: 0,
+        name: '',
+        description: '',
+        totalQuantity: 0,
+        imageData: '',
+      },
+
+      categories: [
+        {
+          categoryId: 0,
+          categoryName: '',
+        }
+      ],
+
       successMessage: '',
       errorMessage: '',
 
@@ -129,38 +153,47 @@ export default {
 
   methods: {
 
-    getItem() {
-      // todo: vaheta pärast tagasi this.itemId, itemId peab kaasa tulema eelmiselt lehelt
-      ItemService.getItemByItemId(this.itemId)
-          .then(response => this.item = response.data)
+    getItemView() {
+      ItemService.sendGetItemRequest(this.itemId)
+          .then(response => this.itemView = response.data)
           .catch(() => NavigationService.navigateToErrorView())
     },
 
-    setItemTransactionType(transactionType) {
-      this.item.transactionType = transactionType
+    getItemEdit() {
+      ItemService.sendGetItemEditRequest(this.itemId)
+          .then(response => this.itemEdit = response.data)
+          .catch(() => NavigationService.navigateToErrorView())
+    },
+
+    setImageData(imageData) {
+      this.itemEdit.imageData = imageData
+    },
+
+    setItemTransactionTypeId(transactionTypeId) {
+      this.itemEdit.transactionTypeId = transactionTypeId
     },
 
     setItemDescription(description) {
-      this.item.description = description
+      this.itemEdit.description = description
     },
 
-    setItemName(itemName) {
-      this.item.itemName = itemName
+    setItemName(name) {
+      this.itemEdit.name = name
     },
 
-    setItemCategory(category) {
-      this.item.category = category
+    setItemCategoryId(categoryId) {
+      this.itemEdit.categoryId = categoryId
     },
 
     setItemTotalQuantity(totalQuantity) {
-      this.item.totalQuantity = totalQuantity
+      this.itemEdit.totalQuantity = totalQuantity
     },
 
 
     updateItem() {
       this.closeModal()
-      ItemService.updateItem(this.itemId, this.item)
-          .then(response => this.handleUpdateItemResponse(response))
+      ItemService.updateItem(this.itemId, this.itemEdit)
+          .then(() => this.handleUpdateItemResponse())
           .catch(() => NavigationService.navigateToErrorView())
     },
 
@@ -177,16 +210,28 @@ export default {
     },
 
     handleUpdateItemResponse(response) {
+      this.getItemView()
       this.successMessage = 'Kuulutuse andmed on muudetud'
       setTimeout(this.resetAllMessages, 4000)
 
-    }
+    },
+    getAllCategories() {
+      CategoryService.sendGetCategoriesRequest()
+          .then(response => this.handleGetCategoriesResponse(response))
+          .catch(() => NavigationService.navigateToErrorView())
+    },
+    handleGetCategoriesResponse(response) {
+      this.categories = response.data;
+    },
+
   },
 
   beforeMount() {
 // todo: pärast jätta välja localItemId, siin on testimise eesmärgil meetodit muudetud
 //     this.localItemId = this.itemId;  // Kui itemId ei ole saadaval, määrame vaikimisi 2
-    this.getItem();
+    this.getItemView();
+    this.getItemEdit();
+    this.getAllCategories()
   }
 
 }

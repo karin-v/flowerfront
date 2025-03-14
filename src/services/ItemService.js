@@ -18,7 +18,7 @@ export default {
             }
         )
     },
-    getItemByItemId(itemId) {
+    sendGetItemRequest(itemId) {
         return axios.get('/item', {
             params: {
                 itemId: itemId
@@ -27,10 +27,19 @@ export default {
 
     },
 
-    updateItem(itemId) {
-        return axios.put('/item/:itemId?', itemId, {
+    sendGetItemEditRequest(itemId) {
+        return axios.get('/item-edit', {
             params: {
-                someRequestParam1: itemId
+                itemId: itemId
+            }
+        })
+
+    },
+
+    updateItem(itemId, item) {
+        return axios.put('/item', item, {
+            params: {
+                itemId: itemId
             }
         })
     }
