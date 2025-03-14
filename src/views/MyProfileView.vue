@@ -47,8 +47,9 @@
               </div>
 
               <div>
-                <button type="button" class="btn btn-outline-secondary" style="color: seagreen" aria-expanded="false">
-                  Minu tehingud
+                <button type="button" class="btn btn-outline-success" style="color: seagreen" aria-expanded="false"
+                        @click="navigateToMessagesView">
+                  Minu sõnumid
                 </button>
               </div>
 
@@ -153,17 +154,20 @@ export default {
 
     navigateToHomeView() {
       NavigationService.navigateToHomeView()
-    }
+    },
+
+    navigateToMessagesView() {
+      NavigationService.navigateToMessagesView()
+    },
+
   },
+    beforeMount() {
 
+      this.getUserInfo()
 
-  beforeMount() {
+      //todo: kutsu välja meetod mis toob ära user profile andmed
+    }
 
-    this.getUserInfo()
-
-    //todo: kutsu välja meetod mis toob ära user profile andmed
   }
-
-}
 </script>
 
