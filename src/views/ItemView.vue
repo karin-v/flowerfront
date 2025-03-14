@@ -1,7 +1,8 @@
 <template>
   <div>
     <AlertSuccess :message="successMessage"/>
-    <UpdateItemModal :modal-is-open="modalIsOpen"
+
+    <UpdateItemModal :modal-is-open="updateItemModalIsOpen"
                      :itemEdit="itemEdit"
                      :categories="categories"
 
@@ -13,6 +14,12 @@
                      @event-update-description = "setItemDescription"
                      @event-update-total-quantity = "setItemTotalQuantity"
                      @event-new-category-selected = "setItemCategoryId"
+    />
+    <NewMessageModal :modal-is-open="newMessageModalIsOpen"
+                     @event-update-body="setMessageBody"
+                     @event-update-subject="setSubject"
+                     @event-send-message="sendNewMessage"
+                     @event-close-modal="closeModal"
     />
     <div class="container mt-4">
       <div class="row mb-3">
@@ -41,12 +48,18 @@
           <div class="mt-1">
             Staatus
           </div>
-          <div class="mt-3">
+          <div class="mt-3" v-if="owner">
             <button @click="openItemInfoModal" type="button" class="btn btn-outline-success me-3">Muuda andmeid</button>
 
             <!-- @click="updateItemInfoModal" todo: andmeid saab muuta ja pilti kustutada modalis-->
             <!-- <ImageInput @event-new-image-selected="$emit('event-new-image-selected', $event)"/>-->
 
+          </div>
+
+          <div v-else>
+            <div class="mt-3">
+              <button type="button" class="btn btn-success me-3" @click="openMessageModal">Saada kasutajale {{itemMessage.username}} teade</button>
+            </div>
           </div>
 
         </div>
@@ -60,19 +73,11 @@
           </div>
 
           <div class="mt-3">
-            <button type="button" class="btn btn-success me-3">Broneerin</button>
+            <button type="button" class="btn bg-secondary-subtle me-3">Broneerin</button>
           </div>
-          <div class="mt-3">
-            <button type="button" class="btn btn-success me-3">Saada teade</button>
-          </div>
+
           <div class="mt-3">
             <button @click="navigateToHomeView" type="button" class="btn btn-success me-3">Avalehele</button>
-          </div>
-          <div>
-            <div class="mt-3">
-              <button type="button" class="btn btn-secondary me-3">Kustuta kuulutus</button>
-              <!--              todo: siia Modal, mis küsib kustutamise kinnitust-->
-            </div>
           </div>
 
         </div>
@@ -96,17 +101,24 @@ import UpdateItemModal from "@/components/modal/UpdateItemModal.vue";
 import UpdateProfileModal from "@/components/modal/UpdateProfileModal.vue";
 import CategoryService from "@/services/CategoryService";
 import AlertSuccess from "@/components/alert/AlertSuccess.vue";
+import NewMessageModal from "@/components/modal/NewMessageModal.vue";
+import MessageService from "@/services/MessageService";
+import UserService from "@/services/UserService";
 
 export default {
   name: "ItemView",
-  components: {AlertSuccess, UpdateProfileModal, ImageInput, ItemImage, UserImage, UpdateItemModal},
+  components: {AlertSuccess, UpdateProfileModal, ImageInput, ItemImage, UserImage, UpdateItemModal, NewMessageModal},
   data() {
     return {
-      modalIsOpen: false,
-      itemId: useRoute().query.itemId,
+      updateItemModalIsOpen: false,
+      newMessageModalIsOpen: false,
+      itemId: Number(useRoute().query.itemId),
+      userId: Number(sessionStorage.getItem('userId')),
+      owner:'',
 
       itemView: {
         itemId: 0,
+        userId: 0,
         itemName: '',
         category: '',
         description: '',
@@ -131,6 +143,14 @@ export default {
         imageData: '',
       },
 
+      itemMessage: {
+        itemId: Number(useRoute().query.itemId),
+        senderId: Number(sessionStorage.getItem('userId')),
+        receiverId: 0,
+        messageSubject: '',
+        messageBody: ''
+      },
+
       categories: [
         {
           categoryId: 0,
@@ -152,6 +172,13 @@ export default {
   },
 
   methods: {
+    setMessageBody(messageBody) {
+      this.itemMessage.messageBody = messageBody
+    },
+    setSubject(subject) {
+      this.itemMessage.messageSubject = subject
+
+    },
 
     getItemView() {
       ItemService.sendGetItemRequest(this.itemId)
@@ -163,6 +190,17 @@ export default {
       ItemService.sendGetItemEditRequest(this.itemId)
           .then(response => this.itemEdit = response.data)
           .catch(() => NavigationService.navigateToErrorView())
+    },
+    getUserInfo() {
+      UserService.sendGetUserInfoRequest(this.userId)
+          .then(response => this.handleGetUserInfoResponse(response))
+          .catch(() => NavigationService.navigateToErrorView())
+    },
+
+    validateIsOwner() {
+      const userId = sessionStorage.getItem('userId')
+      this.owner = userId != null && userId === this.itemView.userId
+
     },
 
     setImageData(imageData) {
@@ -198,11 +236,28 @@ export default {
     },
 
     openItemInfoModal() {
-      this.modalIsOpen = true
+      this.updateItemModalIsOpen = true
     },
 
+
+    openMessageModal() {
+      this.newMessageModalIsOpen = true
+    },
+
+    sendNewMessage() {
+      this.itemMessage.receiverId = this.itemEdit.userId
+      this.closeModal()
+      MessageService.sendNewMessageRequest(this.itemMessage)
+          .then(response => this.handleNewMessageRequest(response))
+          .catch(() => NavigationService.navigateToErrorView())
+    },
+
+    handleNewMessageRequest(response) {
+      this.successMessage = 'Sõnum on saadetud'
+      setTimeout(4000)},
+
     closeModal() {
-      this.modalIsOpen = false
+      this.updateItemModalIsOpen = false
     },
 
     navigateToHomeView() {
@@ -231,7 +286,9 @@ export default {
 //     this.localItemId = this.itemId;  // Kui itemId ei ole saadaval, määrame vaikimisi 2
     this.getItemView();
     this.getItemEdit();
-    this.getAllCategories()
+    this.getAllCategories();
+    this.getUserInfo();
+    this.validateIsOwner()
   }
 
 }
