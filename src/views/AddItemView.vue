@@ -110,6 +110,7 @@ export default {
       successMessage: '',
       errorMessage: '',
 
+
       newItem: {
         userId: Number(sessionStorage.getItem('userId')),
         categoryId: 0,
@@ -220,13 +221,17 @@ export default {
 
     handleAddNewItemResponse(response) {
       this.handleAddNewItemSuccessMessage(response)
-      this.resetAllFields()
-      NavigationService.navigateToItemView(itemId)
+      setTimeout(() => {
+        this.resetAllFields();
+        NavigationService.navigateToHomeView()
+      }, 2000);
+
+
     },
 
     handleAddNewItemSuccessMessage() {
       this.successMessage = 'Uus kuulutus lisatud'
-      setTimeout(this.resetAllFields, 4000)
+      // setTimeout(this.resetAllFields, 4000)
 
     },
 
