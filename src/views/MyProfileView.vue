@@ -146,7 +146,7 @@ export default {
     handleGetUserInfoResponse(response) {
       this.user = response.data;
     },
-    // todo: siia tuleb meetod mis saadab backendile sõnumi user profile andmete ära toomiseks
+
     resetAllMessages() {
       this.successMessage = ''
       this.errorMessage = ''

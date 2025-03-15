@@ -30,10 +30,6 @@
           <div>
 
 
-
-
-
-
             <div class="form-floating">
               <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"
                         type="text"
@@ -108,7 +104,7 @@ import CountyDropdown from "@/components/county/CountyDropdown.vue";
 import RegionDropdown from "@/components/region/RegionDropdown.vue";
 
 export default {
-  name: "UpdateProfileModal",
+  name: "UpdateItemModal",
   components: {RegionDropdown, CountyDropdown, CategoriesDropdown, UserImage, ImageInput, ItemImage, Modal},
   props: {
     itemEdit: {},

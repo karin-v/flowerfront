@@ -60,15 +60,9 @@
             </div>
           </div>
 
-
-
           <div style="position: relative; display: inline-block;">
-<!--            <button type="button"-->
-<!--                    class="btn btn-outline-success me-3">-->
-<!--              Lisa pilt-->
-<!--            </button>-->
             <div>
-              <ImageInput class="btn-outline-success" @event-new-image-selected="setNewItemImageData" />
+              <ImageInput class="btn-outline-success" @event-new-image-selected="setNewItemImageData"/>
             </div>
           </div>
         </div>
@@ -79,8 +73,6 @@
   <div class="row justify-content-center">
     <div class="col-3">
       <button @click="addNewItem" type="button" class="btn btn-success me-3">Lisa kuulutus</button>
-
-      <!--      <div class="col-md-6 offset-md-3 text-center">-->
       <button @click="navigateToHomeView" type="button" class="btn btn-secondary">Katkesta</button>
     </div>
   </div>
@@ -199,7 +191,7 @@ export default {
     },
 
     handleGetRegionsResponse(response) {
-      return this.regions = response.data;
+      this.regions = response.data;
     },
 
     setNewItemTransactionTypeId(transactionTypeId) {
@@ -209,9 +201,9 @@ export default {
       this.newItem.categoryId = categoryId
     },
 
-    setNewItemCountyId(countyId) {
-      this.newItem.countyId = countyId
-    },
+    // setNewItemCountyId(countyId) {
+    //   this.newItem.countyId = countyId
+    // },
     updateRegionsDropdown(selectedCountyId) {
       this.newItem.countyId = selectedCountyId
       this.getRegionsByCountyId(this.newItem.countyId)
@@ -242,10 +234,11 @@ export default {
       this.newItem.name = ''
       this.newItem.description = ''
       this.newItem.totalQuantity = 0
-      this.categories.categoryId = 0
-      this.counties.countyId = 0
-      this.regions.regionId = 0
-      this.transactionTypes.transactionTypeId = 0
+      this.newItem.categoryId = 0
+      this.newItem.countyId = 0
+      this.newItem.regionId = 0
+      this.newItem.transactionTypeId = 0
+      this.newItem.imageData = ''
     },
     setNewItemImageData(imageData) {
       if (imageData && imageData.length > 0) {
@@ -263,7 +256,7 @@ export default {
   beforeMount() {
     this.getAllCategories()
     this.getAllCounties()
-    this.getRegionsByCountyId(this.newItem.countyId)
+    // this.getRegionsByCountyId(this.newItem.countyId)
     this.getAllTransactionTypes()
   },
 }
