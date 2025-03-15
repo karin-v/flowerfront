@@ -229,6 +229,7 @@ export default {
     handleAddNewItemResponse(response) {
       this.handleAddNewItemSuccessMessage(response)
       this.resetAllFields()
+      NavigationService.navigateToItemView(itemId)
     },
 
     handleAddNewItemSuccessMessage() {
@@ -253,6 +254,11 @@ export default {
         this.newItem.imageData = ''; // Set empty if no image
       }
     },
+
+    navigateToHomeView() {
+      NavigationService.navigateToHomeView()
+    },
+
   },
   beforeMount() {
     this.getAllCategories()
