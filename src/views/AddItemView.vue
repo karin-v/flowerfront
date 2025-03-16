@@ -219,16 +219,24 @@ export default {
           .then(response => this.handleAddNewItemResponse(response))
           .catch(() => NavigationService.navigateToErrorView())
     },
-
     handleAddNewItemResponse(response) {
-      this.handleAddNewItemSuccessMessage(response)
-      this.resetAllFields()
+      this.handleAddNewItemSuccessMessage(response);
+      setTimeout(() => {
+        this.redirectBasedOnTransactionType();
+      }, 4000); // 4000 milliseconds = 4 seconds
     },
 
     handleAddNewItemSuccessMessage() {
-      this.successMessage = 'Uus kuulutus lisatud'
-      setTimeout(this.resetAllFields, 4000)
+      this.successMessage = 'Uus kuulutus lisatud';
+      setTimeout(this.resetAllFields, 4000); // Reset fields after 4 seconds
+    },
 
+    redirectBasedOnTransactionType() {
+      if (this.newItem.transactionTypeId === 1) {
+        NavigationService.navigateToGiveAwayView();
+      } else {
+        NavigationService.navigateToWishListView();
+      }
     },
 
     resetAllFields() {
