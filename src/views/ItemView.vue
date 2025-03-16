@@ -25,8 +25,15 @@
                      @event-update-body="setMessageBody"
                      @event-update-subject="setSubject"
                      @event-send-message="sendNewMessage"
-                     @event-close-modal="closeMessageModal"
+                     @event-close-modal="closeMessageModal"/>
+
+    <DeleteItemModal :modal-is-open="deleteItemModalIsOpen"
+                     @event-close-delete-item-modal="closeDeleteItemModal"
+
+
     />
+
+
     <div class="container mt-4">
       <div class="row mb-3 justify-content-center">
         <div class="col-md-7">
@@ -88,8 +95,8 @@
                 </div>
 
                 <div>
-                  <button type="button" class="btn btn-secondary">Kustuta kuulutus</button>
-<!--                  todo: siia Modal, mis küsib kustutamise kinnitust-->
+                  <button @click="deleteItemModalIsOpen = true" type="button" class="btn btn-secondary">Kustuta kuulutus</button>
+                  <!--                  todo: siia Modal, mis küsib kustutamise kinnitust-->
                 </div>
               </div>
             </div>
@@ -118,14 +125,25 @@ import RegionService from "@/services/RegionService";
 import NewMessageModal from "@/components/modal/NewMessageModal.vue";
 import MessageService from "@/services/MessageService";
 import UserService from "@/services/UserService";
+import DeleteItemModal from "@/components/modal/DeleteItemModal.vue";
 
 export default {
   name: "ItemView",
-  components: {AlertSuccess, UpdateProfileModal, ImageInput, ItemImage, UserImage, UpdateItemModal, NewMessageModal},
+  components: {
+    AlertSuccess,
+    UpdateProfileModal,
+    ImageInput,
+    ItemImage,
+    UserImage,
+    UpdateItemModal,
+    NewMessageModal,
+    DeleteItemModal
+  },
   data() {
     return {
       updateItemModalIsOpen: false,
       newMessageModalIsOpen: false,
+      deleteItemModalIsOpen: false,
       itemId: Number(useRoute().query.itemId),
       userId: Number(sessionStorage.getItem('userId')),
       isOwner: false,
@@ -270,7 +288,7 @@ export default {
 
     updateItem() {
       this.closeUpdateModal()
-      ItemService.updateItem(this.itemId, this.itemEdit)
+      ItemService.updateItemRequest(this.itemId, this.itemEdit)
           .then(() => this.handleUpdateItemResponse())
           .catch(() => NavigationService.navigateToErrorView())
     },
@@ -318,7 +336,9 @@ export default {
     handleUpdateItemResponse(response) {
       this.getItemView()
       this.successMessage = 'Kuulutuse andmed on muudetud'
-      setTimeout(this.resetAllMessages, 4000)
+      setTimeout(() => {this.resetAllMessages();
+      }, 4000);
+      // setTimeout(this.resetAllMessages, 4000)
 
     },
     getAllCategories() {
@@ -351,6 +371,19 @@ export default {
       this.regions = response.data;
     },
 
+    openDeleteModal() {
+      this.deleteItemModalIsOpen = true;
+    },
+
+
+    closeDeleteItemModal() {
+      this.deleteItemModalIsOpen = false
+    },
+
+    resetAllMessages() {
+      this.successMessage = '';
+      this.errorMessage = '';
+    }
 
   },
 

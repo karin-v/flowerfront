@@ -36,13 +36,21 @@ export default {
 
     },
 
-    updateItem(itemId, item) {
+    updateItemRequest(itemId, item) {
         return axios.put('/item', item, {
             params: {
                 itemId: itemId
             }
         })
-    }
+    },
+
+    deleteItemRequest(itemId) {
+        return axios.delete('/item', {
+            params: {
+                itemId: itemId
+            }
+        });
+    },
 
 
 }
