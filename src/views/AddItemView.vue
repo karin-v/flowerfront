@@ -222,12 +222,12 @@ export default {
       this.handleAddNewItemSuccessMessage(response);
       setTimeout(() => {
         this.redirectBasedOnTransactionType();
-      }, 4000); // 4000 milliseconds = 4 seconds
+      }, 2000); // 4000 milliseconds = 4 seconds
     },
 
     handleAddNewItemSuccessMessage() {
       this.successMessage = 'Uus kuulutus lisatud';
-      setTimeout(this.resetAllFields, 4000); // Reset fields after 4 seconds
+      // setTimeout(this.resetAllFields, 2000);
     },
 
     redirectBasedOnTransactionType() {
@@ -242,10 +242,10 @@ export default {
       this.newItem.name = ''
       this.newItem.description = ''
       this.newItem.totalQuantity = 0
-      this.categories.categoryId = 0
-      this.counties.countyId = 0
-      this.regions.regionId = 0
-      this.transactionTypes.transactionTypeId = 0
+      this.newItem.categoryId = 0
+      this.newItem.countyId = 0
+      this.newItem.regionId = 0
+      this.newItem.transactionTypeId = 0
     },
     setNewItemImageData(imageData) {
       if (imageData && imageData.length > 0) {
