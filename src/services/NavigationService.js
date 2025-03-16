@@ -26,4 +26,12 @@ export default {
     navigateToMessagesView() {
         router.push({name: 'myMessagesRoute'})
     },
+
+    navigateToGiveAwayView(){
+       router.push({ name:'giveAwayRoute'})
+    },
+
+    navigateToWishListView(){
+        router.push({ name:'wishListRoute'})
+    },
 }
