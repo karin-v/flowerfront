@@ -67,18 +67,21 @@
               <div>Asukoht: {{ itemView.county }}, {{ itemView.region }}</div>
             </div>
             <div class="mt-1 text-start">
-              Staatus
+<!--              Staatus-->
             </div>
-            <div class="mt-5" v-if="isOwner">
+
+            <div class="mt-3" v-if="isOwner">
               <button @click="openItemInfoModal" type="button" class="btn btn-success me-3">Muuda andmeid</button>
             </div>
 
             <div v-else>
-              <div class="mt-5">
+              <div class="mt-3">
                 <button type="button" class="btn btn-success me-3" @click="openMessageModal">Saada kasutajale teade
                 </button>
               </div>
             </div>
+
+
           </div>
 
           <div class="col-md-5 d-flex flex-column">
@@ -98,10 +101,12 @@
                 <button @click="navigateToHomeView" type="button" class="btn btn-success">Avalehele</button>
               </div>
 
-              <div>
+              <div v-if="isOwner">
                 <button @click="openDeleteItemModal" type="button" class="btn btn-secondary">Kustuta kuulutus</button>
-                <!--                  todo: siia Modal, mis küsib kustutamise kinnitust-->
               </div>
+
+
+
             </div>
           </div>
         </div>
