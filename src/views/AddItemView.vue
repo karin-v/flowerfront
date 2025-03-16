@@ -110,7 +110,6 @@ export default {
       successMessage: '',
       errorMessage: '',
 
-
       newItem: {
         userId: Number(sessionStorage.getItem('userId')),
         categoryId: 0,
@@ -202,9 +201,9 @@ export default {
       this.newItem.categoryId = categoryId
     },
 
-    // setNewItemCountyId(countyId) {
-    //   this.newItem.countyId = countyId
-    // },
+    setNewItemCountyId(countyId) {
+      this.newItem.countyId = countyId
+    },
     updateRegionsDropdown(selectedCountyId) {
       this.newItem.countyId = selectedCountyId
       this.getRegionsByCountyId(this.newItem.countyId)
@@ -220,19 +219,23 @@ export default {
     },
 
     handleAddNewItemResponse(response) {
-      this.handleAddNewItemSuccessMessage(response)
+      this.handleAddNewItemSuccessMessage(response);
       setTimeout(() => {
-        this.resetAllFields();
-        NavigationService.navigateToHomeView()
-      }, 2000);
-
-
+        this.redirectBasedOnTransactionType();
+      }, 2000); // 4000 milliseconds = 4 seconds
     },
 
     handleAddNewItemSuccessMessage() {
-      this.successMessage = 'Uus kuulutus lisatud'
-      // setTimeout(this.resetAllFields, 4000)
+      this.successMessage = 'Uus kuulutus lisatud';
+      // setTimeout(this.resetAllFields, 2000);
+    },
 
+    redirectBasedOnTransactionType() {
+      if (this.newItem.transactionTypeId === 1) {
+        NavigationService.navigateToGiveAwayView();
+      } else {
+        NavigationService.navigateToWishListView();
+      }
     },
 
     resetAllFields() {
@@ -243,7 +246,6 @@ export default {
       this.newItem.countyId = 0
       this.newItem.regionId = 0
       this.newItem.transactionTypeId = 0
-      this.newItem.imageData = ''
     },
     setNewItemImageData(imageData) {
       if (imageData && imageData.length > 0) {
@@ -252,16 +254,11 @@ export default {
         this.newItem.imageData = ''; // Set empty if no image
       }
     },
-
-    navigateToHomeView() {
-      NavigationService.navigateToHomeView()
-    },
-
   },
   beforeMount() {
     this.getAllCategories()
     this.getAllCounties()
-    // this.getRegionsByCountyId(this.newItem.countyId)
+    this.getRegionsByCountyId(this.newItem.countyId)
     this.getAllTransactionTypes()
   },
 }
