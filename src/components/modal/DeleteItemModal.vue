@@ -5,13 +5,13 @@
 <!--    </div>-->
     <template #title>
       <div v-if="isDelete">
-        Oled kindel, et soovid kuulutuse kustutada?
       </div>
+        Oled kindel, et soovid kuulutuse kustutada?
     </template>
     <template #body>
       <div>
-        <p><strong>{{ item.itemName }}</strong></p>
-        <p>{{ item.description }}</p>
+        <p><strong> {{item.transactionType}}: {{ item.itemName }}</strong></p>
+<!--        <p>{{ item.description }}</p>-->
       </div>
     </template>
 
