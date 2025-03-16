@@ -7,22 +7,35 @@
       <template #body>
         <div>
 
-          <div style="width: 175px">
+          <div >
             <ItemImage :image-data="itemEdit.imageData" alt="Taimepilt"/>
-            <ImageInput @event-new-image-selected="$emit('event-new-image-selected', $event)"/>
+            <ImageInput class="mt-2" @event-new-image-selected="$emit('event-new-image-selected', $event)"/>
 
           </div>
 
         </div>
         <div>
           <div>
-            <label class="form-text">Toote nimi:</label>
-          </div>
-          <div>
+            <label class="justify-content-between me-1 mb-2">Toote nimi:</label>
             <input type="text"
                    :value="itemEdit.name"
                    @input="$emit('event-update-item-name', $event.target.value)"
             >
+          </div>
+          <div>
+
+
+
+          </div>
+          <div>
+            <label class="justify-content-between me-1">Kogus:</label>
+            <input type="text"
+                   :value="itemEdit.totalQuantity"
+                   @input="$emit('event-update-total-quantity', $event.target.value)"
+            >
+          </div>
+          <div>
+
           </div>
           <div>
             <label class="form-text">Kirjeldus:</label>
@@ -39,24 +52,9 @@
 
 
 
-<!--            <input type="text"-->
-<!--                   :value="itemEdit.description"-->
-<!--                   @input="$emit('event-update-description', $event.target.value)"-->
-<!--            >-->
-<!--            -->
+          </div>
 
 
-
-          </div>
-          <div>
-            <label class="form-text">Kogus:</label>
-          </div>
-          <div>
-            <input type="text"
-                   :value="itemEdit.totalQuantity"
-                   @input="$emit('event-update-total-quantity', $event.target.value)"
-            >
-          </div>
           <div>
             <label class="form-text">Kategooria:</label>
           </div>
