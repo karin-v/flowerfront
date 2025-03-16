@@ -2,108 +2,112 @@
   <div>
     <AlertSuccess :message="successMessage"/>
 
-    <UpdateItemModal :modal-is-open="updateItemModalIsOpen"
-                     :itemEdit="itemEdit"
-                     :categories="categories"
-                     :counties="counties"
-                     :regions="regions"
+  <UpdateItemModal :modal-is-open="updateItemModalIsOpen"
+                   :itemEdit="itemEdit"
+                   :categories="categories"
+                   :counties="counties"
+                   :regions="regions"
 
-                     @event-close-modal="closeUpdateModal"
-                     @event-update-item="updateItem"
+                   @event-close-modal="closeUpdateModal"
+                   @event-update-item="updateItem"
 
-                     @event-new-image-selected="setImageData"
-                     @event-update-item-name="setItemName"
-                     @event-update-description="setItemDescription"
-                     @event-update-total-quantity="setItemTotalQuantity"
-                     @event-new-category-selected="setItemCategoryId"
-                     @event-new-county-selected="setItemCountyId"
-                     @event-new-region-selected="setItemRegionId"/>
-    <!--    &lt;!&ndash;                     @event-new-transactiontype-selected="setItemTransactionTypeId"&ndash;&gt;-->
-    <!--    />-->
+                   @event-new-image-selected="setImageData"
+                   @event-update-item-name="setItemName"
+                   @event-update-description="setItemDescription"
+                   @event-update-total-quantity="setItemTotalQuantity"
+                   @event-new-category-selected="setItemCategoryId"
+                   @event-new-county-selected="setItemCountyId"
+                   @event-new-region-selected="setItemRegionId"/>
+  <!--    &lt;!&ndash;                     @event-new-transactiontype-selected="setItemTransactionTypeId"&ndash;&gt;-->
+  <!--    />-->
 
-    <NewMessageModal :modal-is-open="newMessageModalIsOpen"
-                     @event-update-body="setMessageBody"
-                     @event-update-subject="setSubject"
-                     @event-send-message="sendNewMessage"
-                     @event-close-modal="closeMessageModal"/>
+  <NewMessageModal :modal-is-open="newMessageModalIsOpen"
+                   @event-update-body="setMessageBody"
+                   @event-update-subject="setSubject"
+                   @event-send-message="sendNewMessage"
+                   @event-close-modal="closeMessageModal"/>
 
-    <DeleteItemModal :modal-is-open="deleteItemModalIsOpen"
-                     @event-close-delete-item-modal="closeDeleteItemModal"
+  <DeleteItemModal :modal-is-open="deleteItemModalIsOpen"
+                   :isDelete="true"
+                   :item="itemView"
+                   :itemId="itemId"
+                   @event-close-modal="closeDeleteItemModal"
+                   @event-item-deleted="handleItemDeleted"
 
 
-    />
+  />
 
 
-    <div class="container mt-4">
-      <div class="row mb-3 justify-content-center">
-        <div class="col-md-7">
-          <h4 style="color:#212529; font-family: 'Arial', sans-serif; text-align: center;">
-            {{ itemView.transactionType }}: {{ itemView.itemName }}
-          </h4>
+  <div class="container mt-4">
+    <div class="row mb-3 justify-content-center">
+      <div class="col-md-7">
+        <h4 style="color:#212529; font-family: 'Arial', sans-serif; text-align: center;">
+          {{ itemView.transactionType }}: {{ itemView.itemName }}
+        </h4>
 
-          <div class="row justify-content-between">
-            <div class="col-md-5 d-flex flex-column">
+        <div class="row justify-content-between">
+          <div class="col-md-5 d-flex flex-column">
 
-              <div class="mt-5 text-start">
-                <div>Kogus: {{ itemView.totalQuantity }}</div>
-              </div>
-              <div class="mt-1 text-start">
-                <div>Kategooria: {{ itemView.category }}</div>
-              </div>
-              <div class="mt-3">
+            <div class="mt-5 text-start">
+              <div>Kogus: {{ itemView.totalQuantity }}</div>
+            </div>
+            <div class="mt-1 text-start">
+              <div>Kategooria: {{ itemView.category }}</div>
+            </div>
+            <div class="mt-3">
                 <textarea class="form-control" readonly
                           style="width: 100%; height: 150px; border: 1px solid #e8e8e8; background: transparent; resize: none; text-align: left; margin-left: 0; padding-left: 0;"
                           type="text">{{ itemView.description }}</textarea>
-              </div>
+            </div>
 
-              <div class="mt-3 text-start">
-                <div>Kasutaja: {{ itemView.username }}</div>
-              </div>
-              <div class="mt-1 text-start">
-                <div>Asukoht: {{ itemView.county }}, {{ itemView.region }}</div>
-              </div>
-              <div class="mt-1 text-start">
-                Staatus
-              </div>
-              <div class="mt-5" v-if="isOwner">
-                <button @click="openItemInfoModal" type="button" class="btn btn-success me-3">Muuda andmeid</button>
-              </div>
+            <div class="mt-3 text-start">
+              <div>Kasutaja: {{ itemView.username }}</div>
+            </div>
+            <div class="mt-1 text-start">
+              <div>Asukoht: {{ itemView.county }}, {{ itemView.region }}</div>
+            </div>
+            <div class="mt-1 text-start">
+              Staatus
+            </div>
+            <div class="mt-5" v-if="isOwner">
+              <button @click="openItemInfoModal" type="button" class="btn btn-success me-3">Muuda andmeid</button>
+            </div>
 
-              <div v-else>
-                <div class="mt-5">
-                  <button type="button" class="btn btn-success me-3" @click="openMessageModal">Saada kasutajale teade
-                  </button>
-                </div>
+            <div v-else>
+              <div class="mt-5">
+                <button type="button" class="btn btn-success me-3" @click="openMessageModal">Saada kasutajale teade
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-5 d-flex flex-column">
+            <div class="mt-3 text-center">
+              <div
+                  style="transform: scale(1.5); transform-origin: center top; margin-bottom: 100px; margin-top: 20px;">
+                <ItemImage :image-data="itemView.itemImage" alt="Taimepilt"/>
               </div>
             </div>
 
-            <div class="col-md-5 d-flex flex-column">
-              <div class="mt-3 text-center">
-                <div
-                    style="transform: scale(1.5); transform-origin: center top; margin-bottom: 100px; margin-top: 20px;">
-                  <ItemImage :image-data="itemView.itemImage" alt="Taimepilt"/>
-                </div>
+            <div class="mt-3 d-flex flex-column align-items-center">
+              <!--                <div class="mb-2">-->
+              <!--                  <button type="button" class="btn bg-secondary-subtle">Broneerin</button>-->
+              <!--                </div>-->
+
+              <div class="mb-3">
+                <button @click="navigateToHomeView" type="button" class="btn btn-success">Avalehele</button>
               </div>
 
-              <div class="mt-3 d-flex flex-column align-items-center">
-                <!--                <div class="mb-2">-->
-                <!--                  <button type="button" class="btn bg-secondary-subtle">Broneerin</button>-->
-                <!--                </div>-->
-
-                <div class="mb-3">
-                  <button @click="navigateToHomeView" type="button" class="btn btn-success">Avalehele</button>
-                </div>
-
-                <div>
-                  <button @click="deleteItemModalIsOpen = true" type="button" class="btn btn-secondary">Kustuta kuulutus</button>
-                  <!--                  todo: siia Modal, mis küsib kustutamise kinnitust-->
-                </div>
+              <div>
+                <button @click="openDeleteItemModal" type="button" class="btn btn-secondary">Kustuta kuulutus</button>
+                <!--                  todo: siia Modal, mis küsib kustutamise kinnitust-->
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -147,6 +151,7 @@ export default {
       itemId: Number(useRoute().query.itemId),
       userId: Number(sessionStorage.getItem('userId')),
       isOwner: false,
+
 
       itemView: {
         itemId: 0,
@@ -336,8 +341,9 @@ export default {
     handleUpdateItemResponse(response) {
       this.getItemView()
       this.successMessage = 'Kuulutuse andmed on muudetud'
-      setTimeout(() => {this.resetAllMessages();
-      }, 4000);
+      setTimeout(() => {
+        this.resetAllMessages();
+      }, 2000);
       // setTimeout(this.resetAllMessages, 4000)
 
     },
@@ -371,7 +377,7 @@ export default {
       this.regions = response.data;
     },
 
-    openDeleteModal() {
+    openDeleteItemModal() {
       this.deleteItemModalIsOpen = true;
     },
 
@@ -383,6 +389,14 @@ export default {
     resetAllMessages() {
       this.successMessage = '';
       this.errorMessage = '';
+    },
+
+    handleItemDeleted() {
+      this.successMessage = 'Kuulutus on kustutatud';
+      setTimeout(() => {
+        NavigationService.navigateToHomeView();
+      }, 2000)
+
     }
 
   },
