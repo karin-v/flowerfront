@@ -97,7 +97,7 @@
               <!--                  <button type="button" class="btn bg-secondary-subtle">Broneerin</button>-->
               <!--                </div>-->
 
-              <div class="mb-3">
+              <div class="mb-2">
                 <button @click="navigateToHomeView" type="button" class="btn btn-success">Avalehele</button>
               </div>
 
@@ -412,7 +412,7 @@ export default {
     this.getItemEdit();
     this.getAllCategories();
     this.getAllCounties();
-    this.getAllCategories();
+    this.getAllRegions();
     this.getUserInfo();
 
   }
