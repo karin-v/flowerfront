@@ -153,11 +153,11 @@ export default {
 
 
     handleAddNewUserResponse() {
-      this.successMessage = 'Kasutaja "' + this.newUser.username + '" on lisatud'
-      setTimeout(this.resetAllMessages, 2000)
+      setTimeout(() => {
+            this.successMessage = 'Kasutaja "' + this.newUser.username + '" on lisatud'
+          }, 3000);
       NavigationService.navigateToLoginView();
-    }
-    ,
+    },
 
     handleNewUserErrorResponse(error) {
       this.errorResponse = error.response.data;
