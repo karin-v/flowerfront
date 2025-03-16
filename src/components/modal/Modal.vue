@@ -5,16 +5,16 @@
       <div class="modal-container">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5 justify-content-center">
+            <h4 class="modal-title fs-5 justify-content-center">
               <slot name="title"></slot>
-            </h1>
+            </h4>
             <button type="button" class="btn-close" @click="$emit('event-close-modal')" aria-label="Close"/>
           </div>
           <div class="modal-body">
             <slot name="body"></slot>
           </div>
           <div class="modal-footer mt-3">
-            <button type="button" class="btn btn-secondary me-2" @click="$emit('event-close-modal')">Katkesta</button>
+            <button type="button" class="btn btn-secondary me-2" @click="$emit('event-close-modal')">Sulge</button>
             <slot name="footer"></slot>
           </div>
         </div>
