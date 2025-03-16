@@ -7,9 +7,9 @@
       <template #body>
         <div>
 
-          <div class="container" style="width: 175px">
+          <div class="container" style="width: 175px" >
             <UserImage :image-data="user.userImage" alt="Profiilipilt"/>
-            <ImageInput @event-new-image-selected="$emit('event-new-image-selected', $event)"/>
+            <ImageInput class="mt-2" @event-new-image-selected="$emit('event-new-image-selected', $event)"/>
 
           </div>
 
