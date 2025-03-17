@@ -44,7 +44,6 @@ import NavigationService from "@/services/NavigationService";
 import HttpStatusCodes from "@/components/errors/HttpStatusCodes";
 import BusinessErrors from "@/components/errors/BusinessErrors";
 
-
 export default {
   name: 'LoginView',
   components: {AlertDanger},
@@ -83,13 +82,11 @@ export default {
     handleLoginErrorResponse(error) {
       this.errorResponse = error.response.data
       let httpStatusCode = error.response.status;
-
       if (this.isIncorrectCredentials(httpStatusCode)) {
         this.handleIncorrectCredentialsAlert()
       } else {
         NavigationService.navigateToErrorView()
       }
-
     },
 
     isIncorrectCredentials(httpStatusCode) {
@@ -135,7 +132,6 @@ export default {
     navigateToHomeView() {
       NavigationService.navigateToHomeView()
     },
-
   }
 }
 

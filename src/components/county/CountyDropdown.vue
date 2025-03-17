@@ -1,27 +1,25 @@
 <template>
   <select :value="selectedCountyId" @change="handleCountyDropdownChange" class="form-select">
     <option selected value=0>Vali maakond</option>
-    <option v-for="county in counties" :key="county.countyId" :value="county.countyId">{{county.countyName}}</option>
+    <option v-for="county in counties" :key="county.countyId" :value="county.countyId">{{ county.countyName }}</option>
   </select>
 </template>
 
 <script>
 export default {
   name: 'CountyDropdown',
-  props:{
-    counties:{},
-    selectedCountyId:{
+  props: {
+    counties: {},
+    selectedCountyId: {
       type: Number,
-      default:0
-
+      default: 0
     }
   },
-  methods:{
+  methods: {
 
-    handleCountyDropdownChange(event){
+    handleCountyDropdownChange(event) {
       this.$emit('event-new-county-selected', Number(event.target.value))
     },
   }
-
 }
 </script>

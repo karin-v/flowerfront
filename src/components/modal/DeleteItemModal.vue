@@ -1,26 +1,26 @@
 <template>
   <Modal :modal-is-open="modalIsOpen" @event-close-modal="$emit('event-close-modal')">
-<!--    <div v-if="successMessage" class="alert alert-success" style="color:#212529; font-family: 'Arial', sans-serif;">-->
-<!--      {{ successMessage }}-->
-<!--    </div>-->
+    <!--    <div v-if="successMessage" class="alert alert-success" style="color:#212529; font-family: 'Arial', sans-serif;">-->
+    <!--      {{ successMessage }}-->
+    <!--    </div>-->
     <template #title>
       <div v-if="isDelete">
       </div>
-        Oled kindel, et soovid kuulutuse kustutada?
+      Oled kindel, et soovid kuulutuse kustutada?
     </template>
     <template #body>
       <div>
-        <p><strong> {{item.transactionType}}: {{ item.itemName }}</strong></p>
-<!--        <p>{{ item.description }}</p>-->
+        <p><strong> {{ item.transactionType }}: {{ item.itemName }}</strong></p>
+        <!--        <p>{{ item.description }}</p>-->
       </div>
     </template>
 
-      <template #footer>
-        <div class="justify-content-center">
-          <button v-if="isDelete" @click="deleteItem" class="btn btn-outline-danger">Kustuta</button>
-        </div>
-      </template>
-    </Modal>
+    <template #footer>
+      <div class="justify-content-center">
+        <button v-if="isDelete" @click="deleteItem" class="btn btn-outline-danger">Kustuta</button>
+      </div>
+    </template>
+  </Modal>
 </template>
 
 <script>

@@ -14,7 +14,6 @@
             </div>
           </div>
 
-          <!-- Toote nimi ja kogus -->
           <div class="row mb-2">
             <div class="col-md-8 mb-1 mb-md-0">
               <label class="form-label mb-0">Toote nimi:</label>
@@ -34,7 +33,6 @@
             </div>
           </div>
 
-          <!-- Kategooria -->
           <div class="row mb-2">
             <div class="col-12">
               <label class="form-label mb-0">Kategooria:</label>
@@ -45,7 +43,6 @@
             </div>
           </div>
 
-          <!-- Kirjeldus -->
           <div class="row mb-2">
             <div class="col-12">
               <label class="form-label mb-0">Kirjeldus:</label>
@@ -55,7 +52,6 @@
             </div>
           </div>
 
-          <!-- Maakond ja regioon -->
           <div class="row">
             <div class="col-md-6 mb-1 mb-md-0">
               <label class="form-label mb-0">Maakond:</label>
@@ -83,99 +79,6 @@
     </Modal>
   </div>
 </template>
-
-
-<!--<template>-->
-<!--  <div>-->
-<!--    <Modal :modal-is-open="modalIsOpen" @event-close-modal="$emit('event-close-modal')">-->
-<!--      <template #title>-->
-<!--        Muuda kuulutuse andmeid-->
-<!--      </template>-->
-<!--      <template #body>-->
-<!--        <div>-->
-
-<!--          <div >-->
-<!--            <ItemImage :image-data="itemEdit.imageData" alt="Taimepilt"/>-->
-<!--            <ImageInput class="mt-2" @event-new-image-selected="$emit('event-new-image-selected', $event)"/>-->
-
-<!--          </div>-->
-
-<!--        </div>-->
-<!--        <div>-->
-<!--          <div>-->
-<!--            <label class="justify-content-between me-1 mb-2">Toote nimi:</label>-->
-<!--            <input type="text"-->
-<!--                   :value="itemEdit.name"-->
-<!--                   @input="$emit('event-update-item-name', $event.target.value)"-->
-<!--            >-->
-<!--          </div>-->
-<!--          <div>-->
-
-
-
-<!--          </div>-->
-<!--          <div>-->
-<!--            <label class="justify-content-between me-1">Kogus:</label>-->
-<!--            <input type="text"-->
-<!--                   :value="itemEdit.totalQuantity"-->
-<!--                   @input="$emit('event-update-total-quantity', $event.target.value)"-->
-<!--            >-->
-<!--          </div>-->
-
-<!--          <div>-->
-<!--            <label class="form-text">Kirjeldus:</label>-->
-<!--          </div>-->
-<!--          <div>-->
-
-
-<!--            <div class="form-floating">-->
-<!--              <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"-->
-<!--                        type="text"-->
-<!--                        :value="itemEdit.description"-->
-<!--                        @input="$emit('event-update-description', $event.target.value)"></textarea>-->
-<!--            </div>-->
-
-
-
-<!--          </div>-->
-
-
-<!--          <div>-->
-<!--            <label class="form-text">Kategooria:</label>-->
-<!--          </div>-->
-<!--          <div>-->
-<!--            <CategoriesDropdown :categories="categories" :selected-category-id="itemEdit.categoryId"-->
-<!--                                @event-new-category-selected="$emit('event-new-category-selected', $event)"-->
-<!--            />-->
-
-<!--          </div>-->
-<!--          <div>-->
-<!--            <CountyDropdown :counties="counties" :selected-county-id="itemEdit.countyId"-->
-<!--                            @event-new-county-selected="$emit('event-new-county-selected', $event)"-->
-<!--            />-->
-<!--          </div>-->
-<!--          <div>-->
-
-<!--            <RegionDropdown :regions="regions" :selected-region-id="itemEdit.regionId"-->
-<!--                            @event-new-region-selected="$emit('event-new-region-selected', $event)" />-->
-
-<!--          </div>-->
-
-<!--        </div>-->
-
-
-<!--      </template>-->
-
-<!--      <template #footer>-->
-<!--        <button type="button" class="btn btn-success me-2" @click="$emit('event-update-item', $event.target.value)">-->
-<!--          Salvesta-->
-<!--        </button>-->
-<!--      </template>-->
-
-<!--    </Modal>-->
-
-<!--  </div>-->
-<!--</template>-->
 
 <script>
 import ItemImage from "@/components/image/ItemImage.vue";

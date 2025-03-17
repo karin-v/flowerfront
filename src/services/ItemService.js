@@ -6,7 +6,6 @@ export default {
         return axios.post('/item', newItem);
     },
 
-
     sendGetItemInfoRequest(transactionTypeId, selectedCategoryId, selectedCountyId, selectedRegionId) {
         return axios.get('/items', {
                 params: {
@@ -18,13 +17,13 @@ export default {
             }
         )
     },
+
     sendGetItemRequest(itemId) {
         return axios.get('/item', {
             params: {
                 itemId: itemId
             }
         })
-
     },
 
     sendGetItemEditRequest(itemId) {
@@ -33,7 +32,6 @@ export default {
                 itemId: itemId
             }
         })
-
     },
 
     updateItemRequest(itemId, item) {
@@ -51,7 +49,5 @@ export default {
             }
         });
     },
-
-
 }
 

@@ -31,10 +31,8 @@
 
     <div class="d-flex justify-content-center align-items-center mt-3">
       <ItemsTable :items="items"/>
-
     </div>
   </div>
-
 
 </template>
 
@@ -94,7 +92,6 @@ export default {
         }
       ],
 
-
     }
 
   },
@@ -104,16 +101,17 @@ export default {
     setSelectedCategoryIdAndGetItems(selectedCategoryId) {
       this.selectedCategoryId = selectedCategoryId
       this.getItems()
-
     },
 
     setSelectedRegionIdAndGetItems(selectedRegionId){
       this.selectedRegionId = selectedRegionId
       this.getItems()
     },
+
     navigateToHomeView() {
       NavigationService.navigateToHomeView()
     },
+
     getCategories() {
       CategoryService.sendGetCategoriesRequest()
           .then(response => this.handleGetCategoriesResponse(response))
@@ -150,13 +148,11 @@ export default {
       return this.regions = response.data;
     },
 
-
     getItems() {
       ItemService.sendGetItemInfoRequest(this.transactionTypeId, this.selectedCategoryId, this.selectedCountyId, this.selectedRegionId)
           .then(response => this.handleItemInfoResponse(response))
           .catch(() => NavigationService.navigateToErrorView());
     },
-
 
     handleItemInfoResponse(response) {
       this.items = response.data; // Update with fetched data

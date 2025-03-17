@@ -2,26 +2,22 @@
   <div>
     <div class="row justify-content-center mt-3">
       <h4>Uue kuulutuse lisamine</h4>
-
       <AlertSuccess :message="successMessage"/>
       <AlertDanger :message="errorMessage"/>
     </div>
   </div>
   <div class="row justify-content-center mt-4">
 
-
     <div class="col col-3">
       <div class="mb-4 d-flex justify-content-end align-items-center">
         <TransactionTypeDropdown :transaction-types="transactionTypes"
                                  @event-new-transaction-type-selected="setNewItemTransactionTypeId"
-
         />
       </div>
       <div class="mb-4 d-flex justify-content-end align-items-center">
         <CategoriesDropdown :categories="categories"
                             @event-new-category-selected="setNewItemCategoryId"/>
       </div>
-
       <div class="mb-4 d-flex justify-content-end align-items-center">
         <label class="form-text">Toote nimi</label>
         <input v-model="newItem.name" type="text" class="form-control w-auto ms-3">
@@ -30,13 +26,10 @@
         <label class="form-text">Kogus</label>
         <input v-model="newItem.totalQuantity" type="number" class="form-control w-auto ms-3">
       </div>
-
       <div class="mb-4 d-flex justify-content-end align-items-center">
         <label class="form-text">Toote kirjeldus</label>
         <textarea v-model="newItem.description" class="form-control" rows="3"></textarea>
       </div>
-
-
     </div>
 
     <div class="col col-3 justify-content-center">
@@ -55,11 +48,8 @@
             <div class="mb-3">
 
               <ItemImage :imageData="newItem.imageData"/>
-
-
             </div>
           </div>
-
           <div style="position: relative; display: inline-block;">
             <div>
               <ImageInput class="btn-outline-success" @event-new-image-selected="setNewItemImageData"/>
@@ -77,9 +67,7 @@
     </div>
   </div>
 
-
 </template>
-
 
 <script>
 import TransactionTypeDropdown from "@/components/transaction/TransactionTypeDropdown.vue";
@@ -105,6 +93,7 @@ export default {
     ImageInput,
     TransactionTypeDropdown, CategoriesDropdown, CountyDropdown, RegionDropdown, AlertDanger, AlertSuccess
   },
+
   data() {
     return {
       successMessage: '',
@@ -120,7 +109,6 @@ export default {
         description: '',
         totalQuantity: 0,
         imageData: '',
-
       },
 
       categories: [
@@ -197,6 +185,7 @@ export default {
     setNewItemTransactionTypeId(transactionTypeId) {
       this.newItem.transactionTypeId = transactionTypeId
     },
+
     setNewItemCategoryId(categoryId) {
       this.newItem.categoryId = categoryId
     },
@@ -204,10 +193,12 @@ export default {
     setNewItemCountyId(countyId) {
       this.newItem.countyId = countyId
     },
+
     updateRegionsDropdown(selectedCountyId) {
       this.newItem.countyId = selectedCountyId
       this.getRegionsByCountyId(this.newItem.countyId)
     },
+
     setNewItemRegionId(regionId) {
       this.newItem.regionId = regionId
     },
@@ -227,7 +218,6 @@ export default {
 
     handleAddNewItemSuccessMessage() {
       this.successMessage = 'Uus kuulutus lisatud';
-      // setTimeout(this.resetAllFields, 2000);
     },
 
     redirectBasedOnTransactionType() {
@@ -247,6 +237,7 @@ export default {
       this.newItem.regionId = 0
       this.newItem.transactionTypeId = 0
     },
+
     setNewItemImageData(imageData) {
       if (imageData && imageData.length > 0) {
         this.newItem.imageData = imageData;
@@ -255,6 +246,7 @@ export default {
       }
     },
   },
+
   beforeMount() {
     this.getAllCategories()
     this.getAllCounties()

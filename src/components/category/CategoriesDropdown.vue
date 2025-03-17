@@ -1,28 +1,28 @@
 <template>
   <select :value="selectedCategoryId" @change="handleCategoryDropdownChange" class="form-select">
     <option selected value=0>Vali kategooria</option>
-    <option v-for="category in categories" :key="category.categoryId" :value="category.categoryId">{{category.categoryName}}</option>
+    <option v-for="category in categories" :key="category.categoryId" :value="category.categoryId">
+      {{ category.categoryName }}
+    </option>
   </select>
 </template>
 
 <script>
 export default {
   name: 'CategoriesDropdown',
-  props:{
-    categories:{},
-    selectedCategoryId:{
+  props: {
+    categories: {},
+    selectedCategoryId: {
       type: Number,
-      default:0
-
+      default: 0
     }
   },
-  methods:{
+  methods: {
 
-    handleCategoryDropdownChange(event){
+    handleCategoryDropdownChange(event) {
       this.$emit('event-new-category-selected', Number(event.target.value))
     },
   }
-
 }
 </script>
 

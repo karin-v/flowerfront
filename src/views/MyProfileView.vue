@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <UpdateProfileModal :modal-is-open="modalIsOpen"
                         :user="user"
                         @event-close-modal="closeModal"
@@ -126,7 +125,6 @@ export default {
     handleUpdateUserResponse(response) {
       this.successMessage = 'Kasutaja andmed on muudetud'
       setTimeout(this.resetAllMessages, 4000)
-
     },
 
     openUserInfoModal() {
@@ -164,10 +162,7 @@ export default {
     beforeMount() {
 
       this.getUserInfo()
-
-      //todo: kutsu välja meetod mis toob ära user profile andmed
     }
-
   }
 </script>
 

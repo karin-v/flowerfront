@@ -148,9 +148,7 @@ export default {
       } else {
         this.isOkToAddNewUser = true
       }
-    }
-    ,
-
+    },
 
     handleAddNewUserResponse() {
       this.successMessage = 'Kasutaja "' + this.newUser.username + '" on lisatud';
@@ -170,27 +168,23 @@ export default {
       } else {
         NavigationService.navigateToErrorView()
       }
-    }
-    ,
+    },
 
     resetIsOkToAddNewUser() {
       this.isOkToAddNewUser = false
-    }
-    ,
+    },
 
     resetAllFields() {
       this.newUser.username = ''
       this.newUser.password = ''
       this.newUser.email = ''
       this.newUser.consent = false
-    }
-    ,
+    },
 
     resetAllMessages() {
       this.successMessage = ''
       this.errorMessage = ''
-    }
-    ,
+    },
 
     navigateToHomeView() {
       NavigationService.navigateToHomeView()

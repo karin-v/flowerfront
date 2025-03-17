@@ -15,12 +15,12 @@ export default {
       imageDataBase64: String
     }
   },
+
   methods: {
 
     handleImage(event) {
       const selectedImage = event.target.files[0];
       this.emitBase64(selectedImage)
-
     },
 
     emitBase64(fileObject) {

@@ -23,6 +23,7 @@ export default {
             }
         })
     },
+
     navigateToMessagesView() {
         router.push({name: 'myMessagesRoute'})
     },
