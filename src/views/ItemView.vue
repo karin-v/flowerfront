@@ -254,6 +254,8 @@ export default {
 
     setItemCountyId(countyId) {
       this.itemEdit.countyId = countyId
+      this.getAllRegions(countyId)
+      this.itemEdit.regionId = 0
     },
 
     setItemRegionId(regionId) {
